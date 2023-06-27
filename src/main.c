@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/26 21:38:17 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:50:38 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 int	main(int argc, char *argv[])
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	t_mlx	mlx;
 
 	(void) argc;
 	(void) argv;
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 600, 600, "cub3D");
-	mlx_destroy_window(mlx_ptr, win_ptr);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
-	ft_printf("vumbora\n");
+	init_minilibx(&mlx);
+	my_mlx_pixel_put(&mlx, 100, 100, 0x00FF0000);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+	destroy_mlx(&mlx);
 	return (0);
 }

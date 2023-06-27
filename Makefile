@@ -1,4 +1,5 @@
 SRC			=	main.c \
+				tools.c \
 
 
 INCLUDES	=	-I./includes
@@ -10,6 +11,7 @@ LIBFT		=	$(LIBFT_DIR)/libftprintf.a
 HEADERS		=	./includes/cub3D.h \
 
 VPATH		=	./src \
+				./src/minilibx \
 
 OBJS_DIR	=	./objects
 
