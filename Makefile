@@ -15,7 +15,9 @@ OBJS_DIR	=	./objects
 
 OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
-CFLAGS		=	-Wall -Wextra -Werror -g3
+CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11
+
+MINILIBX	=	./minilibx-linux/libmlx_Linux.a
 
 NAME		=	cub3D
 
@@ -37,7 +39,7 @@ $(OBJS_DIR):
 	mkdir -p $@
 
 $(NAME):	$(OBJS_DIR) $(OBJS) $(HEADERS) $(LIBFT)
-	$(CC) $(OBJS) $(LIBFT) $(CFLAGS) $(INCLUDES) -o $@
+	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) $(CFLAGS) $(INCLUDES) -o $@
 
 clean:
 	$(RM) $(OBJS_DIR)
