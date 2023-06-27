@@ -6,13 +6,13 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 19:50:00 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/27 20:05:07 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include "../libft/includes/libftprintf.h"
+# include "../libs/libft/includes/libftprintf.h"
 # include <mlx.h>
 
 typedef struct s_mlx {
