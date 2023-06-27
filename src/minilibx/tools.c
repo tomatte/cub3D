@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 19:57:33 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/27 20:56:42 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	init_minilibx(t_mlx *mlx)
 	mlx->win = mlx_new_window(mlx->mlx, 1000, 800, "cub3D");
 	mlx->img = mlx_new_image(mlx->mlx, 1000, 800);
 	mlx->addr = mlx_get_data_addr(
-		mlx->img,
-		&mlx->bits_per_pixel,
-		&mlx->line_length,
-		&mlx->endian);
+			mlx->img,
+			&mlx->bits_per_pixel,
+			&mlx->line_length,
+			&mlx->endian);
 }
 
 void	destroy_mlx(t_mlx *mlx)
