@@ -17,7 +17,8 @@ OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
 CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11
 
-MINILIBX	=	./minilibx-linux/libmlx_Linux.a
+MINILIBX_DIR	=	./minilibx-linux
+MINILIBX		=	$(MINILIBX_DIR)/libmlx_Linux.a
 
 NAME		=	cub3D
 
@@ -29,6 +30,9 @@ RM			=	rm -rf
 
 all:	$(NAME)
 
+$(MINILIBX):
+	make -C $(MINILIBX_DIR) all
+
 $(LIBFT):
 	@make -C $(LIBFT_DIR) all
 
@@ -38,12 +42,13 @@ $(OBJS_DIR)/%.o:	%.c
 $(OBJS_DIR):
 	mkdir -p $@
 
-$(NAME):	$(OBJS_DIR) $(OBJS) $(HEADERS) $(LIBFT)
+$(NAME):	$(MINILIBX) $(OBJS_DIR) $(OBJS) $(HEADERS) $(LIBFT)
 	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) $(CFLAGS) $(INCLUDES) -o $@
 
 clean:
 	$(RM) $(OBJS_DIR)
 	@make -C $(LIBFT_DIR) clean
+	@make -C $(MINILIBX_DIR) clean
 
 fclean:	clean
 	$(RM) $(NAME)
