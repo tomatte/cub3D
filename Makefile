@@ -4,7 +4,7 @@ SRC			=	main.c \
 
 INCLUDES	=	-I./includes
 
-LIBFT_DIR		=	./libft
+LIBFT_DIR		=	./libs/libft
 
 LIBFT		=	$(LIBFT_DIR)/libftprintf.a
 
@@ -19,7 +19,7 @@ OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
 CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11
 
-MINILIBX_DIR	=	./minilibx-linux
+MINILIBX_DIR	=	./libs/minilibx-linux
 MINILIBX		=	$(MINILIBX_DIR)/libmlx_Linux.a
 
 NAME		=	cub3D
