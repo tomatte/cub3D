@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 20:05:07 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/27 20:37:40 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
 # include <mlx.h>
+# define ESC_KEY 65307
+# define ARROW_LEFT 65361
+# define ARROW_UP 65362
+# define ARROW_RIGHT 65363
+# define ARROW_DOWN 65364
+# define RED 0x00FF0000
 
 typedef struct s_mlx {
 	void	*mlx;
@@ -25,9 +31,31 @@ typedef struct s_mlx {
 	int		endian;
 }	t_mlx;
 
+typedef struct s_line
+{
+	int	x;
+	int	y;
+	int	x2;
+	int	y2;
+	int	w;
+	int	h;
+	int	dx1;
+	int	dy1;
+	int	dx2;
+	int	dy2;
+	int	longest;
+	int	shortest;
+	int	proportion;
+	int	color;
+}	t_line;
+
 //minilibx
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	init_minilibx(t_mlx *mlx);
 void	destroy_mlx(t_mlx *mlx);
+
+//line
+void	asign_values(t_line *line);
+void	draw_line(t_mlx *mlx, t_line line);
 
 #endif
