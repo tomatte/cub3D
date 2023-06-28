@@ -2,6 +2,7 @@ SRC			=	main.c \
 				tools.c \
 				draw_line.c \
 				asign_values.c \
+				line_utils.c \
 
 
 INCLUDES	=	-I./includes

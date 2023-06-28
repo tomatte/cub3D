@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 20:37:40 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:41:47 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
 # include <mlx.h>
+
+//keys
 # define ESC_KEY 65307
 # define ARROW_LEFT 65361
 # define ARROW_UP 65362
 # define ARROW_RIGHT 65363
 # define ARROW_DOWN 65364
+
+//colors
 # define RED 0x00FF0000
+# define DEFAULT_COLOR 0x000000FF
 
 typedef struct s_mlx {
 	void	*mlx;
@@ -57,5 +62,7 @@ void	destroy_mlx(t_mlx *mlx);
 //line
 void	asign_values(t_line *line);
 void	draw_line(t_mlx *mlx, t_line line);
+void	draw_line2(t_mlx *mlx, t_line line, int color);
+t_line	points(int x, int y, int x2, int y2);
 
 #endif
