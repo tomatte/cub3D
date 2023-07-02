@@ -3,6 +3,8 @@ SRC			=	main.c \
 				draw_line.c \
 				asign_values.c \
 				line_utils.c \
+				close_window_x.c \
+				hook_utils.c \
 
 
 INCLUDES	=	-I./includes
@@ -16,6 +18,7 @@ HEADERS		=	./includes/cub3D.h \
 VPATH		=	./src \
 				./src/minilibx \
 				./src/line \
+				./src/hooks \
 
 OBJS_DIR	=	./objects
 

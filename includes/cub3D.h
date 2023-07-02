@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 13:55:08 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:14:52 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,9 @@ void	asign_values(t_line *line);
 void	draw_line(t_mlx *mlx, t_line line);
 void	draw_line2(t_mlx *mlx, t_line line, int color);
 t_line	points(int x, int y, int x2, int y2);
+
+//hooks
+void	init_hooks(t_mlx *mlx);
+void	close_window_x(t_mlx *mlx);
 
 #endif
