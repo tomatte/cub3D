@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 18:38:38 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:16:00 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_mlx {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		color;
 }	t_mlx;
 
 typedef struct s_line
@@ -59,10 +60,12 @@ typedef struct s_line
 }	t_line;
 
 //minilibx
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y);
 void	init_minilibx(t_mlx *mlx);
 void	destroy_mlx(t_mlx *mlx);
 void	put_image(t_mlx *mlx);
+void	init__color(int *color);
+void	set_color(int color);
 
 //line
 void	asign_values(t_line *line);

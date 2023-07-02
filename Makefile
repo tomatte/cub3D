@@ -6,6 +6,7 @@ SRC			=	main.c \
 				close_window_x.c \
 				hook_utils.c \
 				playground.c \
+				color.c \
 
 
 INCLUDES	=	-I./includes

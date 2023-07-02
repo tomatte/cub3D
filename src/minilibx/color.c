@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   playground.c                                       :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 19:19:12 by dbrandao         ###   ########.fr       */
+/*   Created: 2023/07/02 19:07:33 by dbrandao          #+#    #+#             */
+/*   Updated: 2023/07/02 19:18:46 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-
-static void	draw_2_lines(t_mlx *mlx)
+static int	**color_singleton(void)
 {
-	draw_line2(mlx, points(0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2), RED);
-	set_color(RED);
-	draw_line2(mlx, points(0, SCREEN_HEIGHT / 2 + 20, SCREEN_WIDTH, SCREEN_HEIGHT / 2 + 20), DEFAULT_COLOR);
+	static int	*color_s = NULL;
+
+	return (&color_s);
 }
 
-/* void	square(t_mlx *mlx, int x, int y, int size)
+void	init__color(int *color)
 {
+	int	**color_s;
 
-} */
+	color_s = color_singleton();
+	*color_s = color;
+}
 
-void	playground(t_mlx *mlx)
+void	set_color(int color)
 {
-	draw_2_lines(mlx);
-	put_image(mlx);
+	int	**color_s;
+
+	color_s = color_singleton();
+	**color_s = color;
 }
