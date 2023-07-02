@@ -5,6 +5,7 @@ SRC			=	main.c \
 				line_utils.c \
 				close_window_x.c \
 				hook_utils.c \
+				playground.c \
 
 
 INCLUDES	=	-I./includes
@@ -19,6 +20,7 @@ VPATH		=	./src \
 				./src/minilibx \
 				./src/line \
 				./src/hooks \
+				./src/playground \
 
 OBJS_DIR	=	./objects
 

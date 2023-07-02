@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 14:14:52 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 18:38:38 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_line
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	init_minilibx(t_mlx *mlx);
 void	destroy_mlx(t_mlx *mlx);
+void	put_image(t_mlx *mlx);
 
 //line
 void	asign_values(t_line *line);
@@ -72,5 +73,9 @@ t_line	points(int x, int y, int x2, int y2);
 //hooks
 void	init_hooks(t_mlx *mlx);
 void	close_window_x(t_mlx *mlx);
+
+
+//playground
+void	playground(t_mlx *mlx);
 
 #endif
