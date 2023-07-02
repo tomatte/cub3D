@@ -3,3 +3,4 @@ cub3D
 *.o
 *.a
 .vscode/
+*_flat.cpp

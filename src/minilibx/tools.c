@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 20:56:42 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:33:25 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 void	init_minilibx(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, 1000, 800, "cub3D");
-	mlx->img = mlx_new_image(mlx->mlx, 1000, 800);
+	mlx->win = mlx_new_window(mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
+	mlx->img = mlx_new_image(mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx->addr = mlx_get_data_addr(
 			mlx->img,
 			&mlx->bits_per_pixel,

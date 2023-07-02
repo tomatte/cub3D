@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/28 15:41:23 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:34:15 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	draw_diagonal_line(t_mlx *mlx)
 {
-	draw_line(mlx, points(0, 0, 1000, 800));
-	draw_line2(mlx, points(1000, 0, 0, 800), RED);
+	draw_line(mlx, points(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	draw_line2(mlx, points(SCREEN_WIDTH, 0, 0, SCREEN_HEIGHT), RED);
 }
 
 int	main(int argc, char *argv[])

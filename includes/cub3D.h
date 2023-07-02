@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/28 15:41:47 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:55:08 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
 # include <mlx.h>
+
+//screen
+# define SCREEN_WIDTH 1000
+# define SCREEN_HEIGHT 720
 
 //keys
 # define ESC_KEY 65307
