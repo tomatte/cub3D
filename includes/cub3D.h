@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 11:47:32 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:19:20 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct	s_player
 {
 	double	x;
 	double	y;
-	double	mv_up;
-	double	mv_down;
+	int		mv_up;
+	int		mv_down;
+	int		mv_left;
+	int		mv_right;
 	double	angle;
 	double	mv_angle_r;
 	double	mv_angle_l;

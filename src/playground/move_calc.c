@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:24:11 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 03:24:10 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:33:44 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ static void	move_player(t_mlx *mlx)
 	{
 		p->x -= p->delta_x / slow;
 		p->y -= p->delta_y/ slow;
+	}
+	if (p->mv_left)
+	{
+		p->x += cos(p->angle + PI / 2) / slow;
+		p->y += sin(p->angle + PI / 2) / slow;
+	}
+	if (p->mv_right)
+	{
+		p->x -= cos(p->angle + PI / 2) / slow;
+		p->y -= sin(p->angle + PI / 2) / slow;
 	}
 }
 
