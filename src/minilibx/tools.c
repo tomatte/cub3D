@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 19:15:41 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 22:54:45 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	init_minilibx(t_mlx *mlx)
 			&mlx->endian);
 	mlx->color = DEFAULT_COLOR;
 	init__color(&mlx->color);
+	mlx->player.x = 100.0;
+	mlx->player.y = 100.0;
+	mlx->player.move_x = 0;
+	mlx->player.move_y = 0;
 }
 
 void	destroy_mlx(t_mlx *mlx)

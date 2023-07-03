@@ -7,6 +7,7 @@ SRC			=	main.c \
 				hook_utils.c \
 				playground.c \
 				color.c \
+				move_hook.c \
 
 
 INCLUDES	=	-I./includes

@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 20:10:15 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:04:22 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ void	square2(t_mlx *mlx, int x, int y, int size)
 	i = -1;
 	while (++i <= size)
 		draw_line(mlx, points(x, y + i, x2, y + i));
+}
+
+void	draw_player(t_mlx *mlx)
+{
+	square2(mlx, (int) mlx->player.x, (int) mlx->player.y, 8);
+}
+
+int	keep_drawing(t_mlx *mlx)
+{
+	set_color(0x0);
+	draw_player(mlx);
+	set_color(DEFAULT_COLOR);
+	mlx->player.x += mlx->player.move_x;
+	mlx->player.y += mlx->player.move_y;
+	draw_player(mlx);
+	put_image(mlx);
+	return (1);
 }
 
 void	playground(t_mlx *mlx)

@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 14:12:58 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 14:15:04 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 21:46:58 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	init_hooks(t_mlx *mlx)
 {
 	close_window_x(mlx);
+	move_hook(mlx);
 }

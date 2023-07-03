@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 19:16:00 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:04:04 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
 # include <mlx.h>
+# include <math.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 //screen
 # define SCREEN_WIDTH 1000
@@ -29,16 +32,28 @@
 //colors
 # define RED 0x00FF0000
 # define DEFAULT_COLOR 0x000000FF
+# define OCEAN 0x1D1776
 
-typedef struct s_mlx {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		color;
+typedef struct	s_player
+{
+	double	x;
+	double	y;
+	int		move_x;
+	int		move_y;
+	double	dir;
+}	t_player;
+
+typedef struct s_mlx
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			color;
+	t_player	player;
 }	t_mlx;
 
 typedef struct s_line
@@ -76,9 +91,14 @@ t_line	points(int x, int y, int x2, int y2);
 //hooks
 void	init_hooks(t_mlx *mlx);
 void	close_window_x(t_mlx *mlx);
+void	move_hook(t_mlx *mlx);
 
 
 //playground
 void	playground(t_mlx *mlx);
+void	square(t_mlx *mlx, int x, int y, int size);
+void	square2(t_mlx *mlx, int x, int y, int size);
+void	draw_player(t_mlx *mlx);
+int		keep_drawing(t_mlx *mlx);
 
 #endif
