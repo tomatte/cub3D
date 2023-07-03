@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   close_window_x.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 01:02:37 by dbrandao         ###   ########.fr       */
+/*   Created: 2022/11/26 14:15:41 by dbrandao          #+#    #+#             */
+/*   Updated: 2023/07/02 14:17:35 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	main(int argc, char *argv[])
+static int	close_x(t_mlx *mlx)
 {
-	t_mlx	mlx;
-
-	(void) argc;
-	(void) argv;
-	init_minilibx(&mlx);
-	init_hooks(&mlx);
-	playground(&mlx);
-	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
-	mlx_loop(mlx.mlx);
-	destroy_mlx(&mlx);
+	ft_printf("\nProgram closed.\n");
+	destroy_mlx(mlx);
 	return (0);
+}
+
+void	close_window_x(t_mlx *mlx)
+{
+	mlx_hook(mlx->win , 17, 1L << 17, close_x, mlx);
 }

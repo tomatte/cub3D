@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 20:37:30 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:17:10 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ void	draw_line(t_mlx *mlx, t_line line)
 	i = 0;
 	while (i++ <= line.longest)
 	{
-		my_mlx_pixel_put(mlx, line.x, line.y, line.color);
+		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
 	}
+}
+
+void	draw_line2(t_mlx *mlx, t_line line, int color)
+{
+	line.color = color;
+	draw_line(mlx, line);
 }

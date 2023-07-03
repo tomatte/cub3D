@@ -2,6 +2,12 @@ SRC			=	main.c \
 				tools.c \
 				draw_line.c \
 				asign_values.c \
+				line_utils.c \
+				close_window_x.c \
+				hook_utils.c \
+				playground.c \
+				color.c \
+				move_hook.c \
 
 
 INCLUDES	=	-I./includes
@@ -15,12 +21,14 @@ HEADERS		=	./includes/cub3D.h \
 VPATH		=	./src \
 				./src/minilibx \
 				./src/line \
+				./src/hooks \
+				./src/playground \
 
 OBJS_DIR	=	./objects
 
 OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
-CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11
+CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11 -lm
 
 MINILIBX_DIR	=	./libs/minilibx-linux
 MINILIBX		=	$(MINILIBX_DIR)/libmlx_Linux.a

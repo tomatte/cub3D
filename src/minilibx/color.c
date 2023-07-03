@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 01:02:37 by dbrandao         ###   ########.fr       */
+/*   Created: 2023/07/02 19:07:33 by dbrandao          #+#    #+#             */
+/*   Updated: 2023/07/02 19:18:46 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	main(int argc, char *argv[])
+static int	**color_singleton(void)
 {
-	t_mlx	mlx;
+	static int	*color_s = NULL;
 
-	(void) argc;
-	(void) argv;
-	init_minilibx(&mlx);
-	init_hooks(&mlx);
-	playground(&mlx);
-	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
-	mlx_loop(mlx.mlx);
-	destroy_mlx(&mlx);
-	return (0);
+	return (&color_s);
+}
+
+void	init__color(int *color)
+{
+	int	**color_s;
+
+	color_s = color_singleton();
+	*color_s = color;
+}
+
+void	set_color(int color)
+{
+	int	**color_s;
+
+	color_s = color_singleton();
+	**color_s = color;
 }

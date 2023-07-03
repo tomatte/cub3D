@@ -6,30 +6,39 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/06/27 20:56:42 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:15:28 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y)
 {
 	char	*dst;
 
+	if (x < 0)
+		x = 0;
+	if (y < 0)
+		y = 0;
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
+	*(unsigned int *) dst = mlx->color;
 }
 
 void	init_minilibx(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, 1000, 800, "cub3D");
-	mlx->img = mlx_new_image(mlx->mlx, 1000, 800);
+	mlx->win = mlx_new_window(mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
+	mlx->img = mlx_new_image(mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx->addr = mlx_get_data_addr(
 			mlx->img,
 			&mlx->bits_per_pixel,
 			&mlx->line_length,
 			&mlx->endian);
+	mlx->color = DEFAULT_COLOR;
+	init__color(&mlx->color);
+	mlx->player.x = 100.0;
+	mlx->player.y = 100.0;
+	ft_bzero(&mlx->player, sizeof(mlx->player));
 }
 
 void	destroy_mlx(t_mlx *mlx)
@@ -38,4 +47,10 @@ void	destroy_mlx(t_mlx *mlx)
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
+	exit(0);
+}
+
+void	put_image(t_mlx *mlx)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
