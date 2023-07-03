@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 23:04:04 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:50:22 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ typedef struct	s_player
 {
 	double	x;
 	double	y;
-	int		move_x;
-	int		move_y;
+	double	move_u;
+	double	move_d;
+	double	move_r;
+	double	move_l;
 	double	dir;
 }	t_player;
 
