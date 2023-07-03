@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 15:28:51 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:01:02 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,56 +44,35 @@ static void	erase_player(t_mlx *mlx)
 	set_color(DEFAULT_COLOR);
 }
 
-/* static void	draw_rays(t_mlx *mlx)
+static void	draw_rays(t_mlx *mlx)
 {
-	t_ray		*ray;
 	t_player	*p;
-	const int	rays = 1;
+	t_ray		*r;
 	int			i;
 
-	ray = &mlx->ray;
 	p = &mlx->player;
-	ray->ra = mlx->player.angle;
+	r = &mlx->ray;
+	set_color(0x0);
+	draw_line(mlx, points(r->opx, r->opy, r->x, r->y));
+	r->x = p->x;
+	r->y = p->y;
+	r->dx = cos(p->angle) * 20;
+	r->dy = sin(p->angle) * 20;
+	set_color(RED);
 	i = 0;
-	while (i++ < rays)
+	while (i++ < 30)
 	{
-		ray->dof = 0;
-		ray->a_tan = -1 / tan(ray->ra);
-		if (ray->ra > PI)
+		if (r->y < SCREEN_HEIGHT && r->x < SCREEN_WIDTH && r->x > 0 && r->y > 0)
 		{
-			ray->y = (((int) p->y >> 6) << 6) - 0.0001;
-			ray->x = (p->y - ray->y) * ray->a_tan + p->x;
-			ray->yo = -64;
-			ray->xo = -ray->yo * ray->a_tan;
+			r->y += r->dy;
+			r->x += r->dx;
 		}
-		if (ray->ra < PI)
-		{
-			ray->y = (((int) p->y >> 6) << 6) + 64;
-			ray->x = (p->y - ray->y) * ray->a_tan + p->x;
-			ray->yo = 64;
-			ray->xo = -ray->yo * ray->a_tan;
-		}
-		if (ray->ra == PI || ray->ra == 0)
-		{
-			ray->x = p->x;
-			ray->y = p->y;
-			ray->dof = 8;
-		}
-
-		while (ray->dof < 8)
-		{
-			ray->mx = (int) (ray->x) >> 6;
-			ray->my = (int) (ray->y) >> 6;
-			ray->mp = ray->my * 10 + ray->mx;
-
-			ray->x += ray->xo;
-			ray->y += ray->yo;
-			ray->dof += 1;
-		}
-
-		draw_line(mlx, points(p->x, p->y, ray->mx, ray->my));
 	}
-} */
+	r->opx = p->x + P_SIZE / 2;
+	r->opy = p->y + P_SIZE / 2;
+	draw_line(mlx, points(p->x + P_SIZE / 2, p->y + P_SIZE / 2, r->x, r->y));
+	set_color(DEFAULT_COLOR);
+}
 
 int	keep_drawing(t_mlx *mlx)
 {
@@ -101,7 +80,7 @@ int	keep_drawing(t_mlx *mlx)
 	update_player_position(mlx);
 	draw_2d_blocks(mlx, 64);
 	draw_player(mlx);
-	//draw_rays(mlx);
+	draw_rays(mlx);
 	put_image(mlx);
 	return (1);
 }

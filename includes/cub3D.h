@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 14:23:29 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:53:16 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,12 @@ typedef struct	s_player
 typedef struct s_ray
 {
 	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
 	double	x;
 	double	y;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	a_tan;
+	double	dx;
+	double	dy;
+	double	opx;
+	double	opy;
 }	t_ray;
 
 
