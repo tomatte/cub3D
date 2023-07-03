@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 03:08:35 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:47:32 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	square(t_mlx *mlx, int x, int y, int size);
 void	square2(t_mlx *mlx, int x, int y, int size);
 void	draw_player(t_mlx *mlx);
 int		keep_drawing(t_mlx *mlx);
+void	draw_2d_blocks(t_mlx *mlx, int size);
 
 //move
 void	update_player_position(t_mlx *mlx);
