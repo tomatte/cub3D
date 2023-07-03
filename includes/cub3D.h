@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 00:10:53 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 02:08:32 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <stdio.h>
 
 //screen
 # define SCREEN_WIDTH 1000
@@ -36,16 +37,20 @@
 
 # define PI 3.1415926535
 
+# define P_SIZE 8
+
 typedef struct	s_player
 {
 	double	x;
 	double	y;
-	double	move_u;
-	double	move_d;
-	double	move_r;
-	double	move_l;
+	double	mv_up;
+	double	mv_down;
+	double	mv_r;
+	double	mv_l;
 	double	dir;
 	double	angle;
+	double	mv_angle_r;
+	double	mv_angle_l;
 	double	delta_x;
 	double	delta_y;
 }	t_player;

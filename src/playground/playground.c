@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 00:45:46 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 02:09:23 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,16 @@ void	draw_player(t_mlx *mlx)
 	t_player	*p;
 
 	p = &mlx->player;
-	square2(mlx, (int) p->x, (int) p->y, 8);
-	draw_line(mlx, points(p->x + 4, p->y + 4, p->x + 4 + (p->delta_x * 20), p->y + 4 + (p->delta_y * 20)));
+	square2(mlx, (int) p->x, (int) p->y, P_SIZE);
+	draw_line(
+		mlx,
+		points(
+			p->x + P_SIZE / 2,
+			p->y + P_SIZE / 2,
+			p->x + (P_SIZE / 2) + (p->delta_x * 20),
+			p->y + (P_SIZE / 2) + (p->delta_y * 20)
+			)
+		);
 }
 
 static void	move_limit(t_mlx *mlx)
@@ -51,18 +59,35 @@ static void	move_limit(t_mlx *mlx)
 		mlx->player.x = 0;
 	if (mlx->player.y < 0)
 		mlx->player.y = 0;
-	if (mlx->player.y + 8 > SCREEN_HEIGHT)
-		mlx->player.y = SCREEN_HEIGHT - 8;
-	if (mlx->player.x + 8 > SCREEN_WIDTH)
-		mlx->player.x = SCREEN_WIDTH - 8;
+	if (mlx->player.y + P_SIZE > SCREEN_HEIGHT)
+		mlx->player.y = SCREEN_HEIGHT - P_SIZE;
+	if (mlx->player.x + P_SIZE > SCREEN_WIDTH)
+		mlx->player.x = SCREEN_WIDTH - P_SIZE;
 }
 
 static void	apply_move(t_mlx *mlx)
 {
-	mlx->player.x += mlx->player.move_r;
-	mlx->player.x += mlx->player.move_l;
-	mlx->player.y += mlx->player.move_u;
-	mlx->player.y += mlx->player.move_d;
+	t_player	*p;
+
+	p = &mlx->player;
+	p->angle += p->mv_angle_r;
+	if (p->angle > 2 * PI)
+		p->angle = 0;
+	p->angle += p->mv_angle_l;
+	if (p->angle < 0)
+		p->angle = 2 * PI;
+	p->delta_x = cos(p->angle);
+	p->delta_y = sin(p->angle);
+	if (p->mv_up)
+	{
+		p->x += p->delta_x / 6;
+		p->y += p->delta_y / 6;
+	}
+	if (p->mv_down)
+	{
+		p->x -= p->delta_x / 6;
+		p->y -= p->delta_y / 6;
+	}
 }
 
 int	keep_drawing(t_mlx *mlx)
@@ -79,6 +104,6 @@ int	keep_drawing(t_mlx *mlx)
 
 void	playground(t_mlx *mlx)
 {
-	square2(mlx, 100, 100, 8);
+	square2(mlx, 100, 100, P_SIZE);
 	put_image(mlx);
 }
