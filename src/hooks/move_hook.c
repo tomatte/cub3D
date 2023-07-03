@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 20:19:31 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 23:51:55 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:41:45 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,61 @@
 
 static int	move(int key, t_mlx *mlx)
 {
-	//static int	test = 0;
+	t_player	*p;
 
+	p = &mlx->player;
+	set_color(0x0);
+	draw_player(mlx);
+	set_color(DEFAULT_COLOR);
 	if  (key == ARROW_UP)
-		mlx->player.move_u = -0.2;
+	{
+		p->x += p->delta_x;
+		p->y += p->delta_y;
+	}
 	if  (key == ARROW_DOWN)
-		mlx->player.move_d = 0.2;
+	{
+		p->x -= p->delta_x;
+		p->y -= p->delta_y;
+	}
 	if  (key == ARROW_RIGHT)
-		mlx->player.move_r = 0.2;
+	{
+		p->angle += 0.1;
+		if (p->angle > 2 * PI)
+			p->angle = 0;
+		p->delta_x = cos(p->angle);
+		p->delta_y = sin(p->angle);
+	}
 	if  (key == ARROW_LEFT)
-		mlx->player.move_l = -0.2;
+	{
+		p->angle -= 0.1;
+		if (p->angle < 0)
+			p->angle = 2 * PI;
+		p->delta_x = cos(p->angle);
+		p->delta_y = sin(p->angle);
+	}
+	draw_player(mlx);
+	put_image(mlx);
 	return (1);
 }
 
-static int	stop_move(int key, t_mlx *mlx)
+/* static int	stop_move(int key, t_mlx *mlx)
 {
-	//static int	test = 0;
+	t_player	*p;
 
+	p = &mlx->player;
 	if  (key == ARROW_UP)
-		mlx->player.move_u = 0;
+		p->move_u = 0;
 	if  (key == ARROW_DOWN)
-		mlx->player.move_d = 0;
+		p->move_d = 0;
 	if  (key == ARROW_RIGHT)
-		mlx->player.move_r = 0;
+		p->move_r = 0;
 	if  (key == ARROW_LEFT)
-		mlx->player.move_l = 0;
+		p->move_l = 0;
 	return (1);
 }
-
+ */
 void	move_hook(t_mlx *mlx)
 {
 	mlx_hook(mlx->win, KeyPress, KeyPressMask, move, mlx);
-	mlx_hook(mlx->win, KeyRelease, KeyReleaseMask, stop_move, mlx);
+	//mlx_hook(mlx->win, KeyRelease, KeyReleaseMask, stop_move, mlx);
 }

@@ -28,7 +28,7 @@ OBJS_DIR	=	./objects
 
 OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
-CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11
+CFLAGS		=	-Wall -Wextra -Werror -g3 -lXext -L. -lX11 -lm
 
 MINILIBX_DIR	=	./libs/minilibx-linux
 MINILIBX		=	$(MINILIBX_DIR)/libmlx_Linux.a

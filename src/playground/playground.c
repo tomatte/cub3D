@@ -6,19 +6,11 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 23:51:24 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:45:46 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-
-
-/* static void	draw_2_lines(t_mlx *mlx)
-{
-	draw_line2(mlx, points(0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2), RED);
-	set_color(RED);
-	draw_line2(mlx, points(0, SCREEN_HEIGHT / 2 + 20, SCREEN_WIDTH, SCREEN_HEIGHT / 2 + 20), DEFAULT_COLOR);
-} */
 
 void	square(t_mlx *mlx, int x, int y, int size)
 {
@@ -46,7 +38,11 @@ void	square2(t_mlx *mlx, int x, int y, int size)
 
 void	draw_player(t_mlx *mlx)
 {
-	square2(mlx, (int) mlx->player.x, (int) mlx->player.y, 8);
+	t_player	*p;
+
+	p = &mlx->player;
+	square2(mlx, (int) p->x, (int) p->y, 8);
+	draw_line(mlx, points(p->x + 4, p->y + 4, p->x + 4 + (p->delta_x * 20), p->y + 4 + (p->delta_y * 20)));
 }
 
 static void	move_limit(t_mlx *mlx)

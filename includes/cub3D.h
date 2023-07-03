@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 23:50:22 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:10:53 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define DEFAULT_COLOR 0x000000FF
 # define OCEAN 0x1D1776
 
+# define PI 3.1415926535
+
 typedef struct	s_player
 {
 	double	x;
@@ -43,6 +45,9 @@ typedef struct	s_player
 	double	move_r;
 	double	move_l;
 	double	dir;
+	double	angle;
+	double	delta_x;
+	double	delta_y;
 }	t_player;
 
 typedef struct s_mlx
