@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 12:19:20 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:23:29 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,22 @@ typedef struct	s_player
 	double	delta_y;
 }	t_player;
 
+typedef struct s_ray
+{
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	double	x;
+	double	y;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	a_tan;
+}	t_ray;
+
+
 typedef struct s_mlx
 {
 	void		*mlx;
@@ -65,6 +81,7 @@ typedef struct s_mlx
 	int			endian;
 	int			color;
 	t_player	player;
+	t_ray		ray;
 }	t_mlx;
 
 typedef struct s_line
