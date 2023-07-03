@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 02:08:32 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:08:35 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ typedef struct	s_player
 	double	y;
 	double	mv_up;
 	double	mv_down;
-	double	mv_r;
-	double	mv_l;
-	double	dir;
 	double	angle;
 	double	mv_angle_r;
 	double	mv_angle_l;
@@ -107,10 +104,12 @@ void	move_hook(t_mlx *mlx);
 
 
 //playground
-void	playground(t_mlx *mlx);
 void	square(t_mlx *mlx, int x, int y, int size);
 void	square2(t_mlx *mlx, int x, int y, int size);
 void	draw_player(t_mlx *mlx);
 int		keep_drawing(t_mlx *mlx);
+
+//move
+void	update_player_position(t_mlx *mlx);
 
 #endif

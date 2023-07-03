@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:15:41 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 14:17:35 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:11:43 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ static int	close_x(t_mlx *mlx)
 
 void	close_window_x(t_mlx *mlx)
 {
-	mlx_hook(mlx->win , 17, 1L << 17, close_x, mlx);
+	mlx_hook(mlx->win, 17, 1L << 17, close_x, mlx);
 }
