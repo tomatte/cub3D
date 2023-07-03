@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 22:54:45 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:15:08 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y)
 {
 	char	*dst;
 
+	if (x < 0)
+		x = 0;
+	if (y < 0)
+		y = 0;
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int *) dst = mlx->color;
 }

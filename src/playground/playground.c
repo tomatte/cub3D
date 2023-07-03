@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 23:04:22 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:22:53 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ void	draw_player(t_mlx *mlx)
 	square2(mlx, (int) mlx->player.x, (int) mlx->player.y, 8);
 }
 
+static void	move_limit(t_mlx *mlx)
+{
+	if (mlx->player.x < 0)
+		mlx->player.x = 0;
+	if (mlx->player.y < 0)
+		mlx->player.y = 0;
+	if (mlx->player.y + 8 > SCREEN_HEIGHT)
+		mlx->player.y = SCREEN_HEIGHT - 8;
+	if (mlx->player.x + 8 > SCREEN_WIDTH)
+		mlx->player.x = SCREEN_WIDTH - 8;
+}
+
 int	keep_drawing(t_mlx *mlx)
 {
 	set_color(0x0);
@@ -56,6 +68,7 @@ int	keep_drawing(t_mlx *mlx)
 	set_color(DEFAULT_COLOR);
 	mlx->player.x += mlx->player.move_x;
 	mlx->player.y += mlx->player.move_y;
+	move_limit(mlx);
 	draw_player(mlx);
 	put_image(mlx);
 	return (1);
