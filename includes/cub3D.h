@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 15:53:16 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/05 09:14:19 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_ray
 	double	dy;
 	double	opx;
 	double	opy;
+	int		x_lower;
+	double 	rate;
 }	t_ray;
 
 
