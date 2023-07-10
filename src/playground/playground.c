@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/05 10:04:39 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:07:47 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	draw_player(t_mlx *mlx)
 	square2(mlx, (int) round(p->x), (int) round(p->y), P_SIZE);
 	draw_direction_line(mlx);
 }
-
 
 static void	draw_rays(t_mlx *mlx)
 {
@@ -134,41 +133,6 @@ int	looking_left(t_mlx *mlx)
 	return (0);
 }
 
-void	calc_delta_ray(t_mlx *mlx)
-{
-	t_ray		*r;
-	int			jump_x;
-	int			jump_y;
-
-	r = &mlx->ray;
-	if (looking_left(mlx))
-		jump_x = (int) (r->x) % 63 * -1;
-	else
-		jump_x = 63 - (int) (r->x) % 63;
-	if (looking_up(mlx))
-		jump_y = (int) (r->y) % 63 * -1;
-	else
-		jump_y = 63 - (int) (r->y) % 63;
-	if (jump_x < jump_y)
-	{
-		r->dx = jump_x;
-		r->dy = jump_x * r->rate;
-		if (looking_up(mlx) && r->dy > 0)
-			r->dy *= -1;
-		else if (!looking_up(mlx) && r->dy < 0)
-			r->dy *= -1;
-	}
-	else
-	{
-		r->dy = jump_y;
-		r->dx = jump_y * r->rate;
-		if (looking_left(mlx) && r->dx > 0)
-			r->dx *= -1;
-		else if (!looking_left(mlx) && r->dx < 0)
-			r->dx *= -1;
-	}
-}
-
 double	get_rate(double angle)
 {
 	double	rate;
@@ -177,27 +141,51 @@ double	get_rate(double angle)
 	return (rate);
 }
 
+double	get_ray_dx(t_mlx *mlx)
+{
+	t_ray		*r;
+	double		dx;
+
+	r = &mlx->ray;
+	if (looking_left(mlx))
+		dx = -((int) round(r->x) % 63);
+	else
+		dx = 63 - (int) round(r->x) % 63;
+	return (dx);
+}
+
+double	get_ray_dy(t_mlx *mlx)
+{
+	t_ray		*r;
+	double		dy;
+
+	r = &mlx->ray;
+	if (looking_up(mlx))
+		dy = -((int) round(r->y) % 63);
+	else
+		dy = 63 - (int) round(r->y) % 63;
+	return (dy);
+}
+
 void	test_case(t_mlx *mlx)
 {
 	t_player	*p;
 	t_ray		*r;
 	int			i = 0;
+	double		rdx;
+	double		rdy;
 
 	p = &mlx->player;
 	r = &mlx->ray;
 	r->x = p->x;
 	r->y = p->y;
-	r->rate = get_rate(p->angle);
-	while (i++ < 8)
-	{
-		calc_delta_ray(mlx);
-		printf("dx: %lf, dy: %lf\n", r->dx, r->dy);
-		r->x += r->dx;
-		r->y += r->dy;
-		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
-			break ;
-		square2(mlx, (int) r->x - P_SIZE / 2, (int) r->y - P_SIZE / 2, P_SIZE);
-	}
+	rdx = get_ray_dx(mlx);
+	rdy = get_ray_dy(mlx);
+	printf("x: %lf  |  dx: %lf  |  sum: %lf\n" , r->x, rdx, rdx + r->x);
+	printf("y: %lf  |  dy: %lf  |  sum: %lf\n" , r->y, rdy, rdy + r->y);
+	if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
+		return ;
+	square2(mlx, (int) round(r->x), (int) round(r->y), P_SIZE);
 }
 
 static void	erase_player(t_mlx *mlx)
