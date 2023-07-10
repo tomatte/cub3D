@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/10 11:07:47 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:24:42 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,8 @@ int	looking_up(t_mlx *mlx)
 	p = &mlx->player;
 	if (p->angle > PI)
 	{
-		printf("looking up\n");
 		return (1);
 	}
-	printf("looking down\n");
 	return (0);
 }
 
@@ -126,10 +124,8 @@ int	looking_left(t_mlx *mlx)
 	p = &mlx->player;
 	if (p->angle > PI / 2 && p->angle < PI + PI / 2)
 	{
-		printf("looking left\n");
 		return (1);
 	}
-	printf("looking right\n");
 	return (0);
 }
 
@@ -148,9 +144,17 @@ double	get_ray_dx(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_left(mlx))
+	{
 		dx = -((int) round(r->x) % 63);
+		if (dx == 0)
+			dx = -63;
+	}
 	else
+	{
 		dx = 63 - (int) round(r->x) % 63;
+		if (dx == 0)
+			dx = 63;
+	}
 	return (dx);
 }
 
@@ -161,10 +165,43 @@ double	get_ray_dy(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_up(mlx))
+	{
 		dy = -((int) round(r->y) % 63);
+		if (dy == 0)
+			dy = -63;
+	}
 	else
+	{
 		dy = 63 - (int) round(r->y) % 63;
+		if (dy == 0)
+			dy = 63;
+	}
 	return (dy);
+}
+
+static double	positive(double num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
+}
+
+void	jump_next_line(t_mlx *mlx)
+{
+	t_ray		*r;
+	t_player	*p;
+	double		rdx;
+	double		rdy;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	rdx = get_ray_dx(mlx);
+	r->x += rdx;
+	rdy = rdx * (sin(p->angle) / cos(p->angle));
+	if (looking_up(mlx))
+		r->y -= positive(rdy);
+	else
+		r->y += positive(rdy);
 }
 
 void	test_case(t_mlx *mlx)
@@ -179,13 +216,13 @@ void	test_case(t_mlx *mlx)
 	r = &mlx->ray;
 	r->x = p->x;
 	r->y = p->y;
-	rdx = get_ray_dx(mlx);
-	rdy = get_ray_dy(mlx);
-	printf("x: %lf  |  dx: %lf  |  sum: %lf\n" , r->x, rdx, rdx + r->x);
-	printf("y: %lf  |  dy: %lf  |  sum: %lf\n" , r->y, rdy, rdy + r->y);
-	if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
-		return ;
-	square2(mlx, (int) round(r->x), (int) round(r->y), P_SIZE);
+	while (i++ < 15)
+	{
+		jump_next_line(mlx);
+		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
+			break ;
+		square2(mlx, (int) round(r->x), (int) round(r->y), P_SIZE);
+	}
 }
 
 static void	erase_player(t_mlx *mlx)
