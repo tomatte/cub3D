@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/10 13:59:38 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:07:07 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ double	dmax(double a, double b)
 	return (b);
 }
 
-void	test_case(t_mlx *mlx)
+void	dda_ray(t_mlx *mlx)
 {
 	t_player	*p;
 	t_ray		*r;
@@ -241,8 +241,8 @@ void	test_case(t_mlx *mlx)
 
 	p = &mlx->player;
 	r = &mlx->ray;
-	r->x = p->x;
-	r->y = p->y;
+	r->x = p->x + 4;
+	r->y = p->y + 4;
 	while (i++ < 20)
 	{
 		//base y or lines
@@ -252,14 +252,14 @@ void	test_case(t_mlx *mlx)
 		//base x or columns
 		rdx2 = get_ray_dx(mlx);
 		rdy2 = rdx2 * (sin(p->angle) / cos(p->angle));
-		if (dmax(rdy1, rdx1) > dmax(rdy2, rdx2))
+		if (dmax(rdy1, positive(rdx1)) > dmax(positive(rdy2), rdx2))
 			jump_next_column(mlx);
 		else
 			jump_next_line(mlx);
 		//jump_next_column(mlx);
 		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
 			break ;
-		square2(mlx, (int) round(r->x), (int) round(r->y), P_SIZE);
+		square2(mlx, (int) round(r->x), (int) round(r->y), 4);
 	}
 }
 
@@ -267,7 +267,7 @@ static void	erase_player(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
-	test_case(mlx);
+	dda_ray(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
@@ -277,7 +277,9 @@ int	keep_drawing(t_mlx *mlx)
 	update_player_position(mlx);
 	draw_2d_blocks(mlx, 64);
 	draw_player(mlx);
-	test_case(mlx);
+	set_color(RED);
+	dda_ray(mlx);
+	set_color(DEFAULT_COLOR);
 	//draw_rays(mlx);
 	put_image(mlx);
 	return (1);
