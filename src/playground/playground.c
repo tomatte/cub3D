@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/10 12:24:42 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:33:01 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,17 +144,11 @@ double	get_ray_dx(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_left(mlx))
-	{
-		dx = -((int) round(r->x) % 63);
-		if (dx == 0)
-			dx = -63;
-	}
+		dx = (int) round(r->x) % 63;
 	else
-	{
 		dx = 63 - (int) round(r->x) % 63;
-		if (dx == 0)
-			dx = 63;
-	}
+	if (dx == 0)
+		dx = 63;
 	return (dx);
 }
 
@@ -196,8 +190,12 @@ void	jump_next_line(t_mlx *mlx)
 	r = &mlx->ray;
 	p = &mlx->player;
 	rdx = get_ray_dx(mlx);
-	r->x += rdx;
 	rdy = rdx * (sin(p->angle) / cos(p->angle));
+	printf("rdx: %lf, rdy: %lf\n", rdx, rdy);
+	if (looking_left(mlx))
+		r->x -= rdx;
+	else
+		r->x += rdx;
 	if (looking_up(mlx))
 		r->y -= positive(rdy);
 	else
