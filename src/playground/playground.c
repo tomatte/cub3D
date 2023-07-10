@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/10 12:33:01 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:59:38 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,17 +159,11 @@ double	get_ray_dy(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_up(mlx))
-	{
-		dy = -((int) round(r->y) % 63);
-		if (dy == 0)
-			dy = -63;
-	}
+		dy = (int) round(r->y) % 63;
 	else
-	{
 		dy = 63 - (int) round(r->y) % 63;
-		if (dy == 0)
-			dy = 63;
-	}
+	if (dy == 0)
+		dy = 63;
 	return (dy);
 }
 
@@ -178,6 +172,29 @@ static double	positive(double num)
 	if (num < 0)
 		return (-num);
 	return (num);
+}
+
+void	jump_next_column(t_mlx *mlx)
+{
+	t_ray		*r;
+	t_player	*p;
+	double		rdx;
+	double		rdy;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	rdx = get_ray_dx(mlx);
+	rdy = rdx * (sin(p->angle) / cos(p->angle));
+	if (rdy > 63 || rdx > 63)
+		return ;
+	if (looking_left(mlx))
+		r->x -= rdx;
+	else
+		r->x += rdx;
+	if (looking_up(mlx))
+		r->y -= positive(rdy);
+	else
+		r->y += positive(rdy);
 }
 
 void	jump_next_line(t_mlx *mlx)
@@ -189,17 +206,25 @@ void	jump_next_line(t_mlx *mlx)
 
 	r = &mlx->ray;
 	p = &mlx->player;
-	rdx = get_ray_dx(mlx);
-	rdy = rdx * (sin(p->angle) / cos(p->angle));
-	printf("rdx: %lf, rdy: %lf\n", rdx, rdy);
-	if (looking_left(mlx))
-		r->x -= rdx;
-	else
-		r->x += rdx;
+	rdy = get_ray_dy(mlx);
+	rdx = rdy * (cos(p->angle) / sin(p->angle));
+	if (rdy > 63 || rdx > 63)
+		return ;
 	if (looking_up(mlx))
-		r->y -= positive(rdy);
+		r->y -= rdy;
 	else
-		r->y += positive(rdy);
+		r->y += rdy;
+	if (looking_left(mlx))
+		r->x -= positive(rdx);
+	else
+		r->x += positive(rdx);
+}
+
+double	dmax(double a, double b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }
 
 void	test_case(t_mlx *mlx)
@@ -207,16 +232,31 @@ void	test_case(t_mlx *mlx)
 	t_player	*p;
 	t_ray		*r;
 	int			i = 0;
-	double		rdx;
-	double		rdy;
+	double		rdx1;
+	double		rdy1;
+	double		rdx2;
+	double		rdy2;
+	double		old_x;
+	double		old_y;
 
 	p = &mlx->player;
 	r = &mlx->ray;
 	r->x = p->x;
 	r->y = p->y;
-	while (i++ < 15)
+	while (i++ < 20)
 	{
-		jump_next_line(mlx);
+		//base y or lines
+		rdy1 = get_ray_dy(mlx);
+		rdx1 = rdy1 * (cos(p->angle) / sin(p->angle));
+
+		//base x or columns
+		rdx2 = get_ray_dx(mlx);
+		rdy2 = rdx2 * (sin(p->angle) / cos(p->angle));
+		if (dmax(rdy1, rdx1) > dmax(rdy2, rdx2))
+			jump_next_column(mlx);
+		else
+			jump_next_line(mlx);
+		//jump_next_column(mlx);
 		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
 			break ;
 		square2(mlx, (int) round(r->x), (int) round(r->y), P_SIZE);
