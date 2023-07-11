@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 10:10:48 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:27:09 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,24 +207,62 @@ void	dda_ray(t_mlx *mlx)
 	}
 }
 
-static void	erase_player(t_mlx *mlx)
+double	normalize_angle(double angle)
+{
+	angle = remainder(angle, 2 * PI);
+	if (angle < 0)
+		angle = 2 * PI + angle;
+	return (angle);
+}
+
+static void	camera_plane(t_mlx *mlx)
+{
+	t_player	*p;
+	t_ray		*r;
+	double		cam_angle;
+	double		bx;
+	double		by;
+	double		x1;
+	double		y1;
+	double		x2;
+	double		y2;
+
+	p = &mlx->player;
+	r = &mlx->ray;
+	//rotate angle 90 degrees
+	cam_angle = normalize_angle(p->angle + PI / 2);
+
+	//move camera plane center ahead of player vision
+	bx = p->x + cos(p->angle) * 30;
+	by = p->y + sin(p->angle) * 30;
+
+	//get points of camera plane's extreme left and right to draw a line between them
+	x1 = bx + cos(cam_angle) * 30;
+	y1 = by + sin(cam_angle) * 30;
+	x2 = bx - cos(cam_angle) * 30;
+	y2 = by - sin(cam_angle) * 30;
+	draw_line(mlx, points((int) round(x1), (int) round(y1), (int) round(x2), (int) round(y2)));
+}
+
+static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
 	dda_ray(mlx);
+	camera_plane(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
 int	keep_drawing(t_mlx *mlx)
 {
-	erase_player(mlx);
+	eraser(mlx);
 	update_player_position(mlx);
 	draw_2d_blocks(mlx, 64);
 	draw_player(mlx);
 	set_color(RED);
 	dda_ray(mlx);
 	set_color(DEFAULT_COLOR);
-	//draw_rays(mlx);
+	camera_plane(mlx);
 	put_image(mlx);
 	return (1);
 }
