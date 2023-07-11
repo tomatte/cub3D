@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 14:15:50 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:24:33 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,16 +252,18 @@ static void	camera_plane(t_mlx *mlx)
 
 static void	multiple_rays(t_mlx *mlx)
 {
-	double		save_angle;
+	double	save_angle;
 	double	ray_mod;
 	double	sum;
 	double	vision_angle;
+	double	limit_angle;
 
 	save_angle = mlx->player.angle;
 	vision_angle = degrees_to_radians(40);
 	ray_mod = vision_angle / 40;
-	sum = -(vision_angle / 2);
-	while (sum < vision_angle / 2)
+	limit_angle = vision_angle / 2;
+	sum = limit_angle * -1;
+	while (sum < limit_angle)
 	{
 		mlx->player.angle = normalize_angle(save_angle + sum);
 		dda_ray(mlx);
