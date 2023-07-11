@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 03:08:35 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/05 09:14:19 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,30 @@ typedef struct	s_player
 {
 	double	x;
 	double	y;
-	double	mv_up;
-	double	mv_down;
+	int		mv_up;
+	int		mv_down;
+	int		mv_left;
+	int		mv_right;
 	double	angle;
 	double	mv_angle_r;
 	double	mv_angle_l;
 	double	delta_x;
 	double	delta_y;
 }	t_player;
+
+typedef struct s_ray
+{
+	int		r;
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	opx;
+	double	opy;
+	int		x_lower;
+	double 	rate;
+}	t_ray;
+
 
 typedef struct s_mlx
 {
@@ -63,6 +79,7 @@ typedef struct s_mlx
 	int			endian;
 	int			color;
 	t_player	player;
+	t_ray		ray;
 }	t_mlx;
 
 typedef struct s_line
@@ -108,6 +125,7 @@ void	square(t_mlx *mlx, int x, int y, int size);
 void	square2(t_mlx *mlx, int x, int y, int size);
 void	draw_player(t_mlx *mlx);
 int		keep_drawing(t_mlx *mlx);
+void	draw_2d_blocks(t_mlx *mlx, int size);
 
 //move
 void	update_player_position(t_mlx *mlx);

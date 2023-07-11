@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:27:51 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/05/03 20:36:11 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/05 08:02:20 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,12 @@ void	ft_str_push_char(char **str, char c);
 int		ft_pow(int num, int power);
 
 //returns the lowest of two numbers
-int		ft_lowest(int x, int y);
+int		ft_min(int x, int y);
+double	ft_min_d(double x, double y);
 
 //returns the highest of two numbers
-int		ft_highest(int x, int y);
+int		ft_max(int x, int y);
+double	ft_max_d(double x, double y);
 
 //returns 1 if the strings are equal or 0 if not
 int		ft_streq(char *s1, char *s2);
