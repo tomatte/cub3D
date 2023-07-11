@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:24:11 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/09 23:08:37 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:45:33 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	set_player_direction(t_mlx *mlx)
 
 static void	move_player(t_mlx *mlx)
 {
-	const int	slow = 7;
+	const int	slow = 3;
 	t_player	*p;
 
 	p = &mlx->player;

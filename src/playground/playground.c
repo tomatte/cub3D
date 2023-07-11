@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 14:24:33 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:17:59 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,42 @@ int	column_nearest(t_mlx *mlx)
 	return (0);
 }
 
+const int map[11][15] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1},
+	{1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+};
+
+int	is_wall(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		map_column;
+	int		map_line;
+
+	r = &mlx->ray;
+	if (looking_left(mlx))
+		map_column = (int) ceil(round(r->x) / 63.0);
+	else
+		map_column = (int) floor(round(r->x) / 63.0);
+	if (looking_up(mlx))
+		map_line = (int) ceil(round(r->y) / 63.0);
+	else
+		map_line = (int) floor(round(r->y) / 63.0);
+	if (map[map_line][map_column] == 1)
+		{
+			printf("map_line = %d, map_column = %d\n", map_line, map_column);
+			return (1);}
+	return (0);
+}
+
 void	dda_ray(t_mlx *mlx)
 {
 	t_player	*p;
@@ -204,6 +240,11 @@ void	dda_ray(t_mlx *mlx)
 		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
 			break ;
 		draw_line(mlx, points((int) round(old_x), (int) round(old_y), (int) round(r->x), (int) round(r->y)));
+		if (is_wall(mlx))
+		{
+			//printf("line: %d  | column: %d  |  rx: %lf  |  ry: %lf\n", map_line, map_column, r->x, r->y);
+			break ;
+		}
 	}
 }
 
@@ -278,7 +319,6 @@ static void	eraser(t_mlx *mlx)
 	draw_player(mlx);
 	dda_ray(mlx);
 	multiple_rays(mlx);
-	camera_plane(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
@@ -291,7 +331,6 @@ int	keep_drawing(t_mlx *mlx)
 	set_color(RED);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
-	camera_plane(mlx);
 	put_image(mlx);
 	return (1);
 }
