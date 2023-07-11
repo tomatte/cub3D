@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/10 16:07:07 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 10:10:48 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,74 +36,6 @@ void	draw_player(t_mlx *mlx)
 	square2(mlx, (int) round(p->x), (int) round(p->y), P_SIZE);
 	draw_direction_line(mlx);
 }
-
-static void	draw_rays(t_mlx *mlx)
-{
-	t_player	*p;
-	t_ray		*r;
-	int			i;
-	int			aux;
-
-	p = &mlx->player;
-	r = &mlx->ray;
-	set_color(0x0);
-	draw_line(mlx, points(r->opx, r->opy, r->x, r->y));
-	r->x = p->x * cos(p->angle) * 50;
-	r->y = p->y * sin(p->angle) * 50;
-	set_color(RED);
-	aux = 0;
-	i = 0;
-	while (i++ < 2)
-	{
-		if (p->angle < PI)
-		{
-			aux = r->y + 63 - (int) r->y % 63;
-			if (aux <= SCREEN_HEIGHT)
-				r->y = aux;
-		}
-		else
-		{
-			aux = r->y - (int) (r->y) % 63;
-			if (aux >= 0)
-				r->y = aux;
-		}
-		if (p->angle > PI / 2 && p->angle < PI + PI / 2)
-		{
-			aux = r->x - (int) (r->x) % 63;
-			if (aux >= 0)
-				r->x = aux;
-		}
-		else
-		{
-			aux = r->x + 63 - (int) (r->x) % 63;
-			if (aux <= SCREEN_WIDTH)
-				r->x = aux;
-		}
-	}
-	r->opx = p->x + P_SIZE / 2;
-	r->opy = p->y + P_SIZE / 2;
-	draw_line(mlx, points(p->x + P_SIZE / 2, p->y + P_SIZE / 2, r->x, r->y));
-	set_color(DEFAULT_COLOR);
-}
-
-/*
-
-	rate =  min(cos, sin) / max(cos, sin)
-
-	x_greater = cos(a) > sin(a);
-	rate = min(cos(a), sin(a)) / max(cos(a), sin(a);
-	if (x_greater)
-	{
-		r->x += 63 - (int) (r->x) % 63;
-		r->y = r->x * rate;
-	}
-	else
-	{
-		r->y += 63 - (int) (r->y) % 63;
-		r->x = r->y * rate;
-	}
-
- */
 
 int	looking_up(t_mlx *mlx)
 {
@@ -227,15 +159,33 @@ double	dmax(double a, double b)
 	return (b);
 }
 
+int	column_nearest(t_mlx *mlx)
+{
+	double		rdx1;
+	double		rdy1;
+	double		rdx2;
+	double		rdy2;
+	double		angle;
+
+	angle = mlx->player.angle;
+	//base y or lines
+	rdy1 = get_ray_dy(mlx);
+	rdx1 = rdy1 * (cos(angle) / sin(angle));
+
+	//base x or columns
+	rdx2 = get_ray_dx(mlx);
+	rdy2 = rdx2 * (sin(angle) / cos(angle));
+	if (dmax(rdy1, positive(rdx1)) > dmax(positive(rdy2), rdx2))
+		return (1);
+	return (0);
+}
+
 void	dda_ray(t_mlx *mlx)
 {
 	t_player	*p;
 	t_ray		*r;
 	int			i = 0;
-	double		rdx1;
-	double		rdy1;
-	double		rdx2;
-	double		rdy2;
+
 	double		old_x;
 	double		old_y;
 
@@ -245,21 +195,15 @@ void	dda_ray(t_mlx *mlx)
 	r->y = p->y + 4;
 	while (i++ < 20)
 	{
-		//base y or lines
-		rdy1 = get_ray_dy(mlx);
-		rdx1 = rdy1 * (cos(p->angle) / sin(p->angle));
-
-		//base x or columns
-		rdx2 = get_ray_dx(mlx);
-		rdy2 = rdx2 * (sin(p->angle) / cos(p->angle));
-		if (dmax(rdy1, positive(rdx1)) > dmax(positive(rdy2), rdx2))
+		old_x = r->x;
+		old_y = r->y;
+		if (column_nearest(mlx))
 			jump_next_column(mlx);
 		else
 			jump_next_line(mlx);
-		//jump_next_column(mlx);
 		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
 			break ;
-		square2(mlx, (int) round(r->x), (int) round(r->y), 4);
+		draw_line(mlx, points((int) round(old_x), (int) round(old_y), (int) round(r->x), (int) round(r->y)));
 	}
 }
 
