@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 14:10:20 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:15:50 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ static void	multiple_rays(t_mlx *mlx)
 		dda_ray(mlx);
 		sum += ray_mod;
 	}
+	mlx->player.angle = save_angle;
 }
 
 static void	eraser(t_mlx *mlx)
