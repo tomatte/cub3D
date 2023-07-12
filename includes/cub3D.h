@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/05 09:14:19 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/12 00:51:57 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,12 @@ void	draw_2d_blocks(t_mlx *mlx, int size);
 
 //move
 void	update_player_position(t_mlx *mlx);
+
+//tools
+double	dmax(double a, double b);
+double	positive(double num);
+int		looking_up(t_mlx *mlx);
+int		looking_left(t_mlx *mlx);
+double	degrees_to_radians(double degrees);
 
 #endif

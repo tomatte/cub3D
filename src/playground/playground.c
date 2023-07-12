@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 16:17:59 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/12 00:52:47 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,6 @@ void	draw_player(t_mlx *mlx)
 	draw_direction_line(mlx);
 }
 
-int	looking_up(t_mlx *mlx)
-{
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int	looking_left(t_mlx *mlx)
-{
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI / 2 && p->angle < PI + PI / 2)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-double	get_rate(double angle)
-{
-	double	rate;
-
-	rate = cos(angle) / sin(angle);
-	return (rate);
-}
-
 double	get_ray_dx(t_mlx *mlx)
 {
 	t_ray		*r;
@@ -97,13 +65,6 @@ double	get_ray_dy(t_mlx *mlx)
 	if (dy == 0)
 		dy = 63;
 	return (dy);
-}
-
-static double	positive(double num)
-{
-	if (num < 0)
-		return (-num);
-	return (num);
 }
 
 void	jump_next_column(t_mlx *mlx)
@@ -150,13 +111,6 @@ void	jump_next_line(t_mlx *mlx)
 		r->x -= positive(rdx);
 	else
 		r->x += positive(rdx);
-}
-
-double	dmax(double a, double b)
-{
-	if (a > b)
-		return (a);
-	return (b);
 }
 
 int	column_nearest(t_mlx *mlx)
@@ -255,41 +209,6 @@ double	normalize_angle(double angle)
 		angle = 2 * PI + angle;
 	return (angle);
 }
-
-double	degrees_to_radians(double degrees)
-{
-	return (degrees * PI / 180.0);
-}
-
-static void	camera_plane(t_mlx *mlx)
-{
-	t_player	*p;
-	t_ray		*r;
-	double		cam_angle;
-	double		bx;
-	double		by;
-	double		x1;
-	double		y1;
-	double		x2;
-	double		y2;
-
-	p = &mlx->player;
-	r = &mlx->ray;
-	//rotate angle 90 degrees
-	cam_angle = normalize_angle(p->angle + PI / 2);
-
-	//move camera plane center ahead of player vision
-	bx = p->x + cos(p->angle) * 30;
-	by = p->y + sin(p->angle) * 30;
-
-	//get points of camera plane's extreme left and right to draw a line between them
-	x1 = bx + cos(cam_angle) * 30;
-	y1 = by + sin(cam_angle) * 30;
-	x2 = bx - cos(cam_angle) * 30;
-	y2 = by - sin(cam_angle) * 30;
-	draw_line(mlx, points((int) round(x1), (int) round(y1), (int) round(x2), (int) round(y2)));
-}
-
 
 static void	multiple_rays(t_mlx *mlx)
 {

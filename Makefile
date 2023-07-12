@@ -10,6 +10,7 @@ SRC			=	main.c \
 				move_hook.c \
 				move_calc.c \
 				squares.c \
+				ray_tools.c \
 
 
 INCLUDES	=	-I./includes
