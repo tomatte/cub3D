@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/12 00:51:57 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:48:11 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define RED 0x00FF0000
 # define DEFAULT_COLOR 0x000000FF
 # define OCEAN 0x1D1776
+# define LIME 0x00FF00
 
 # define PI 3.1415926535
 
@@ -107,6 +108,7 @@ void	destroy_mlx(t_mlx *mlx);
 void	put_image(t_mlx *mlx);
 void	init__color(int *color);
 void	set_color(int color);
+int		get_color(void);
 
 //line
 void	asign_values(t_line *line);

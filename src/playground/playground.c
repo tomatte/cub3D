@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/12 00:52:47 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:45:11 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ double	get_ray_dx(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_left(mlx))
-		dx = (int) round(r->x) % 63;
+		dx = positive(remainder(r->x, 63.0));
 	else
-		dx = 63 - (int) round(r->x) % 63;
+		dx = 63.0 - positive(remainder(r->x, 63));
 	if (dx == 0)
-		dx = 63;
+		dx = 63.0;
 	return (dx);
 }
 
@@ -59,9 +59,9 @@ double	get_ray_dy(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_up(mlx))
-		dy = (int) round(r->y) % 63;
+		dy = positive(remainder(r->y, 63.0));
 	else
-		dy = 63 - (int) round(r->y) % 63;
+		dy = 63 - positive(remainder(r->y, 63.0));
 	if (dy == 0)
 		dy = 63;
 	return (dy);
@@ -148,6 +148,7 @@ const int map[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
+//arredondar um dos eixos para o bloco mais proximo
 int	is_wall(t_mlx *mlx)
 {
 	t_ray	*r;
@@ -155,19 +156,26 @@ int	is_wall(t_mlx *mlx)
 	int		map_line;
 
 	r = &mlx->ray;
+
+	return (1);
+}
+
+void debug(t_mlx *mlx)
+{
+	t_ray	*r;
+	int	map_column;
+	int	map_line;
+
+	r = &mlx->ray;
 	if (looking_left(mlx))
-		map_column = (int) ceil(round(r->x) / 63.0);
+		map_column = (int) (r->x / 63.0);
 	else
-		map_column = (int) floor(round(r->x) / 63.0);
+		map_column = (int) (r->x / 63.0);
 	if (looking_up(mlx))
-		map_line = (int) ceil(round(r->y) / 63.0);
+		map_line = (int) (r->y / 63.0);
 	else
-		map_line = (int) floor(round(r->y) / 63.0);
-	if (map[map_line][map_column] == 1)
-		{
-			printf("map_line = %d, map_column = %d\n", map_line, map_column);
-			return (1);}
-	return (0);
+		map_line = (int) (r->y / 63.0);
+	//printf("line: %d  | column: %d  |  rx: %lf : %lf |  ry: %lf : %lf  |  wall: %d\n", map_line, map_column, r->x, r->x / 63.0, r->y, r->y / 63.0, map[map_line][map_column]);
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -175,6 +183,7 @@ void	dda_ray(t_mlx *mlx)
 	t_player	*p;
 	t_ray		*r;
 	int			i = 0;
+	int			color;
 
 	double		old_x;
 	double		old_y;
@@ -183,7 +192,7 @@ void	dda_ray(t_mlx *mlx)
 	r = &mlx->ray;
 	r->x = p->x + 4;
 	r->y = p->y + 4;
-	while (i++ < 20)
+	while (i++ < 3)
 	{
 		old_x = r->x;
 		old_y = r->y;
@@ -194,10 +203,12 @@ void	dda_ray(t_mlx *mlx)
 		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
 			break ;
 		draw_line(mlx, points((int) round(old_x), (int) round(old_y), (int) round(r->x), (int) round(r->y)));
-		if (is_wall(mlx))
+		if (is_wall(mlx) && get_color())
 		{
-			//printf("line: %d  | column: %d  |  rx: %lf  |  ry: %lf\n", map_line, map_column, r->x, r->y);
-			break ;
+			color = get_color();
+			set_color(LIME);
+			square(mlx, (int) round(r->x), (int) round(r->y), 2);
+			set_color(color);
 		}
 	}
 }
@@ -236,7 +247,6 @@ static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
-	dda_ray(mlx);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 }
