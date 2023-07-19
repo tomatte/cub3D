@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/12 00:51:47 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:13:46 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,29 @@ double	positive(double num)
 	return (num);
 }
 
-int	looking_up(t_mlx *mlx)
+int	looking_up(double angle)
 {
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI)
-	{
+	if (angle > PI)
 		return (1);
-	}
 	return (0);
 }
 
-int	looking_left(t_mlx *mlx)
+int	looking_left(double angle)
 {
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI / 2 && p->angle < PI + PI / 2)
-	{
+	if (angle > PI / 2 && angle < PI + PI / 2)
 		return (1);
-	}
 	return (0);
 }
 
 double	degrees_to_radians(double degrees)
 {
 	return (degrees * PI / 180.0);
+}
+
+double	normalize_angle(double angle)
+{
+	angle = remainder(angle, 2 * PI);
+	if (angle < 0)
+		angle = 2 * PI + angle;
+	return (angle);
 }

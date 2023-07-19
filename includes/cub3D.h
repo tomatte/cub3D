@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/14 18:48:11 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:14:27 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define PI 3.1415926535
 
 # define P_SIZE 8
+# define TILE_SIZE 63
 
 typedef struct	s_player
 {
@@ -135,8 +136,9 @@ void	update_player_position(t_mlx *mlx);
 //tools
 double	dmax(double a, double b);
 double	positive(double num);
-int		looking_up(t_mlx *mlx);
-int		looking_left(t_mlx *mlx);
+int		looking_up(double angle);
+int		looking_left(double angle);
 double	degrees_to_radians(double degrees);
+double	normalize_angle(double angle);
 
 #endif
