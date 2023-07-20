@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/19 14:30:45 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:33:24 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,18 @@ double	get_rdy(double rdx, double angle)
 	return (positive(rdy));
 }
 
+double	get_rdx(double rdy, double angle)
+{
+	double	rd_rate;
+	double	rdx;
+
+	rd_rate = positive(sin(angle) / cos(angle));
+	rdx = rdy / rd_rate;
+	if (looking_left(angle))
+		return (negative(rdx));
+	return (positive(rdx));
+}
+
 void	next_column(t_mlx *mlx)
 {
 	t_ray	*r;
@@ -106,6 +118,29 @@ void	next_column(t_mlx *mlx)
 	r->y += get_rdy(rdx, p->angle);
 }
 
+void	next_line(t_mlx *mlx)
+{
+	t_ray	*r;
+	t_player	*p;
+	double	rd_rate;
+	double	rdy;
+	double	new_ry;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	if (looking_up(p->angle))
+	{
+		rdy = ((int) r->y % TILE_SIZE) * -1;
+		if (rdy == 0)
+			rdy = -TILE_SIZE;
+	}
+	else
+		rdy = (TILE_SIZE - ((int) r->y % TILE_SIZE));
+	new_ry = round_base(r->y + rdy, TILE_SIZE);
+	r->y = new_ry;
+	r->x += get_rdx(rdy, p->angle);
+}
+
 void	dda_ray(t_mlx *mlx)
 {
 	t_player	*p;
@@ -124,7 +159,9 @@ void	dda_ray(t_mlx *mlx)
 	old_y = r->y;
 	while (i++ < 13)
 	{
-		next_column(mlx);
+		next_line(mlx);
+		square(mlx, (int) round(r->x) - 2, (int) round(r->y) - 2, 4);
+		next_line(mlx);
 		square(mlx, (int) round(r->x) - 2, (int) round(r->y) - 2, 4);
 	}
 }
