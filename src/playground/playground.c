@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/20 11:33:24 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:51:23 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,18 @@ double	get_rdx(double rdy, double angle)
 	return (positive(rdx));
 }
 
+/*
+	//printf("Angle: %lf\nX: %lf  |  x/y: %lf\nY: %lf  |  y/x: %lf\n", p->angle, r->x, positive(cos(p->angle)/sin(p->angle)), r->y, positive(sin(p->angle)/cos(p->angle)));
+	//printf("next_column: %lf  |  rdx: %lf\n", new_rx, rdx);
+	//printf("rx + rdx: %lf\n", r->x + rdx);
+ */
+
 void	next_column(t_mlx *mlx)
 {
 	t_ray	*r;
 	t_player	*p;
 	double	rd_rate;
 	double	rdx;
-	double	new_rx;
 
 	r = &mlx->ray;
 	p = &mlx->player;
@@ -110,12 +115,9 @@ void	next_column(t_mlx *mlx)
 	}
 	else
 		rdx = (TILE_SIZE - ((int) r->x % TILE_SIZE));
-	new_rx = round_base(r->x + rdx, TILE_SIZE);
-	printf("Angle: %lf\nX: %lf  |  x/y: %lf\nY: %lf  |  y/x: %lf\n", p->angle, r->x, positive(cos(p->angle)/sin(p->angle)), r->y, positive(sin(p->angle)/cos(p->angle)));
-	printf("next_column: %lf  |  rdx: %lf\n", new_rx, rdx);
-	printf("rx + rdx: %lf\n", r->x + rdx);
-	r->x = new_rx;
-	r->y += get_rdy(rdx, p->angle);
+	r->rdx_col = rdx;
+	r->column_x = round_base(r->x + rdx, TILE_SIZE);
+	r->rdy_col = get_rdy(rdx, p->angle);
 }
 
 void	next_line(t_mlx *mlx)
@@ -124,7 +126,6 @@ void	next_line(t_mlx *mlx)
 	t_player	*p;
 	double	rd_rate;
 	double	rdy;
-	double	new_ry;
 
 	r = &mlx->ray;
 	p = &mlx->player;
@@ -136,9 +137,29 @@ void	next_line(t_mlx *mlx)
 	}
 	else
 		rdy = (TILE_SIZE - ((int) r->y % TILE_SIZE));
-	new_ry = round_base(r->y + rdy, TILE_SIZE);
-	r->y = new_ry;
-	r->x += get_rdx(rdy, p->angle);
+	r->rdy_line = rdy;
+	r->line_y = round_base(r->y + rdy, TILE_SIZE);
+	r->rdx_line = get_rdx(rdy, p->angle);
+}
+
+void	calc_next_point(t_mlx *mlx)
+{
+	t_ray	*r;
+
+	r = &mlx->ray;
+	next_line(mlx);
+	next_column(mlx);
+	if (dmax(positive(r->rdx_col), positive(r->rdy_col)) <
+		dmax(positive(r->rdx_line), positive(r->rdy_line)))
+	{
+		r->x = r->column_x;
+		r->y += get_rdy(r->rdx_col, mlx->player.angle);
+	}
+	else
+	{
+		r->y = r->line_y;
+		r->x += get_rdx(r->rdy_line, mlx->player.angle);
+	}
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -159,10 +180,8 @@ void	dda_ray(t_mlx *mlx)
 	old_y = r->y;
 	while (i++ < 13)
 	{
-		next_line(mlx);
-		square(mlx, (int) round(r->x) - 2, (int) round(r->y) - 2, 4);
-		next_line(mlx);
-		square(mlx, (int) round(r->x) - 2, (int) round(r->y) - 2, 4);
+		calc_next_point(mlx);
+		draw_line(mlx, points(round(old_x), round(old_y), round(r->x), round(r->y)));
 	}
 }
 
@@ -192,7 +211,7 @@ static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
-	dda_ray(mlx);
+	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
@@ -202,8 +221,8 @@ int	keep_drawing(t_mlx *mlx)
 	update_player_position(mlx);
 	draw_2d_blocks(mlx, 64);
 	draw_player(mlx);
-	dda_ray(mlx);
 	set_color(RED);
+	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 	put_image(mlx);
 	return (1);
