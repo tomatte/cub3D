@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/20 12:51:23 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:41:00 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,66 @@ void	calc_next_point(t_mlx *mlx)
 	r = &mlx->ray;
 	next_line(mlx);
 	next_column(mlx);
-	if (dmax(positive(r->rdx_col), positive(r->rdy_col)) <
+	if (dmax(positive(r->rdx_col), positive(r->rdy_col)) <=
 		dmax(positive(r->rdx_line), positive(r->rdy_line)))
 	{
 		r->x = r->column_x;
 		r->y += get_rdy(r->rdx_col, mlx->player.angle);
+		r->is_base_x = 1;
 	}
 	else
 	{
 		r->y = r->line_y;
 		r->x += get_rdx(r->rdy_line, mlx->player.angle);
+		r->is_base_x  = 0;
 	}
+}
+
+int	is_wall(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		map_column;
+	int		map_line;
+	double	aux_col;
+	double	aux_line;
+
+	r = &mlx->ray;
+	aux_col = r->x / TILE_SIZE;
+	aux_line = r->y / TILE_SIZE;
+	if (r->is_base_x && looking_left(mlx->player.angle))
+	{
+		aux_col -= 1;
+		if (remainder(r->y, TILE_SIZE) == 0)
+			aux_line -= 1;
+	}
+	if (!r->is_base_x && looking_up(mlx->player.angle))
+		aux_line -= 1;
+	map_column = (int) aux_col;
+	map_line = (int) aux_line;
+	if (map_column < 0)
+		map_column = 0;
+	if (map_line < 0)
+		map_line = 0;
+	return (map[map_line][map_column]);
+}
+
+void	debug_wall(t_mlx *mlx)
+{
+	t_ray	*r;
+	double		map_column;
+	double		map_line;
+
+	r = &mlx->ray;
+	if (looking_left(mlx->player.angle))
+		map_column = ceil(round(r->x) / 63.0);
+	else
+		map_column = floor(round(r->x) / 63.0);
+	if (looking_up(mlx->player.angle))
+		map_line = ceil(round(r->y) / 63.0);
+	else
+		map_line = floor(round(r->y) / 63.0);
+	printf("ORIG: map_column: %lf  |  map_line: %lf\n", round(r->x) / 63.0, round(r->y) / 63.0);
+	printf("MOD: map_column: %lf  |  map_line: %lf\n", map_column, map_line);
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -178,10 +227,12 @@ void	dda_ray(t_mlx *mlx)
 	r->y = p->y + 4;
 	old_x = r->x;
 	old_y = r->y;
-	while (i++ < 13)
+	while (++i < 16)
 	{
 		calc_next_point(mlx);
 		draw_line(mlx, points(round(old_x), round(old_y), round(r->x), round(r->y)));
+		if (is_wall(mlx))
+			break ;
 	}
 }
 
