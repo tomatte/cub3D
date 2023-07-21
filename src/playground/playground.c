@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/20 15:41:00 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/21 08:19:38 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	next_column(t_mlx *mlx)
 {
 	t_ray	*r;
 	t_player	*p;
-	double	rd_rate;
 	double	rdx;
 
 	r = &mlx->ray;
@@ -124,7 +123,6 @@ void	next_line(t_mlx *mlx)
 {
 	t_ray	*r;
 	t_player	*p;
-	double	rd_rate;
 	double	rdy;
 
 	r = &mlx->ray;
@@ -164,6 +162,13 @@ void	calc_next_point(t_mlx *mlx)
 	}
 }
 
+int	has_floats(double num)
+{
+	if (num - (int) num != 0)
+		return (1);
+	return (0);
+}
+
 int	is_wall(t_mlx *mlx)
 {
 	t_ray	*r;
@@ -176,12 +181,8 @@ int	is_wall(t_mlx *mlx)
 	aux_col = r->x / TILE_SIZE;
 	aux_line = r->y / TILE_SIZE;
 	if (r->is_base_x && looking_left(mlx->player.angle))
-	{
 		aux_col -= 1;
-		if (remainder(r->y, TILE_SIZE) == 0)
-			aux_line -= 1;
-	}
-	if (!r->is_base_x && looking_up(mlx->player.angle))
+	else if (!r->is_base_x && looking_up(mlx->player.angle))
 		aux_line -= 1;
 	map_column = (int) aux_col;
 	map_line = (int) aux_line;
@@ -192,23 +193,25 @@ int	is_wall(t_mlx *mlx)
 	return (map[map_line][map_column]);
 }
 
-void	debug_wall(t_mlx *mlx)
+void	debug_wall(t_mlx *mlx, int i, double old_x, double old_y)
 {
 	t_ray	*r;
 	double		map_column;
 	double		map_line;
+	double		aux_col;
+	double		aux_line;
 
 	r = &mlx->ray;
-	if (looking_left(mlx->player.angle))
-		map_column = ceil(round(r->x) / 63.0);
+	aux_col = r->x / TILE_SIZE;
+	aux_line = r->y / TILE_SIZE;
+	if (i >= 3)
+		printf("i-----------------------: %d\n", i);
 	else
-		map_column = floor(round(r->x) / 63.0);
-	if (looking_up(mlx->player.angle))
-		map_line = ceil(round(r->y) / 63.0);
-	else
-		map_line = floor(round(r->y) / 63.0);
-	printf("ORIG: map_column: %lf  |  map_line: %lf\n", round(r->x) / 63.0, round(r->y) / 63.0);
-	printf("MOD: map_column: %lf  |  map_line: %lf\n", map_column, map_line);
+		printf("i: %d\n", i);
+	printf("x: %lf  |  y: %lf\n", r->x, r->y);
+	printf("old_x: %lf  |  old_y: %lf\n", old_x, old_y);
+	printf("col: %lf\n", aux_col);
+	printf("line: %lf\n", aux_line);
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -216,8 +219,6 @@ void	dda_ray(t_mlx *mlx)
 	t_player	*p;
 	t_ray		*r;
 	int			i = 0;
-	int			color;
-
 	double		old_x;
 	double		old_y;
 
@@ -225,10 +226,10 @@ void	dda_ray(t_mlx *mlx)
 	r = &mlx->ray;
 	r->x = p->x + 4;
 	r->y = p->y + 4;
-	old_x = r->x;
-	old_y = r->y;
 	while (++i < 16)
 	{
+		old_x = r->x;
+		old_y = r->y;
 		calc_next_point(mlx);
 		draw_line(mlx, points(round(old_x), round(old_y), round(r->x), round(r->y)));
 		if (is_wall(mlx))
