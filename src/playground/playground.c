@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/21 08:19:38 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:02:52 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,32 @@ void	next_line(t_mlx *mlx)
 	r->rdx_line = get_rdx(rdy, p->angle);
 }
 
+static void	next_block_x(t_mlx *mlx)
+{
+	t_ray	*r;
+	t_player	*p;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	if (looking_left(p->angle))
+		r->map_x -= 1;
+	else
+		r->map_x += 1;
+}
+
+static void	next_block_y(t_mlx *mlx)
+{
+	t_ray	*r;
+	t_player	*p;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	if (looking_up(p->angle))
+		r->map_y -= 1;
+	else
+		r->map_y += 1;
+}
+
 void	calc_next_point(t_mlx *mlx)
 {
 	t_ray	*r;
@@ -153,12 +179,14 @@ void	calc_next_point(t_mlx *mlx)
 		r->x = r->column_x;
 		r->y += get_rdy(r->rdx_col, mlx->player.angle);
 		r->is_base_x = 1;
+		next_block_x(mlx);
 	}
 	else
 	{
 		r->y = r->line_y;
 		r->x += get_rdx(r->rdy_line, mlx->player.angle);
 		r->is_base_x  = 0;
+		next_block_y(mlx);
 	}
 }
 
@@ -171,26 +199,7 @@ int	has_floats(double num)
 
 int	is_wall(t_mlx *mlx)
 {
-	t_ray	*r;
-	int		map_column;
-	int		map_line;
-	double	aux_col;
-	double	aux_line;
-
-	r = &mlx->ray;
-	aux_col = r->x / TILE_SIZE;
-	aux_line = r->y / TILE_SIZE;
-	if (r->is_base_x && looking_left(mlx->player.angle))
-		aux_col -= 1;
-	else if (!r->is_base_x && looking_up(mlx->player.angle))
-		aux_line -= 1;
-	map_column = (int) aux_col;
-	map_line = (int) aux_line;
-	if (map_column < 0)
-		map_column = 0;
-	if (map_line < 0)
-		map_line = 0;
-	return (map[map_line][map_column]);
+	return (map[mlx->ray.map_y][mlx->ray.map_x]);
 }
 
 void	debug_wall(t_mlx *mlx, int i, double old_x, double old_y)
@@ -226,11 +235,15 @@ void	dda_ray(t_mlx *mlx)
 	r = &mlx->ray;
 	r->x = p->x + 4;
 	r->y = p->y + 4;
+	r->map_x = (int) (r->x / TILE_SIZE);
+	r->map_y = (int) (r->y / TILE_SIZE);
+	printf("(0) map_x: %d  |  map_y: %d\n", r->map_x, r->map_y);
 	while (++i < 16)
 	{
 		old_x = r->x;
 		old_y = r->y;
 		calc_next_point(mlx);
+		printf("(%d) map_x: %d  |  map_y: %d  |  return: %d\n", i, r->map_x, r->map_y, map[r->map_y][r->map_x]);
 		draw_line(mlx, points(round(old_x), round(old_y), round(r->x), round(r->y)));
 		if (is_wall(mlx))
 			break ;
@@ -263,7 +276,7 @@ static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
-	multiple_rays(mlx);
+	dda_ray(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
@@ -274,7 +287,7 @@ int	keep_drawing(t_mlx *mlx)
 	draw_2d_blocks(mlx, 64);
 	draw_player(mlx);
 	set_color(RED);
-	multiple_rays(mlx);
+	dda_ray(mlx);
 	set_color(DEFAULT_COLOR);
 	put_image(mlx);
 	return (1);

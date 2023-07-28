@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/20 15:22:31 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:36:17 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_ray
 	double	column_x;
 	double	line_y;
 	double	is_base_x;
+	int		map_x;
+	int		map_y;
 }	t_ray;
 
 
