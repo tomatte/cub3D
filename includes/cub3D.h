@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 17:15:28 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:47:56 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ typedef struct s_ray
 	double	opy;
 	int		x_lower;
 	double 	rate;
-	double	rdx_line;
-	double	rdy_line;
+	double	rdx_row;
+	double	rdy_row;
 	double	rdx_col;
 	double	rdy_col;
 	double	column_x;
-	double	line_y;
+	double	column_y;
+	double	row_y;
+	double	row_x;
 	double	is_base_x;
 	double	angle;
 	int		map_x;
