@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/28 09:36:17 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:15:28 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define PI 3.1415926535
 
 # define P_SIZE 8
-# define TILE_SIZE 63
+# define TILE_SIZE 64
 
 typedef struct	s_player
 {
@@ -74,6 +74,7 @@ typedef struct s_ray
 	double	column_x;
 	double	line_y;
 	double	is_base_x;
+	double	angle;
 	int		map_x;
 	int		map_y;
 }	t_ray;
@@ -149,5 +150,10 @@ int		looking_up(double angle);
 int		looking_left(double angle);
 double	degrees_to_radians(double degrees);
 double	normalize_angle(double angle);
+double	round_base(double num, int base);
+double	negative(double num);
+int		has_floats(double num);
+double	foward_square(double position);
+double backward_square(double position);
 
 #endif

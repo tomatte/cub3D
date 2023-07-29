@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 16:52:45 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:17:12 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,44 +51,6 @@ const int map[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-double	round_base(double num, int base)
-{
-	double	result;
-
-	result =  round( num / (double) base) * base;
-	return result;
-}
-
-double	negative(double num)
-{
-	if (num > 0)
-		return (num * -1);
-	return (num);
-}
-
-int	has_floats(double num)
-{
-	if (num - (int) num != 0)
-		return (1);
-	return (0);
-}
-
-double	foward_square(double position)
-{
-	double	result;
-
-	result = position + (TILE_SIZE - (int) round(position) % TILE_SIZE);
-	return (round_base(result, TILE_SIZE));
-}
-
-double backward_square(double position)
-{
-	double	result;
-
-	result = position - ((int) round(position) % TILE_SIZE);
-	return (round_base(result, TILE_SIZE) - 1);
-}
-
 void	dda_ray(t_mlx *mlx)
 {
 	t_ray		*r;
@@ -97,6 +59,7 @@ void	dda_ray(t_mlx *mlx)
 	r = &mlx->ray;
 	p = &mlx->player;
 	printf("x: %lf |  backward: %lf  |  forward: %lf \n", p->x, backward_square(p->x), foward_square(p->x));
+	printf("y: %lf |  backward: %lf  |  forward: %lf \n", p->y, backward_square(p->y), foward_square(p->y));
 }
 
 static void	multiple_rays(t_mlx *mlx)

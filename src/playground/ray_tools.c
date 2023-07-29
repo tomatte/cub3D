@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/19 10:13:46 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:14:42 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,42 @@ double	normalize_angle(double angle)
 	if (angle < 0)
 		angle = 2 * PI + angle;
 	return (angle);
+}
+
+double	round_base(double num, int base)
+{
+	double	result;
+
+	result =  round( num / (double) base) * base;
+	return result;
+}
+
+double	negative(double num)
+{
+	if (num > 0)
+		return (num * -1);
+	return (num);
+}
+
+int	has_floats(double num)
+{
+	if (num - (int) num != 0)
+		return (1);
+	return (0);
+}
+
+double	foward_square(double position)
+{
+	double	result;
+
+	result = position + (TILE_SIZE - (int) round(position) % TILE_SIZE);
+	return (round_base(result, TILE_SIZE));
+}
+
+double backward_square(double position)
+{
+	double	result;
+
+	result = position - ((int) round(position) % TILE_SIZE);
+	return (round_base(result, TILE_SIZE) - 1);
 }
