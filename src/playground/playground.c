@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/30 15:13:01 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:32:04 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->x  = r->row_x;
 		r->y  = r->row_y;
 	}
-	draw_line(mlx, points(old_x, old_y, (int) round(r->x), (int) round(r->y)));
+	//draw_line(mlx, points(old_x, old_y, (int) round(r->x), (int) round(r->y)));
 	if (r->x >= TILE_SIZE * 15 || r->y >= TILE_SIZE * 11 - 30)
 	{
 		printf("dox: %lf | doy: %lf  |  (intxy)[%d|%d]\n", dox, doy, (int) dox, (int) doy);
@@ -162,15 +162,28 @@ int	is_wall(t_mlx *mlx)
 	return (map[y][x]);
 }
 
+double	get_ray_distance(t_mlx *mlx)
+{
+	t_ray		*r;
+	t_player	*p;
+	double		h;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
+	return (h);
+}
+
 void	dda_ray(t_mlx *mlx)
 {
-	int			i = 0;
+	t_ray	*r;
+	int		i = 0;
 
-	mlx->ray.x = mlx->player.x + P_SIZE / 2;
-	mlx->ray.y = mlx->player.y + P_SIZE / 2;
-	//mlx->ray.angle = mlx->player.angle;
-	mlx->ray.map_x = (int) (mlx->ray.x / TILE_SIZE);
-	mlx->ray.map_y = (int) (mlx->ray.y / TILE_SIZE);
+	r = &mlx->ray;
+	r->x = mlx->player.x + P_SIZE / 2;
+	r->y = mlx->player.y + P_SIZE / 2;
+	r->map_x = (int) (r->x / TILE_SIZE);
+	r->map_y = (int) (r->y / TILE_SIZE);
 	while (i++ < 16)
 	{
 		calc_next_column_values(mlx);
@@ -178,10 +191,32 @@ void	dda_ray(t_mlx *mlx)
 		jump_to_next_square(mlx);
 		if (is_wall(mlx))
 			break ;
-		//printf("(%d) map_x: %d | map_y: %d  |  map_return: %d\n", i, mlx->ray.map_x, mlx->ray.map_y, );
-		if (mlx->ray.map_x < 0 || mlx->ray.map_x > 14 || mlx->ray.map_y < 0 || mlx->ray.map_y > 10)
+		if (r->map_x < 0 || r->map_x > 14 || r->map_y < 0 || r->map_y > 10)
 			break ;
 	}
+}
+
+void	transform_to_3d(t_mlx *mlx, int i)
+{
+	t_ray	*r;
+	double	line_length;
+	double	aux;
+	int		line_mod = (int) (SCREEN_WIDTH / 40);
+	double	nx;
+	double	ny;
+	double	line_begin;
+	double	line_end;
+
+	r = &mlx->ray;
+	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
+	aux = r->y - line_length;
+	if (aux < 0)
+		aux = 0;
+	ny = SCREEN_HEIGHT / 2;
+	nx = i * line_mod;
+	line_begin = ny + (line_length / 2);
+	line_end = ny - (line_length / 2);
+	draw_line(mlx, points(nx, line_begin, nx, line_end));
 }
 
 static void	multiple_rays(t_mlx *mlx)
@@ -192,6 +227,7 @@ static void	multiple_rays(t_mlx *mlx)
 	double	limit_angle;
 	t_player	*p;
 	t_ray		*r;
+	int			i = 0;
 
 	p = &mlx->player;
 	r = &mlx->ray;
@@ -203,6 +239,7 @@ static void	multiple_rays(t_mlx *mlx)
 	{
 		r->angle = normalize_angle(p->angle + sum);
 		dda_ray(mlx);
+		transform_to_3d(mlx, i++);
 		sum += ray_mod;
 	}
 }
@@ -210,7 +247,7 @@ static void	multiple_rays(t_mlx *mlx)
 static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
-	draw_player(mlx);
+	//draw_player(mlx);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 }
@@ -219,8 +256,8 @@ int	keep_drawing(t_mlx *mlx)
 {
 	eraser(mlx);
 	update_player_position(mlx);
-	draw_2d_blocks(mlx, TILE_SIZE);
-	draw_player(mlx);
+	//draw_2d_blocks(mlx, TILE_SIZE);
+	//draw_player(mlx);
 	set_color(RED);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
