@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/30 17:32:04 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:23:53 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,7 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->x  = r->row_x;
 		r->y  = r->row_y;
 	}
-	//draw_line(mlx, points(old_x, old_y, (int) round(r->x), (int) round(r->y)));
-	if (r->x >= TILE_SIZE * 15 || r->y >= TILE_SIZE * 11 - 30)
-	{
-		printf("dox: %lf | doy: %lf  |  (intxy)[%d|%d]\n", dox, doy, (int) dox, (int) doy);
-	}
 }
-
-/* 	printf("x: %lf |  backward: %lf  |  forward: %lf \n", p->x, backward_square(p->x), foward_square(p->x));
-	printf("y: %lf |  backward: %lf  |  forward: %lf \n", p->y, backward_square(p->y), foward_square(p->y));
-	printf("x: %lf | y: %lf  |  map[%d][%d] == %d\n", mlx->ray.x, mlx->ray.y, mlx->ray.map_x, mlx->ray.map_y, map[mlx->ray.map_x][mlx->ray.map_y]);
-	*/
 
 int	is_wall(t_mlx *mlx)
 {
