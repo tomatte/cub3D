@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 20:19:31 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 15:44:47 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:26:10 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	move(int key, t_mlx *mlx)
 	if (key == 'd')
 		p->mv_right = 1;
 	if (key == ARROW_RIGHT)
-		p->mv_angle_r = 0.025;
+		p->mv_angle_r = 0.005;
 	if (key == ARROW_LEFT)
-		p->mv_angle_l = -0.025;
+		p->mv_angle_l = -0.005;
 	return (1);
 }
 
@@ -52,8 +52,25 @@ static int	stop_move(int key, t_mlx *mlx)
 	return (1);
 }
 
+static int	esc_close_window(int key, t_mlx *mlx)
+{
+	if (key == ESC_KEY)
+	{
+		mlx_destroy_window(mlx->mlx, mlx->win);
+		exit(0);
+	}
+	return (0);
+}
+
+static int	key_press_handler(int key, t_mlx *mlx)
+{
+	move(key, mlx);
+	esc_close_window(key, mlx);
+	return (0);
+}
+
 void	move_hook(t_mlx *mlx)
 {
-	mlx_hook(mlx->win, KeyPress, KeyPressMask, move, mlx);
+	mlx_hook(mlx->win, KeyPress, KeyPressMask, key_press_handler, mlx);
 	mlx_hook(mlx->win, KeyRelease, KeyReleaseMask, stop_move, mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:07:33 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 19:18:46 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:45:44 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,12 @@ void	set_color(int color)
 
 	color_s = color_singleton();
 	**color_s = color;
+}
+
+int	get_color(void)
+{
+	int	**color_s;
+
+	color_s = color_singleton();
+	return (**color_s);
 }

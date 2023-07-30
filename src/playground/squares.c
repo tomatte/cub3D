@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 15:27:36 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:51:45 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,26 @@ const int map1[11][15] = {
 
 void	draw_2d_blocks(t_mlx *mlx, int size)
 {
+
+	int	i = -1;
+	int	j = -1;
 	int	x;
 	int	y;
 
 	x = 0;
 	y = 0;
-	while (1)
+	while (++i < 11)
 	{
-		if (x + size - 1 > SCREEN_WIDTH)
+		while (++j < 15)
 		{
-			x = 0;
-			y += size - 1;
+			if (map1[i][j])
+				square2(mlx, x, y, size);
+			else
+				square(mlx, x, y, size);
+			x += size;
 		}
-		if (y + size - 1 > SCREEN_HEIGHT)
-			break ;
-		if (map1[(int)(y / (size - 1))][(int)(x / (size - 1))] == 1)
-			square2(mlx, x, y, size);
-		else
-			square(mlx, x, y, size);
-		x += size - 1;
+		y += size;
+		x = 0;
+		j = -1;
 	}
 }

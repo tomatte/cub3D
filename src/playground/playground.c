@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 16:17:59 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:24:42 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,149 +37,6 @@ void	draw_player(t_mlx *mlx)
 	draw_direction_line(mlx);
 }
 
-int	looking_up(t_mlx *mlx)
-{
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int	looking_left(t_mlx *mlx)
-{
-	t_player	*p;
-
-	p = &mlx->player;
-	if (p->angle > PI / 2 && p->angle < PI + PI / 2)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-double	get_rate(double angle)
-{
-	double	rate;
-
-	rate = cos(angle) / sin(angle);
-	return (rate);
-}
-
-double	get_ray_dx(t_mlx *mlx)
-{
-	t_ray		*r;
-	double		dx;
-
-	r = &mlx->ray;
-	if (looking_left(mlx))
-		dx = (int) round(r->x) % 63;
-	else
-		dx = 63 - (int) round(r->x) % 63;
-	if (dx == 0)
-		dx = 63;
-	return (dx);
-}
-
-double	get_ray_dy(t_mlx *mlx)
-{
-	t_ray		*r;
-	double		dy;
-
-	r = &mlx->ray;
-	if (looking_up(mlx))
-		dy = (int) round(r->y) % 63;
-	else
-		dy = 63 - (int) round(r->y) % 63;
-	if (dy == 0)
-		dy = 63;
-	return (dy);
-}
-
-static double	positive(double num)
-{
-	if (num < 0)
-		return (-num);
-	return (num);
-}
-
-void	jump_next_column(t_mlx *mlx)
-{
-	t_ray		*r;
-	t_player	*p;
-	double		rdx;
-	double		rdy;
-
-	r = &mlx->ray;
-	p = &mlx->player;
-	rdx = get_ray_dx(mlx);
-	rdy = rdx * (sin(p->angle) / cos(p->angle));
-	if (rdy > 63 || rdx > 63)
-		return ;
-	if (looking_left(mlx))
-		r->x -= rdx;
-	else
-		r->x += rdx;
-	if (looking_up(mlx))
-		r->y -= positive(rdy);
-	else
-		r->y += positive(rdy);
-}
-
-void	jump_next_line(t_mlx *mlx)
-{
-	t_ray		*r;
-	t_player	*p;
-	double		rdx;
-	double		rdy;
-
-	r = &mlx->ray;
-	p = &mlx->player;
-	rdy = get_ray_dy(mlx);
-	rdx = rdy * (cos(p->angle) / sin(p->angle));
-	if (rdy > 63 || rdx > 63)
-		return ;
-	if (looking_up(mlx))
-		r->y -= rdy;
-	else
-		r->y += rdy;
-	if (looking_left(mlx))
-		r->x -= positive(rdx);
-	else
-		r->x += positive(rdx);
-}
-
-double	dmax(double a, double b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int	column_nearest(t_mlx *mlx)
-{
-	double		rdx1;
-	double		rdy1;
-	double		rdx2;
-	double		rdy2;
-	double		angle;
-
-	angle = mlx->player.angle;
-	//base y or lines
-	rdy1 = get_ray_dy(mlx);
-	rdx1 = rdy1 * (cos(angle) / sin(angle));
-
-	//base x or columns
-	rdx2 = get_ray_dx(mlx);
-	rdy2 = rdx2 * (sin(angle) / cos(angle));
-	if (dmax(rdy1, positive(rdx1)) > dmax(positive(rdy2), rdx2))
-		return (1);
-	return (0);
-}
-
 const int map[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -194,130 +51,193 @@ const int map[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
+double	get_rdy(double rdx, double angle)
+{
+	double	rd_rate;
+	double	rdy;
+
+	if (angle == PI / 2 || angle == PI + PI / 2)
+		return (0);
+	rd_rate = positive(cos(angle) / sin(angle));
+	rdy = rdx / rd_rate;
+	if (looking_up(angle))
+		return (negative(rdy));
+	return (positive(rdy));
+}
+
+double	get_rdx(double rdy, double angle)
+{
+	double	rd_rate;
+	double	rdx;
+
+	if (angle == 0 || angle == PI)
+		return (0);
+	rd_rate = positive(sin(angle) / cos(angle));
+	rdx = rdy / rd_rate;
+	if (looking_left(angle))
+		return (negative(rdx));
+	return (positive(rdx));
+}
+
+void	calc_next_column_values(t_mlx *mlx)
+{
+	t_ray		*r;
+
+	r = &mlx->ray;
+	if (looking_left(r->angle))
+		r->column_x = backward_square(r->x);
+	else
+		r->column_x = foward_square(r->x);
+	r->rdx_col = r->column_x - r->x;
+	r->rdy_col = get_rdy(r->rdx_col, r->angle);
+	r->column_y = r->y + r->rdy_col;
+}
+
+void	calc_next_row_values(t_mlx *mlx)
+{
+	t_ray		*r;
+
+	r = &mlx->ray;
+	if (looking_up(r->angle))
+		r->row_y = backward_square(r->y);
+	else
+		r->row_y = foward_square(r->y);
+	r->rdy_row = r->row_y - r->y;
+	r->rdx_row = get_rdx(r->rdy_row, r->angle);
+	r->row_x = r->x + r->rdx_row;
+}
+
+void	jump_to_next_square(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		old_x;
+	int		old_y;
+	double	dox;
+	double	doy;
+
+	r = &mlx->ray;
+	dox = r->x;
+	doy = r->y;
+	old_x = (int) round(r->x);
+	old_y = (int) round(r->y);
+	if (positive(r->rdx_col) + positive(r->rdy_col) <
+		positive(r->rdx_row) + positive(r->rdy_row) ||
+		r->rdy_col == 0)
+	{
+		r->x  = r->column_x;
+		r->y  = r->column_y;
+	}
+	else
+	{
+		r->x  = r->row_x;
+		r->y  = r->row_y;
+	}
+}
+
 int	is_wall(t_mlx *mlx)
 {
 	t_ray	*r;
-	int		map_column;
-	int		map_line;
+	int		x;
+	int		y;
 
 	r = &mlx->ray;
-	if (looking_left(mlx))
-		map_column = (int) ceil(round(r->x) / 63.0);
+	if (looking_left(r->angle))
+		x = (int) (r->x / TILE_SIZE);
 	else
-		map_column = (int) floor(round(r->x) / 63.0);
-	if (looking_up(mlx))
-		map_line = (int) ceil(round(r->y) / 63.0);
+		x = (int) (ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int) (r->y / TILE_SIZE);
 	else
-		map_line = (int) floor(round(r->y) / 63.0);
-	if (map[map_line][map_column] == 1)
-		{
-			printf("map_line = %d, map_column = %d\n", map_line, map_column);
-			return (1);}
-	return (0);
+		y = (int) (ceil(r->y) / TILE_SIZE);
+	return (map[y][x]);
+}
+
+double	get_ray_distance(t_mlx *mlx)
+{
+	t_ray		*r;
+	t_player	*p;
+	double		h;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
+	return (h);
 }
 
 void	dda_ray(t_mlx *mlx)
 {
-	t_player	*p;
-	t_ray		*r;
-	int			i = 0;
+	t_ray	*r;
+	int		i = 0;
 
-	double		old_x;
-	double		old_y;
-
-	p = &mlx->player;
 	r = &mlx->ray;
-	r->x = p->x + 4;
-	r->y = p->y + 4;
-	while (i++ < 20)
+	r->x = mlx->player.x + P_SIZE / 2;
+	r->y = mlx->player.y + P_SIZE / 2;
+	r->map_x = (int) (r->x / TILE_SIZE);
+	r->map_y = (int) (r->y / TILE_SIZE);
+	while (i++ < 16)
 	{
-		old_x = r->x;
-		old_y = r->y;
-		if (column_nearest(mlx))
-			jump_next_column(mlx);
-		else
-			jump_next_line(mlx);
-		if (r->x > SCREEN_WIDTH || r->y > SCREEN_HEIGHT || r->x < 0 || r->y < 0)
-			break ;
-		draw_line(mlx, points((int) round(old_x), (int) round(old_y), (int) round(r->x), (int) round(r->y)));
+		calc_next_column_values(mlx);
+		calc_next_row_values(mlx);
+		jump_to_next_square(mlx);
 		if (is_wall(mlx))
-		{
-			//printf("line: %d  | column: %d  |  rx: %lf  |  ry: %lf\n", map_line, map_column, r->x, r->y);
 			break ;
-		}
+		if (r->map_x < 0 || r->map_x > 14 || r->map_y < 0 || r->map_y > 10)
+			break ;
 	}
 }
 
-double	normalize_angle(double angle)
+void	transform_to_3d(t_mlx *mlx, int i)
 {
-	angle = remainder(angle, 2 * PI);
-	if (angle < 0)
-		angle = 2 * PI + angle;
-	return (angle);
-}
+	t_ray	*r;
+	double	line_length;
+	double	aux;
+	int		line_mod = (int) (SCREEN_WIDTH / 40);
+	double	nx;
+	double	ny;
+	double	line_begin;
+	double	line_end;
 
-double	degrees_to_radians(double degrees)
-{
-	return (degrees * PI / 180.0);
-}
-
-static void	camera_plane(t_mlx *mlx)
-{
-	t_player	*p;
-	t_ray		*r;
-	double		cam_angle;
-	double		bx;
-	double		by;
-	double		x1;
-	double		y1;
-	double		x2;
-	double		y2;
-
-	p = &mlx->player;
 	r = &mlx->ray;
-	//rotate angle 90 degrees
-	cam_angle = normalize_angle(p->angle + PI / 2);
-
-	//move camera plane center ahead of player vision
-	bx = p->x + cos(p->angle) * 30;
-	by = p->y + sin(p->angle) * 30;
-
-	//get points of camera plane's extreme left and right to draw a line between them
-	x1 = bx + cos(cam_angle) * 30;
-	y1 = by + sin(cam_angle) * 30;
-	x2 = bx - cos(cam_angle) * 30;
-	y2 = by - sin(cam_angle) * 30;
-	draw_line(mlx, points((int) round(x1), (int) round(y1), (int) round(x2), (int) round(y2)));
+	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
+	aux = r->y - line_length;
+	if (aux < 0)
+		aux = 0;
+	ny = SCREEN_HEIGHT / 2;
+	nx = i * line_mod;
+	line_begin = ny + (line_length / 2);
+	line_end = ny - (line_length / 2);
+	draw_line(mlx, points(nx, line_begin, nx, line_end));
 }
-
 
 static void	multiple_rays(t_mlx *mlx)
 {
-	double	save_angle;
 	double	ray_mod;
 	double	sum;
 	double	vision_angle;
 	double	limit_angle;
+	t_player	*p;
+	t_ray		*r;
+	int			i = 0;
 
-	save_angle = mlx->player.angle;
-	vision_angle = degrees_to_radians(40);
-	ray_mod = vision_angle / 40;
+	p = &mlx->player;
+	r = &mlx->ray;
+	vision_angle = degrees_to_radians(60);
+	ray_mod = vision_angle / 60;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
 	while (sum < limit_angle)
 	{
-		mlx->player.angle = normalize_angle(save_angle + sum);
+		r->angle = normalize_angle(p->angle + sum);
 		dda_ray(mlx);
+		transform_to_3d(mlx, i++);
 		sum += ray_mod;
 	}
-	mlx->player.angle = save_angle;
 }
 
 static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
-	draw_player(mlx);
-	dda_ray(mlx);
+	//draw_player(mlx);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 }
@@ -326,8 +246,8 @@ int	keep_drawing(t_mlx *mlx)
 {
 	eraser(mlx);
 	update_player_position(mlx);
-	draw_2d_blocks(mlx, 64);
-	draw_player(mlx);
+	//draw_2d_blocks(mlx, TILE_SIZE);
+	//draw_player(mlx);
 	set_color(RED);
 	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
