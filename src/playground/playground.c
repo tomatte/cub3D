@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 18:42:25 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:13:01 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,12 @@ void	jump_to_next_square(t_mlx *mlx)
 	t_ray	*r;
 	int		old_x;
 	int		old_y;
+	double	dox;
+	double	doy;
 
 	r = &mlx->ray;
+	dox = r->x;
+	doy = r->y;
 	old_x = (int) round(r->x);
 	old_y = (int) round(r->y);
 	if (positive(r->rdx_col) + positive(r->rdy_col) <
@@ -129,10 +133,34 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->y  = r->row_y;
 	}
 	draw_line(mlx, points(old_x, old_y, (int) round(r->x), (int) round(r->y)));
+	if (r->x >= TILE_SIZE * 15 || r->y >= TILE_SIZE * 11 - 30)
+	{
+		printf("dox: %lf | doy: %lf  |  (intxy)[%d|%d]\n", dox, doy, (int) dox, (int) doy);
+	}
 }
 
 /* 	printf("x: %lf |  backward: %lf  |  forward: %lf \n", p->x, backward_square(p->x), foward_square(p->x));
-	printf("y: %lf |  backward: %lf  |  forward: %lf \n", p->y, backward_square(p->y), foward_square(p->y)); */
+	printf("y: %lf |  backward: %lf  |  forward: %lf \n", p->y, backward_square(p->y), foward_square(p->y));
+	printf("x: %lf | y: %lf  |  map[%d][%d] == %d\n", mlx->ray.x, mlx->ray.y, mlx->ray.map_x, mlx->ray.map_y, map[mlx->ray.map_x][mlx->ray.map_y]);
+	*/
+
+int	is_wall(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		x;
+	int		y;
+
+	r = &mlx->ray;
+	if (looking_left(r->angle))
+		x = (int) (r->x / TILE_SIZE);
+	else
+		x = (int) (ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int) (r->y / TILE_SIZE);
+	else
+		y = (int) (ceil(r->y) / TILE_SIZE);
+	return (map[y][x]);
+}
 
 void	dda_ray(t_mlx *mlx)
 {
@@ -140,14 +168,19 @@ void	dda_ray(t_mlx *mlx)
 
 	mlx->ray.x = mlx->player.x + P_SIZE / 2;
 	mlx->ray.y = mlx->player.y + P_SIZE / 2;
-	mlx->ray.angle = mlx->player.angle;
+	//mlx->ray.angle = mlx->player.angle;
+	mlx->ray.map_x = (int) (mlx->ray.x / TILE_SIZE);
+	mlx->ray.map_y = (int) (mlx->ray.y / TILE_SIZE);
 	while (i++ < 16)
 	{
 		calc_next_column_values(mlx);
 		calc_next_row_values(mlx);
 		jump_to_next_square(mlx);
-		printf("test\n");
-		printf("x: %lf | y: %lf\n", mlx->ray.x, mlx->ray.y);
+		if (is_wall(mlx))
+			break ;
+		//printf("(%d) map_x: %d | map_y: %d  |  map_return: %d\n", i, mlx->ray.map_x, mlx->ray.map_y, );
+		if (mlx->ray.map_x < 0 || mlx->ray.map_x > 14 || mlx->ray.map_y < 0 || mlx->ray.map_y > 10)
+			break ;
 	}
 }
 
@@ -178,7 +211,7 @@ static void	eraser(t_mlx *mlx)
 {
 	set_color(0x0);
 	draw_player(mlx);
-	dda_ray(mlx);
+	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 }
 
@@ -189,7 +222,7 @@ int	keep_drawing(t_mlx *mlx)
 	draw_2d_blocks(mlx, TILE_SIZE);
 	draw_player(mlx);
 	set_color(RED);
-	dda_ray(mlx);
+	multiple_rays(mlx);
 	set_color(DEFAULT_COLOR);
 	put_image(mlx);
 	return (1);
