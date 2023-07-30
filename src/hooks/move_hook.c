@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 20:19:31 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/21 11:03:23 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:26:10 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	move(int key, t_mlx *mlx)
 	if (key == 'd')
 		p->mv_right = 1;
 	if (key == ARROW_RIGHT)
-		p->mv_angle_r = 0.025;
+		p->mv_angle_r = 0.005;
 	if (key == ARROW_LEFT)
-		p->mv_angle_l = -0.025;
+		p->mv_angle_l = -0.005;
 	return (1);
 }
 

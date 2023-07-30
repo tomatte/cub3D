@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/30 18:23:53 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:24:42 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,8 +221,8 @@ static void	multiple_rays(t_mlx *mlx)
 
 	p = &mlx->player;
 	r = &mlx->ray;
-	vision_angle = degrees_to_radians(40);
-	ray_mod = vision_angle / 40;
+	vision_angle = degrees_to_radians(60);
+	ray_mod = vision_angle / 60;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
 	while (sum < limit_angle)
