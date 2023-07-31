@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 17:47:56 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 10:21:49 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 
 # define P_SIZE 8
 # define TILE_SIZE 64
+# define TOTAL_RAYS 60
+# define VISION_ANGLE 45
 
 typedef struct	s_player
 {

@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 10:11:37 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 10:22:18 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	transform_to_3d(t_mlx *mlx, int i)
 	t_ray	*r;
 	double	line_length;
 	double	aux;
-	int		line_mod = (int) (SCREEN_WIDTH / 60);
+	int		line_mod = (int) (SCREEN_WIDTH / TOTAL_RAYS);
 	double	nx;
 	double	ny;
 	double	line_begin;
@@ -234,8 +234,8 @@ static void	multiple_rays(t_mlx *mlx)
 
 	p = &mlx->player;
 	r = &mlx->ray;
-	vision_angle = degrees_to_radians(60);
-	ray_mod = vision_angle / 60;
+	vision_angle = degrees_to_radians(VISION_ANGLE);
+	ray_mod = vision_angle / TOTAL_RAYS;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
 	while (sum < limit_angle)
