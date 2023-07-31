@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/30 18:24:42 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 10:11:37 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,12 +186,25 @@ void	dda_ray(t_mlx *mlx)
 	}
 }
 
+static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < size)
+	{
+		draw_line(mlx, points);
+		points.x++;
+		points.x2++;
+	}
+}
+
 void	transform_to_3d(t_mlx *mlx, int i)
 {
 	t_ray	*r;
 	double	line_length;
 	double	aux;
-	int		line_mod = (int) (SCREEN_WIDTH / 40);
+	int		line_mod = (int) (SCREEN_WIDTH / 60);
 	double	nx;
 	double	ny;
 	double	line_begin;
@@ -206,7 +219,7 @@ void	transform_to_3d(t_mlx *mlx, int i)
 	nx = i * line_mod;
 	line_begin = ny + (line_length / 2);
 	line_end = ny - (line_length / 2);
-	draw_line(mlx, points(nx, line_begin, nx, line_end));
+	draw_wide_line(mlx, points(nx, line_begin, nx, line_end), line_mod);
 }
 
 static void	multiple_rays(t_mlx *mlx)
@@ -217,7 +230,7 @@ static void	multiple_rays(t_mlx *mlx)
 	double	limit_angle;
 	t_player	*p;
 	t_ray		*r;
-	int			i = 0;
+	int			i = -1;
 
 	p = &mlx->player;
 	r = &mlx->ray;
@@ -229,7 +242,7 @@ static void	multiple_rays(t_mlx *mlx)
 	{
 		r->angle = normalize_angle(p->angle + sum);
 		dda_ray(mlx);
-		transform_to_3d(mlx, i++);
+		transform_to_3d(mlx, ++i);
 		sum += ray_mod;
 	}
 }
