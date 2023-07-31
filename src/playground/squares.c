@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 15:51:45 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:29:25 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ void	square2(t_mlx *mlx, int x, int y, int size)
 	x2 = x + size - 1;
 	i = -1;
 	while (++i < size)
+		draw_line(mlx, points(x, y + i, x2, y + i));
+}
+
+void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y)
+{
+	int	i;
+	int	x2;
+	int	y2;
+
+	x2 = x + size_x - 1;
+	y2 = y + size_y - 1;
+	i = -1;
+	while (++i < size_y)
 		draw_line(mlx, points(x, y + i, x2, y + i));
 }
 

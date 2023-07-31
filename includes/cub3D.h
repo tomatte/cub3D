@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 10:21:49 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:41:03 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ double	round_base(double num, int base);
 double	negative(double num);
 int		has_floats(double num);
 double	foward_square(double position);
-double backward_square(double position);
+double 	backward_square(double position);
+void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y);
+void	draw_background(t_mlx *mlx);
 
 #endif
