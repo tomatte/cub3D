@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 23:45:19 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 23:55:27 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void	draw_line(t_mlx *mlx, t_line line)
 void	draw_line2(t_mlx *mlx, t_line line, int index)
 {
 	int	i;
-	int	texture_y;
 	int	mod;
 
-	texture_y = -line.y;
 	asign_values(&line);
 	mod = line.longest / 64;
 	if (mod <= 0)
