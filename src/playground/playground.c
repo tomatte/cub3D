@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 12:37:27 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/07/31 23:42:34 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,9 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	i = 0;
 	while (i++ < size)
 	{
-		draw_line(mlx, points);
+		draw_line2(mlx, points, mlx->texture_index++);
+		if (mlx->texture_index >= 64)
+			mlx->texture_index = 0;
 		points.x++;
 		points.x2++;
 	}
@@ -238,6 +240,7 @@ static void	multiple_rays(t_mlx *mlx)
 	ray_mod = vision_angle / TOTAL_RAYS;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
+	mlx->texture_index = 0;
 	while (sum < limit_angle)
 	{
 		r->angle = normalize_angle(p->angle + sum);
