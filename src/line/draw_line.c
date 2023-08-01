@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 23:55:27 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:59:58 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_line(t_mlx *mlx, t_line line)
 	}
 }
 
-void	draw_line2(t_mlx *mlx, t_line line, int index)
+void	draw_line_textured(t_mlx *mlx, t_line line, int index)
 {
 	int	i;
 	int	mod;
@@ -60,7 +60,7 @@ void	draw_line2(t_mlx *mlx, t_line line, int index)
 	while (++i <= line.longest)
 	{
 		if (i % mod == 0)
-			set_color(mlx->texture_addr[i / mod + (64 * index)]);
+			set_color(mlx->texture_addr[i / mod + (mlx->texture_width * index)]);
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);

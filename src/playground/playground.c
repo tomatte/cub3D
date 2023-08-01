@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 23:42:34 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:00:37 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,8 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	i = 0;
 	while (i++ < size)
 	{
-		draw_line2(mlx, points, mlx->texture_index++);
-		if (mlx->texture_index >= 64)
+		draw_line_textured(mlx, points, mlx->texture_index++);
+		if (mlx->texture_index >= mlx->texture_height)
 			mlx->texture_index = 0;
 		points.x++;
 		points.x2++;

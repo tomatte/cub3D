@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/31 23:40:03 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:54:34 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_mlx
 	void		*texture_img;
 	int			*texture_addr;
 	int			texture_index;
+	int			texture_width;
+	int			texture_height;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -131,7 +133,7 @@ int		get_color(void);
 //line
 void	asign_values(t_line *line);
 void	draw_line(t_mlx *mlx, t_line line);
-void	draw_line2(t_mlx *mlx, t_line line, int index);
+void	draw_line_textured(t_mlx *mlx, t_line line, int index);
 t_line	points(int x, int y, int x2, int y2);
 
 //hooks
