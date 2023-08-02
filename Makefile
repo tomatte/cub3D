@@ -11,6 +11,8 @@ SRC			=	main.c \
 				move_calc.c \
 				squares.c \
 				ray_tools.c \
+				dda_ray.c \
+				multiple_rays_to_3d.c \
 
 
 INCLUDES	=	-I./includes

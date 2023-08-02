@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/01 09:54:34 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:23:45 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void	square2(t_mlx *mlx, int x, int y, int size);
 void	draw_player(t_mlx *mlx);
 int		keep_drawing(t_mlx *mlx);
 void	draw_2d_blocks(t_mlx *mlx, int size);
+void	dda_ray(t_mlx *mlx);
+void	multiple_rays(t_mlx *mlx);
 
 //move
 void	update_player_position(t_mlx *mlx);
@@ -167,5 +169,7 @@ double 	backward_square(double position);
 void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y);
 void	draw_background(t_mlx *mlx);
 double	get_ray_distance(t_mlx *mlx);
+double	get_rdy(double rdx, double angle);
+double	get_rdx(double rdy, double angle);
 
 #endif

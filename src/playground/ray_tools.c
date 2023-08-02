@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 17:14:42 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:18:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,32 @@ double	get_ray_distance(t_mlx *mlx)
 	p = &mlx->player;
 	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
 	return (h);
+}
+
+double	get_rdy(double rdx, double angle)
+{
+	double	rd_rate;
+	double	rdy;
+
+	if (angle == PI / 2 || angle == PI + PI / 2)
+		return (0);
+	rd_rate = positive(cos(angle) / sin(angle));
+	rdy = rdx / rd_rate;
+	if (looking_up(angle))
+		return (negative(rdy));
+	return (positive(rdy));
+}
+
+double	get_rdx(double rdy, double angle)
+{
+	double	rd_rate;
+	double	rdx;
+
+	if (angle == 0 || angle == PI)
+		return (0);
+	rd_rate = positive(sin(angle) / cos(angle));
+	rdx = rdy / rd_rate;
+	if (looking_left(angle))
+		return (negative(rdx));
+	return (positive(rdx));
 }
