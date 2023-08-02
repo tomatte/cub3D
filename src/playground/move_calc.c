@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_calc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:24:11 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/11 15:45:33 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:50:14 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	move_player(t_mlx *mlx)
 	if (p->mv_down)
 	{
 		p->x -= p->delta_x / slow;
-		p->y -= p->delta_y/ slow;
+		p->y -= p->delta_y / slow;
 	}
 	if (p->mv_left)
 	{

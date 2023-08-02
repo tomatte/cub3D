@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/02 14:16:18 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:42:23 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ void	jump_to_next_square(t_mlx *mlx)
 	t_ray	*r;
 
 	r = &mlx->ray;
-	if (positive(r->rdx_col) + positive(r->rdy_col) <
-		positive(r->rdx_row) + positive(r->rdy_row) ||
-		r->rdy_col == 0)
+	if (positive(r->rdx_col) + positive(r->rdy_col)
+		< positive(r->rdx_row) + positive(r->rdy_row)
+		|| r->rdy_col == 0)
 	{
-		r->x  = r->column_x;
-		r->y  = r->column_y;
+		r->x = r->column_x;
+		r->y = r->column_y;
 	}
 	else
 	{
-		r->x  = r->row_x;
-		r->y  = r->row_y;
+		r->x = r->row_x;
+		r->y = r->row_y;
 	}
 }
 
@@ -81,26 +81,27 @@ int	is_wall(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (looking_left(r->angle))
-		x = (int) (r->x / TILE_SIZE);
+		x = (int)(r->x / TILE_SIZE);
 	else
-		x = (int) (ceil(r->x) / TILE_SIZE);
+		x = (int)(ceil(r->x) / TILE_SIZE);
 	if (looking_up(r->angle))
-		y = (int) (r->y / TILE_SIZE);
+		y = (int)(r->y / TILE_SIZE);
 	else
-		y = (int) (ceil(r->y) / TILE_SIZE);
+		y = (int)(ceil(r->y) / TILE_SIZE);
 	return (map[y][x]);
 }
 
 void	dda_ray(t_mlx *mlx)
 {
 	t_ray	*r;
-	int		i = 0;
+	int		i;
 
 	r = &mlx->ray;
 	r->x = mlx->player.x + P_SIZE / 2;
 	r->y = mlx->player.y + P_SIZE / 2;
-	r->map_x = (int) (r->x / TILE_SIZE);
-	r->map_y = (int) (r->y / TILE_SIZE);
+	r->map_x = (int)(r->x / TILE_SIZE);
+	r->map_y = (int)(r->y / TILE_SIZE);
+	i = 0;
 	while (i++ < 16)
 	{
 		calc_next_column_values(mlx);

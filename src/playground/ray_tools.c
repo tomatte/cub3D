@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/02 14:18:08 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:43:29 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ double	round_base(double num, int base)
 {
 	double	result;
 
-	result =  round( num / (double) base) * base;
-	return result;
+	result = round(num / (double) base) * base;
+	return (result);
 }
 
 double	negative(double num)
@@ -83,7 +83,7 @@ double	foward_square(double position)
 	return (round_base(result, TILE_SIZE));
 }
 
-double backward_square(double position)
+double	backward_square(double position)
 {
 	double	result;
 

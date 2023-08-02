@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/01 10:47:59 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:35:05 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	init_texture_image(t_mlx *mlx)
 	int		aux;
 
 	mlx->texture_img = mlx_xpm_file_to_image(
-		mlx->mlx,
-		"./whatsapp-256.xpm",
-		&mlx->texture_width,
-		&mlx->texture_height
-	);
+			mlx->mlx,
+			"./whatsapp-256.xpm",
+			&mlx->texture_width,
+			&mlx->texture_height
+			);
 	mlx->texture_addr = (int *) mlx_get_data_addr(
 			mlx->texture_img,
 			&aux,
