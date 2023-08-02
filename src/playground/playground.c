@@ -110,16 +110,8 @@ void	calc_next_row_values(t_mlx *mlx)
 void	jump_to_next_square(t_mlx *mlx)
 {
 	t_ray	*r;
-	int		old_x;
-	int		old_y;
-	double	dox;
-	double	doy;
 
 	r = &mlx->ray;
-	dox = r->x;
-	doy = r->y;
-	old_x = (int) round(r->x);
-	old_y = (int) round(r->y);
 	if (positive(r->rdx_col) + positive(r->rdy_col) <
 		positive(r->rdx_row) + positive(r->rdy_row) ||
 		r->rdy_col == 0)
@@ -152,18 +144,6 @@ int	is_wall(t_mlx *mlx)
 	return (map[y][x]);
 }
 
-double	get_ray_distance(t_mlx *mlx)
-{
-	t_ray		*r;
-	t_player	*p;
-	double		h;
-
-	r = &mlx->ray;
-	p = &mlx->player;
-	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
-	return (h);
-}
-
 void	dda_ray(t_mlx *mlx)
 {
 	t_ray	*r;
@@ -193,7 +173,7 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	i = 0;
 	while (i++ < size)
 	{
-		draw_line_textured(mlx, points, mlx->texture_index++);
+		draw_line(mlx, points);
 		if (mlx->texture_index >= mlx->texture_height)
 			mlx->texture_index = 0;
 		points.x++;

@@ -40,10 +40,8 @@ void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y)
 {
 	int	i;
 	int	x2;
-	int	y2;
 
 	x2 = x + size_x - 1;
-	y2 = y + size_y - 1;
 	i = -1;
 	while (++i < size_y)
 		draw_line(mlx, points(x, y + i, x2, y + i));

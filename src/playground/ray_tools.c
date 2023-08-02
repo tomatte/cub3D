@@ -90,3 +90,15 @@ double backward_square(double position)
 	result = position - ((int) round(position) % TILE_SIZE);
 	return (round_base(result, TILE_SIZE) - 1);
 }
+
+double	get_ray_distance(t_mlx *mlx)
+{
+	t_ray		*r;
+	t_player	*p;
+	double		h;
+
+	r = &mlx->ray;
+	p = &mlx->player;
+	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
+	return (h);
+}

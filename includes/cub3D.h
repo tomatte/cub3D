@@ -166,5 +166,6 @@ double	foward_square(double position);
 double 	backward_square(double position);
 void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y);
 void	draw_background(t_mlx *mlx);
+double	get_ray_distance(t_mlx *mlx);
 
 #endif

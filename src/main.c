@@ -15,16 +15,14 @@
 void	init_texture_image(t_mlx *mlx)
 {
 	int		aux;
-	int		i;
-	int		j;
 
 	mlx->texture_img = mlx_xpm_file_to_image(
 		mlx->mlx,
-		"./_n_317.xpm",
+		"./whatsapp-256.xpm",
 		&mlx->texture_width,
 		&mlx->texture_height
 	);
-	mlx->texture_addr = mlx_get_data_addr(
+	mlx->texture_addr = (int *) mlx_get_data_addr(
 			mlx->texture_img,
 			&aux,
 			&aux,

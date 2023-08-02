@@ -50,17 +50,11 @@ void	draw_line(t_mlx *mlx, t_line line)
 void	draw_line_textured(t_mlx *mlx, t_line line, int index)
 {
 	int	i;
-	int	mod;
 
 	asign_values(&line);
-	mod = line.longest / 64;
-	if (mod <= 0)
-		mod = 1;
 	i = -1;
 	while (++i <= line.longest)
 	{
-		if (i % mod == 0)
-			set_color(mlx->texture_addr[i / mod + (mlx->texture_width * index)]);
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
