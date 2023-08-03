@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/02 14:48:10 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/02 15:57:05 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	i = 0;
 	while (i++ < size)
 	{
-		draw_line(mlx, points);
+		draw_line_textured(mlx, points, size);
 		if (mlx->texture_index >= mlx->texture_height)
 			mlx->texture_index = 0;
 		points.x++;
@@ -48,6 +48,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	nx = i * line_mod;
 	line_begin = ny + (line_length / 2);
 	line_end = ny - (line_length / 2);
+	//printf("lengh: %lf  |  lengt/tile: %lf\n", line_length, line_length / TILE_SIZE);
 	draw_wide_line(mlx, points(nx, line_begin, nx, line_end), line_mod);
 }
 

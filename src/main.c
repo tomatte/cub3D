@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/02 14:35:05 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/02 15:26:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_texture_image(t_mlx *mlx)
 			&aux,
 			&aux,
 			&aux);
+	printf("img_width: %d  |  img_height: %d\n", mlx->texture_width, mlx->texture_height);
 }
 
 int	main(int argc, char *argv[])

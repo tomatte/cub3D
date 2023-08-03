@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/02 14:23:45 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/02 15:42:06 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_mlx
 	int			texture_index;
 	int			texture_width;
 	int			texture_height;
+	int			texture_line;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
