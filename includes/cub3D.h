@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/03 10:25:16 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/09 13:07:49 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ typedef struct s_ray
 	double	row_x;
 	double	is_base_x;
 	double	angle;
+	double	old_x;
+	double	old_y;
+	double	vertial_proportion;
+	double	distance;
+	double	horizontal_proportion;
+	double	tile_map_x;
+	double	tile_map_y;
 	int		map_x;
 	int		map_y;
 }	t_ray;
@@ -96,6 +103,7 @@ typedef struct s_mlx
 	int			texture_width;
 	int			texture_height;
 	int			texture_line;
+	int			ray_index_w;
 	int			***texture_colors;
 	int			bits_per_pixel;
 	int			line_length;

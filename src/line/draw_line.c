@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/03 20:52:42 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/09 13:19:53 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,43 @@ static int	color_line(t_mlx *mlx, int line_index)
 	return (color_line);
 }
 
+static void	pick_color(t_mlx *mlx)
+{
+	t_ray			*r;
+	unsigned int	c;
+	double			tile_img_proportion;
+	int				x;
+	int				y;
+
+	tile_img_proportion = mlx->texture_width / TILE_SIZE;
+	r = &mlx->ray;
+	x  = (int)  round(r->tile_map_x * tile_img_proportion);
+	y = (int)  round(r->tile_map_y);
+	if (x > mlx->texture_width - 1)
+		x = mlx->texture_width - 1;
+	if (y > mlx->texture_height - 1)
+		y = mlx->texture_height - 1;
+	c = *(mlx->texture_colors[x][y]);
+	set_color(c);
+}
+
 void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 {
+	t_ray	*r;
 	int	i;
 
+	r = &mlx->ray;
+	r->tile_map_y = 0;
 	asign_values(&line);
 	i = -1;
 	while (++i <= line.longest)
 	{
+		pick_color(mlx);
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
+		r->tile_map_y += mlx->ray.vertial_proportion;
+		//printf("img_y: %lf\n", img_y);
 	}
+	//exit(0);
 }

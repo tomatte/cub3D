@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/02 14:42:23 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/09 13:21:02 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ void	dda_ray(t_mlx *mlx)
 		calc_next_row_values(mlx);
 		jump_to_next_square(mlx);
 		if (is_wall(mlx))
+		{
+			//printf("wall: y: %lf | x: %lf\n", r->x, r->y);
 			break ;
+		}
 		if (r->map_x < 0 || r->map_x > 14 || r->map_y < 0 || r->map_y > 10)
 			break ;
 	}
