@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 14:56:49 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 15:13:32 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	pick_color(t_mlx *mlx)
 	texture = &mlx->texture;
 	r = &mlx->ray;
 	tile_img_proportion = texture->width / TILE_SIZE;
-	x  = (int)  round(r->tile_map_x * tile_img_proportion);
-	y = (int)  round(r->tile_map_y);
+	x  = (int)  round(texture->tile_map_x * tile_img_proportion);
+	y = (int)  round(texture->tile_map_y);
 	if (x >= texture->width)
 		x %= texture->width;
 	if (y >= texture->height)
@@ -79,7 +79,7 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 
 	r = &mlx->ray;
 	texture = &mlx->texture;
-	r->tile_map_y = texture->height - 1;
+	texture->tile_map_y = texture->height - 1;
 	asign_values(&line);
 	i = -1;
 	while (++i <= line.longest)
@@ -88,6 +88,6 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
-		r->tile_map_y -= texture->vertical_proportion;
+		texture->tile_map_y -= texture->vertical_proportion;
 	}
 }
