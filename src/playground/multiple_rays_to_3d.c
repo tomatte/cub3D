@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 11:01:48 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 13:21:12 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r = &mlx->ray;
 	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
-	//printf("line_mod * rays: %d\n", line_mod * TOTAL_RAYS); exit(0);
 	r->vertial_proportion = mlx->texture_height / line_length;
 	r->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
 	r->distance = positive(r->old_x - r->x);
@@ -97,12 +96,8 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	r->horizontal_proportion = r->distance / line_mod;
 	ny = SCREEN_HEIGHT / 2;
 	nx = i * line_mod;
-	//printf("distance: %lf  |  old_x: %lf  |  x: %lf\n", r->distance, r->old_x, r->x);
-	//printf("nx: %lf  |  i: %d  |  line_mod: %d  |  line_length: %lf  |  horizontal_proportion: %lf\n", nx, i, line_mod, line_length, r->horizontal_proportion);
-	//printf("x: %lf  |  y: %lf\n", r->x, r->y);
 	line_begin = ny + (line_length / 2);
 	line_end = ny - (line_length / 2);
-	//printf("lengh: %lf  |  lengt/tile: %lf\n", line_length, line_length / TILE_SIZE);
 	draw_wide_line(mlx, points(nx, line_begin, nx, line_end), line_mod);
 }
 

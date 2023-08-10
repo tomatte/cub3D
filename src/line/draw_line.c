@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 12:46:35 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 13:20:50 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,12 @@ static void	pick_color(t_mlx *mlx)
 	r = &mlx->ray;
 	x  = (int)  round(r->tile_map_x * tile_img_proportion);
 	y = (int)  round(r->tile_map_y);
-	//printf(".x: %d  |  .y: %d  |  width: %d  height: %d\n", x, y, mlx->texture_width, mlx->texture_height);
 	if (x >= mlx->texture_width)
 		x %= mlx->texture_width;
-/* 	if (x < 0)
-	{
-		//printf("x_before: %d\n", x);
-		//x = (ft_abs(x) % (mlx->texture_width - 1));
-		//printf("x_after: %d\n", x);
-	} */
-/* 	if (y < 0)
-	{
-		//printf("y_before: %d\n", y);
-		y = (mlx->texture_height - 1) - (ft_abs(y) % (mlx->texture_height - 1));
-		//printf("y_after: %d\n", y);
-	} */
 	if (y >= mlx->texture_height)
 		y %= mlx->texture_height;
 	else if (y < 0)
 		y += mlx->texture_height;
-	//printf("x: %d  |  y: %d\n", x, y);
 	c = *(mlx->texture_colors[y][x]);
 	set_color(c);
 }
@@ -107,7 +93,5 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 		line.proportion += line.shortest;
 		walk_pixel(&line);
 		r->tile_map_y -= mlx->ray.vertial_proportion;
-		//printf("img_y: %lf\n", img_y);
 	}
-	//exit(0);
 }
