@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 12:57:06 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:02:39 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@
 # define TOTAL_RAYS 81
 # define VISION_ANGLE 40
 
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
+
 typedef struct	s_player
 {
 	double	x;
@@ -57,6 +62,22 @@ typedef struct	s_player
 	double	delta_x;
 	double	delta_y;
 }	t_player;
+
+typedef struct s_texture
+{
+	void		*img;
+	int			*addr;
+	int			index;
+	int			width;
+	int			height;
+	int			line;
+	int			direction_code;
+	int			***colors;
+	double	vertial_proportion;
+	double	horizontal_proportion;
+	double	tile_map_x;
+	double	tile_map_y;
+}	t_texture;
 
 typedef struct s_ray
 {
@@ -81,6 +102,10 @@ typedef struct s_ray
 	double	angle;
 	double	old_x;
 	double	old_y;
+	double	line_length;
+	int		line_mod;
+	double	line_begin;
+	double	line_end;
 	double	vertial_proportion;
 	double	distance;
 	double	horizontal_proportion;
@@ -98,6 +123,7 @@ typedef struct s_mlx
 	void		*win;
 	void		*img;
 	char		*addr;
+	t_texture	texture;
 	void		*texture_img;
 	int			*texture_addr;
 	int			texture_index;

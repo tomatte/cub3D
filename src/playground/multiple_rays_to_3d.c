@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 13:21:12 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:04:51 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,16 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 
 static void	transform_to_3d(t_mlx *mlx, int i)
 {
-	t_ray	*r;
-	double	line_length;
-	int		line_mod;
-	double	nx;
-	double	ny;
-	double	line_begin;
-	double	line_end;
+	t_ray		*r;
+	t_texture	*texture;
+	double		nx;
+	double		ny;
 
-	line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r = &mlx->ray;
-	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
-	r->vertial_proportion = mlx->texture_height / line_length;
+	texture = &mlx->texture;
+	r->line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
+	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
+	r->vertial_proportion = texture->height / r->line_length;
 	r->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
 	r->distance = positive(r->old_x - r->x);
 	if (r->x < r->old_x || r->y < r->old_y)
@@ -93,12 +91,12 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 		r->distance  = positive(r->old_y - r->y);
 		r->tile_map_x = (int) round(r->old_y) % TILE_SIZE;
 	}
-	r->horizontal_proportion = r->distance / line_mod;
+	r->horizontal_proportion = r->distance / r->line_mod;
 	ny = SCREEN_HEIGHT / 2;
-	nx = i * line_mod;
-	line_begin = ny + (line_length / 2);
-	line_end = ny - (line_length / 2);
-	draw_wide_line(mlx, points(nx, line_begin, nx, line_end), line_mod);
+	nx = i * r->line_mod;
+	r->line_begin = ny + (r->line_length / 2);
+	r->line_end = ny - (r->line_length / 2);
+	draw_wide_line(mlx, points(nx, r->line_begin, nx, r->line_end), r->line_mod);
 }
 
 void	multiple_rays(t_mlx *mlx)
