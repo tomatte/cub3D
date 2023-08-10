@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/09 21:58:27 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 11:01:31 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 
 //screen
-# define SCREEN_WIDTH 1000
-# define SCREEN_HEIGHT 720
+# define SCREEN_WIDTH 1200
+# define SCREEN_HEIGHT 920
 
 //keys
 # define ESC_KEY 65307
@@ -40,7 +40,7 @@
 
 # define P_SIZE 8
 # define TILE_SIZE 64
-# define TOTAL_RAYS 60
+# define TOTAL_RAYS 61
 # define VISION_ANGLE 45
 
 typedef struct	s_player

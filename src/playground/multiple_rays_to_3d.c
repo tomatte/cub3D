@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 10:08:39 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 11:01:48 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	double	line_begin;
 	double	line_end;
 
-	line_mod = (int)(SCREEN_WIDTH / TOTAL_RAYS);
+	line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r = &mlx->ray;
 	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
+	//printf("line_mod * rays: %d\n", line_mod * TOTAL_RAYS); exit(0);
 	r->vertial_proportion = mlx->texture_height / line_length;
 	r->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
 	r->distance = positive(r->old_x - r->x);
