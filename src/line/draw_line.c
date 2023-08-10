@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 14:49:02 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:56:49 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,27 @@ void	draw_line(t_mlx *mlx, t_line line)
 	}
 }
 
-static int	color_line(t_mlx *mlx, int line_index)
-{
-	int	color_line;
-
-	color_line = mlx->texture_width * line_index;
-	return (color_line);
-}
-
 static void	pick_color(t_mlx *mlx)
 {
 	t_ray			*r;
+	t_texture		*texture;
 	unsigned int	c;
 	double			tile_img_proportion;
 	int				x;
 	int				y;
 
-	tile_img_proportion = mlx->texture_width / TILE_SIZE;
+	texture = &mlx->texture;
 	r = &mlx->ray;
+	tile_img_proportion = texture->width / TILE_SIZE;
 	x  = (int)  round(r->tile_map_x * tile_img_proportion);
 	y = (int)  round(r->tile_map_y);
-	if (x >= mlx->texture_width)
-		x %= mlx->texture_width;
-	if (y >= mlx->texture_height)
-		y %= mlx->texture_height;
+	if (x >= texture->width)
+		x %= texture->width;
+	if (y >= texture->height)
+		y %= texture->height;
 	else if (y < 0)
-		y += mlx->texture_height;
-	c = *(mlx->texture_colors[y][x]);
+		y += texture->height;
+	c = *(texture->colors[y][x]);
 	set_color(c);
 }
 
@@ -85,7 +79,7 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 
 	r = &mlx->ray;
 	texture = &mlx->texture;
-	r->tile_map_y = mlx->texture_height - 1;
+	r->tile_map_y = texture->height - 1;
 	asign_values(&line);
 	i = -1;
 	while (++i <= line.longest)
