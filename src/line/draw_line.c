@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 15:13:32 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 19:03:53 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static void	pick_color(t_mlx *mlx)
 		y %= texture->height;
 	else if (y < 0)
 		y += texture->height;
+	//printf("y: %d  |  x: %d  |  height: %d  |  width: %d\n", x, y, mlx->textures[mlx->texture_selected].height, mlx->textures[mlx->texture_selected].width);
+	//printf("texture -> height: %d  |  width: %d\n", texture->height, texture->width);
 	c = *(texture->colors[y][x]);
 	set_color(c);
 }

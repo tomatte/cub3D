@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 18:22:09 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 20:29:22 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 
 # define P_SIZE 8
 # define TILE_SIZE 64
-# define TOTAL_RAYS 81
+# define TOTAL_RAYS SCREEN_WIDTH
 # define VISION_ANGLE 40
 
 # define NORTH 0
@@ -126,6 +126,7 @@ typedef struct s_mlx
 	int			line_length;
 	int			endian;
 	int			color;
+	int			texture_selected;
 	t_player	player;
 	t_ray		ray;
 }	t_mlx;

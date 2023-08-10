@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 17:29:48 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 19:06:39 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	}
 }
 
+static t_texture	select_texture(t_mlx *mlx)
+{
+	t_ray		*r;
+
+	r = &mlx->ray;
+	if (r->x > r->old_x)
+		mlx->texture_selected = NORTH;
+	else if (r->y > r->old_y)
+		mlx->texture_selected = EAST;
+	else if (r->x < r->old_x)
+		mlx->texture_selected = SOUTH;
+	else
+		mlx->texture_selected = WEST;
+	return (mlx->textures[mlx->texture_selected]);
+}
+
 static void	first_texture_calculation(t_mlx *mlx)
 {
 	t_texture	*texture;
@@ -75,6 +91,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	double		ny;
 
 	r = &mlx->ray;
+	mlx->texture = select_texture(mlx);
 	texture = &mlx->texture;
 	r->line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
@@ -94,13 +111,11 @@ void	multiple_rays(t_mlx *mlx)
 	double		limit_angle;
 	t_player	*p;
 	t_ray		*r;
-	t_texture	*texture;
 	int			i;
 
 	i = -1;
 	p = &mlx->player;
 	r = &mlx->ray;
-	texture = &mlx->texture;
 	vision_angle = degrees_to_radians(VISION_ANGLE);
 	ray_mod = vision_angle / TOTAL_RAYS;
 	limit_angle = vision_angle / 2;

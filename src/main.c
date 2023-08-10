@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 18:38:05 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 19:43:54 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ void	init_texture_image(t_mlx *mlx, t_texture *texture, char *str)
 			&aux,
 			&aux,
 			&aux);
-	fill_texture_colors(&mlx->texture);
+	fill_texture_colors(texture);
 	printf("texture_width: %d  |  texture_height: %d\n", texture->width, texture->height);
 }
 
 static void	init_textures(t_mlx *mlx)
 {
-	char	*t1 = "wall_3.xpm";
-	char	*t2 = "dragon_wall_n_.xpm";
-	char	*t3 = "hacker-tomato_n_.xpm";
-	char	*t4 = "weed_paper_n_.xpm";
+	char	*t1 = "book.xpm";
+	char	*t2 = "bricks.xpm";
+	char	*t3 = "wet_sponge.xpm";
+	char	*t4 = "wall_3.xpm";
 
 	init_texture_image(mlx, &mlx->textures[0], t1);
 	init_texture_image(mlx, &mlx->textures[1], t2);
@@ -75,7 +75,6 @@ int	main(int argc, char *argv[])
 	init_minilibx(&mlx);
 	init_hooks(&mlx);
 	init_textures(&mlx);
-	init_texture_image(&mlx, &mlx.texture, "wall_3.xpm");
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
 	mlx_loop(mlx.mlx);
 	destroy_mlx(&mlx);

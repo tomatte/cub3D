@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 13:21:31 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 20:09:28 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	dda_ray(t_mlx *mlx)
 	r->map_x = (int)(r->x / TILE_SIZE);
 	r->map_y = (int)(r->y / TILE_SIZE);
 	i = 0;
-	while (i++ < 16)
+	while (1)
 	{
 		calc_next_column_values(mlx);
 		calc_next_row_values(mlx);
