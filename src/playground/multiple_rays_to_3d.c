@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 14:04:51 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:43:35 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ static void	next_index_w(t_mlx *mlx)
 
 static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 {
-	t_ray	*r;
-	int		i;
+	t_texture	*texture;
+	t_ray		*r;
+	int			i;
 
 	r = &mlx->ray;
+	texture = &mlx->texture;
 	i = 0;
 	while (i++ < size)
 	{
 		draw_line_textured(mlx, points, size);
-		if (mlx->texture_index >= mlx->texture_height)
-			mlx->texture_index = 0;
 		points.x++;
 		points.x2++;
-		//printf("tile_map_x: %lf\n", r->tile_map_x);
 		if (r->is_texture_inversed)
 		{
 			r->tile_map_x -= r->horizontal_proportion;
@@ -107,16 +106,17 @@ void	multiple_rays(t_mlx *mlx)
 	double		limit_angle;
 	t_player	*p;
 	t_ray		*r;
+	t_texture	*texture;
 	int			i;
 
 	i = -1;
 	p = &mlx->player;
 	r = &mlx->ray;
+	texture = &mlx->texture;
 	vision_angle = degrees_to_radians(VISION_ANGLE);
 	ray_mod = vision_angle / TOTAL_RAYS;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
-	mlx->texture_index = 0;
 
 	//test
 	r->angle = normalize_angle(p->angle + sum);

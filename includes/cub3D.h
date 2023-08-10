@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 14:02:39 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:43:58 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ typedef struct s_texture
 {
 	void		*img;
 	int			*addr;
-	int			index;
 	int			width;
 	int			height;
 	int			line;
 	int			direction_code;
 	int			***colors;
+	int		is_inversed;
 	double	vertial_proportion;
 	double	horizontal_proportion;
 	double	tile_map_x;
@@ -126,7 +126,6 @@ typedef struct s_mlx
 	t_texture	texture;
 	void		*texture_img;
 	int			*texture_addr;
-	int			texture_index;
 	int			texture_width;
 	int			texture_height;
 	int			texture_line;

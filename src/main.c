@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 13:56:40 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:35:56 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_texture_image(t_mlx *mlx,  char *str)
 	//printf("color: %p\nverify: %p\n", mlx->texture_colors[0][mlx->texture_width - 1], (mlx->texture_addr + mlx->texture_width - 1)); exit(0);
 }
 
-static	void	fill_texture_color2(t_texture *texture)
+static	void	fill_texture_colors2(t_texture *texture)
 {
 	int *aux;
 	int	i;
@@ -93,7 +93,7 @@ void	init_texture_image2(t_mlx *mlx,  char *str)
 			&aux,
 			&aux,
 			&aux);
-	fill_texture_colors(mlx);
+	fill_texture_colors2(&mlx->texture);
 	printf("img_width: %d  |  img_height: %d\n", mlx->texture_width, mlx->texture_height);
 	//printf("color: %p\nverify: %p\n", mlx->texture_colors[0][mlx->texture_width - 1], (mlx->texture_addr + mlx->texture_width - 1)); exit(0);
 }
