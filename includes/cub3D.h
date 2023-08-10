@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 17:21:52 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 18:22:09 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_mlx
 	void		*img;
 	char		*addr;
 	t_texture	texture;
+	t_texture	textures[4];
 	int			ray_index_w;
 	int			bits_per_pixel;
 	int			line_length;
