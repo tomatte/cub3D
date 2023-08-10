@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 14:43:35 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:50:35 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 		points.x2++;
 		if (r->is_texture_inversed)
 		{
-			r->tile_map_x -= r->horizontal_proportion;
+			r->tile_map_x -= texture->horizontal_proportion;
 			if (r->tile_map_x < 0)
 				r->tile_map_x = (TILE_SIZE - 1) - positive(r->tile_map_x);
 		}
 		else
-			r->tile_map_x += r->horizontal_proportion;
+			r->tile_map_x += texture->horizontal_proportion;
 		next_index_w(mlx);
 	}
 }
@@ -78,7 +78,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	texture = &mlx->texture;
 	r->line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
-	r->vertial_proportion = texture->height / r->line_length;
+	texture->vertical_proportion = texture->height / r->line_length;
 	r->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
 	r->distance = positive(r->old_x - r->x);
 	if (r->x < r->old_x || r->y < r->old_y)
@@ -90,7 +90,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 		r->distance  = positive(r->old_y - r->y);
 		r->tile_map_x = (int) round(r->old_y) % TILE_SIZE;
 	}
-	r->horizontal_proportion = r->distance / r->line_mod;
+	texture->horizontal_proportion = r->distance / r->line_mod;
 	ny = SCREEN_HEIGHT / 2;
 	nx = i * r->line_mod;
 	r->line_begin = ny + (r->line_length / 2);

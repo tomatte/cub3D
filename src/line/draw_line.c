@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 13:20:50 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:49:02 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ static void	pick_color(t_mlx *mlx)
 
 void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 {
-	t_ray	*r;
-	int	i;
+	t_ray		*r;
+	t_texture	*texture;
+	int			i;
 
 	r = &mlx->ray;
+	texture = &mlx->texture;
 	r->tile_map_y = mlx->texture_height - 1;
 	asign_values(&line);
 	i = -1;
@@ -92,6 +94,6 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
-		r->tile_map_y -= mlx->ray.vertial_proportion;
+		r->tile_map_y -= texture->vertical_proportion;
 	}
 }

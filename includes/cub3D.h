@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 14:43:58 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 14:49:18 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_texture
 	int			direction_code;
 	int			***colors;
 	int		is_inversed;
-	double	vertial_proportion;
+	double	vertical_proportion;
 	double	horizontal_proportion;
 	double	tile_map_x;
 	double	tile_map_y;
