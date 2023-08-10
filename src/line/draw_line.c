@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 10:04:47 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 12:46:35 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static void	pick_color(t_mlx *mlx)
 	} */
 	if (y >= mlx->texture_height)
 		y %= mlx->texture_height;
+	else if (y < 0)
+		y += mlx->texture_height;
 	//printf("x: %d  |  y: %d\n", x, y);
 	c = *(mlx->texture_colors[y][x]);
 	set_color(c);
@@ -95,7 +97,7 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 	int	i;
 
 	r = &mlx->ray;
-	r->tile_map_y = 0;
+	r->tile_map_y = mlx->texture_height - 1;
 	asign_values(&line);
 	i = -1;
 	while (++i <= line.longest)
@@ -104,7 +106,7 @@ void	draw_line_textured(t_mlx *mlx, t_line line, int size)
 		my_mlx_pixel_put(mlx, line.x, line.y);
 		line.proportion += line.shortest;
 		walk_pixel(&line);
-		r->tile_map_y += mlx->ray.vertial_proportion;
+		r->tile_map_y -= mlx->ray.vertial_proportion;
 		//printf("img_y: %lf\n", img_y);
 	}
 	//exit(0);

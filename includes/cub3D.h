@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 11:01:31 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 12:57:06 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 
 # define P_SIZE 8
 # define TILE_SIZE 64
-# define TOTAL_RAYS 61
-# define VISION_ANGLE 45
+# define TOTAL_RAYS 81
+# define VISION_ANGLE 40
 
 typedef struct	s_player
 {
