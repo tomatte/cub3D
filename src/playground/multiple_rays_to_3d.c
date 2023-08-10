@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/09 22:09:23 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 10:08:39 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 		points.x2++;
 		//printf("tile_map_x: %lf\n", r->tile_map_x);
 		if (r->is_texture_inversed)
+		{
 			r->tile_map_x -= r->horizontal_proportion;
+			if (r->tile_map_x < 0)
+				r->tile_map_x = (TILE_SIZE - 1) - positive(r->tile_map_x);
+		}
 		else
 			r->tile_map_x += r->horizontal_proportion;
 		next_index_w(mlx);
