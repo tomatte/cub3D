@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 15:12:52 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 17:29:48 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,27 @@ static void	draw_wide_line(t_mlx *mlx, t_line points, int size)
 	}
 }
 
-/* static void	transform_to_3d(t_mlx *mlx, int i)
+static void	first_texture_calculation(t_mlx *mlx)
 {
-	t_ray	*r;
-	double	line_length;
-	int		line_mod;
-	double	nx;
-	double	ny;
-	double	line_begin;
-	double	line_end;
+	t_texture	*texture;
+	t_ray		*r;
 
-	line_mod = (int)(SCREEN_WIDTH / TOTAL_RAYS);
+	texture = &mlx->texture;
 	r = &mlx->ray;
-	line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
-	ny = SCREEN_HEIGHT / 2;
-	nx = i * line_mod;
-	printf("nx: %lf  |  i: %d  |  line_mod: %d\n", nx, i, line_mod);
-	line_begin = ny + (line_length / 2);
-	line_end = ny - (line_length / 2);
-	//printf("lengh: %lf  |  lengt/tile: %lf\n", line_length, line_length / TILE_SIZE);
-	draw_wide_line(mlx, points(nx, line_begin, nx, line_end), line_mod);
-} */
+	r->gap = positive(r->old_x - r->x);
+	texture->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
+	if (r->gap == 0)
+	{
+		r->gap  = positive(r->old_y - r->y);
+		texture->tile_map_x = (int) round(r->old_y) % TILE_SIZE;
+	}
+	texture->vertical_proportion = texture->height / r->line_length;
+	texture->horizontal_proportion = r->gap / r->line_mod;
+	if (r->x < r->old_x || r->y < r->old_y)
+		r->is_texture_inversed = 1;
+	else
+		r->is_texture_inversed = 0;
+}
 
 static void	transform_to_3d(t_mlx *mlx, int i)
 {
@@ -78,19 +78,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	texture = &mlx->texture;
 	r->line_mod = (int)(SCREEN_WIDTH / (TOTAL_RAYS - 1));
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
-	texture->vertical_proportion = texture->height / r->line_length;
-	texture->tile_map_x = (int) round(r->old_x) % TILE_SIZE;
-	r->distance = positive(r->old_x - r->x);
-	if (r->x < r->old_x || r->y < r->old_y)
-		r->is_texture_inversed = 1;
-	else
-		r->is_texture_inversed = 0;
-	if (r->distance == 0)
-	{
-		r->distance  = positive(r->old_y - r->y);
-		texture->tile_map_x = (int) round(r->old_y) % TILE_SIZE;
-	}
-	texture->horizontal_proportion = r->distance / r->line_mod;
+	first_texture_calculation(mlx);
 	ny = SCREEN_HEIGHT / 2;
 	nx = i * r->line_mod;
 	r->line_begin = ny + (r->line_length / 2);

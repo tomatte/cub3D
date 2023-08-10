@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 15:16:00 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 17:21:52 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_ray
 	int		line_mod;
 	double	line_begin;
 	double	line_end;
-	double	distance;
+	double	gap;
 	int		is_texture_inversed;
 	int		map_x;
 	int		map_y;
