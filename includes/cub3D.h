@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/09 13:07:49 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/09 21:58:27 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_ray
 	double	horizontal_proportion;
 	double	tile_map_x;
 	double	tile_map_y;
+	int		is_texture_inversed;
 	int		map_x;
 	int		map_y;
 }	t_ray;
