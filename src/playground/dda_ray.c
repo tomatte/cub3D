@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 20:09:28 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 21:36:48 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void	jump_to_next_square(t_mlx *mlx)
 	{
 		r->x = r->column_x;
 		r->y = r->column_y;
+		r->is_base_x = 1;
 	}
 	else
 	{
 		r->x = r->row_x;
 		r->y = r->row_y;
+		r->is_base_x = 0;
 	}
 }
 
@@ -108,8 +110,6 @@ void	dda_ray(t_mlx *mlx)
 		calc_next_row_values(mlx);
 		jump_to_next_square(mlx);
 		if (is_wall(mlx))
-			break ;
-		if (r->map_x < 0 || r->map_x > 14 || r->map_y < 0 || r->map_y > 10)
 			break ;
 	}
 }

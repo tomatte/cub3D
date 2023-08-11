@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/09 12:53:11 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/10 21:06:35 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ double	get_ray_distance(t_mlx *mlx)
 
 	r = &mlx->ray;
 	p = &mlx->player;
-	h = sqrt(pow(positive(r->old_x - p->x), 2) + pow(positive(r->old_y - p->y), 2));
+	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
 	return (h);
 }
 
