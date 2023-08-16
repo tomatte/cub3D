@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 19:43:54 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/13 22:10:26 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	init_texture_image(t_mlx *mlx, t_texture *texture, char *str)
 
 static void	init_textures(t_mlx *mlx)
 {
-	char	*t1 = "book.xpm";
-	char	*t2 = "bricks.xpm";
+	char	*t1 = "dragon_wall_n_.xpm";
+	char	*t2 = "hacker-tomato_n_.xpm";
 	char	*t3 = "wet_sponge.xpm";
 	char	*t4 = "wall_3.xpm";
 

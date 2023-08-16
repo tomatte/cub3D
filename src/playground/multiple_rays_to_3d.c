@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/10 21:43:54 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/16 09:42:12 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,41 @@ static void	first_texture_calculation(t_mlx *mlx)
 
 	texture = &mlx->texture;
 	r = &mlx->ray;
+	//printf("rx: %lf  | ry: %lf\n", r->x, r->y);
 	if (r->is_base_x)
-		texture->tile_map_x = (int) round(r->x) % TILE_SIZE;
-	else
 		texture->tile_map_x = (int) round(r->y) % TILE_SIZE;
-	texture->vertical_proportion = texture->height / r->line_length;
-	if (r->x < r->old_x || r->y < r->old_y)
-		r->is_texture_inversed = 1;
 	else
-		r->is_texture_inversed = 0;
+		texture->tile_map_x = (int) round(r->x) % (TILE_SIZE - 1);
+	//printf("map_x: %lf  |  map_y: %lf\n", texture->tile_map_x, texture->tile_map_y);
+	texture->vertical_proportion = texture->height / r->line_length;
+}
+
+static void	debugg(t_mlx *mlx)
+{
+	t_ray	*r;
+	double test_col;
+	double test_row;
+	double	diff;
+	double	diff_y;
+	double	diff_x;
+
+	r = &mlx->ray;
+	test_col = positive(r->rdx_col) + positive(r->rdy_col);
+	test_row = positive(r->rdx_row) + positive(r->rdy_row);
+	diff = positive(test_col - test_row);
+	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
+	diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
+	if (is_wall(mlx) && diff_y < 1)
+	{
+		printf("rx: %lf  |  ry: %lf\n", r->x, r->y);
+		printf("rdy_row: %lf  |  rdx_row: %lf\n", r->rdy_row, r->rdx_row);
+		printf("rdy_col: %lf  |  rdx_col: %lf\n", r->rdy_col, r->rdx_col);
+		printf("column_x: %lf  |  column_y: %lf\n", r->column_x, r->column_y);
+		printf("row_x: %lf  |  row_y: %lf\n", r->row_x, r->row_y);
+		printf("test_col: %lf  |  test_row: %lf\n", test_col, test_row);
+		printf("diff: %lf  |  diff_y: %lf  |  diff_x: %lf\n", diff, diff_y, diff_x);
+		printf("--------------------------------------------------------\n");
+	}
 }
 
 static void	transform_to_3d(t_mlx *mlx, int i)
@@ -55,6 +81,7 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 
 	r = &mlx->ray;
 	mlx->texture = select_texture(mlx);
+	debugg(mlx);
 	texture = &mlx->texture;
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
 	first_texture_calculation(mlx);
