@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 14:14:52 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:21:07 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
-# include <mlx.h>
+# include "../includes/validation.h"
+# include "../includes/error_messages.h"
+# include "../libs/minilibx-linux/mlx.h"
 
 //screen
 # define SCREEN_WIDTH 1000
