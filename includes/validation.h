@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/19 00:35:36 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:20:54 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,9 @@ void	change_cha_line(char *map_line, char *identify, char *substitute);
 int		in_identify(char cha_in_line, char *identify);
 char	substitute_find(char *substitute, int index);
 void	outer_edge_removal(char **map_array);
+
+///////////////////// validation_map_05.c
+
+t_tf	geom_inner_sealed(char **map_array);
 
 #endif
