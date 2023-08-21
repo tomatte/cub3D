@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/20 23:34:03 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 10:13:26 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static t_texture	select_texture(t_mlx *mlx)
 	t_ray		*r;
 
 	r = &mlx->ray;
-	if (r->x > r->old_x)
+	if (is_north(mlx))
 		mlx->texture_selected = NORTH;
-	else if (r->y > r->old_y)
+	else if (is_east(mlx))
 		mlx->texture_selected = EAST;
-	else if (r->x < r->old_x)
+	else if (is_south(mlx))
 		mlx->texture_selected = SOUTH;
 	else
 		mlx->texture_selected = WEST;

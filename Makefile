@@ -13,6 +13,7 @@ SRC			=	main.c \
 				ray_tools.c \
 				dda_ray.c \
 				multiple_rays_to_3d.c \
+				compass.c \
 
 
 INCLUDES	=	-I./includes

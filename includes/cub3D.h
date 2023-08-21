@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 20:29:22 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 10:12:14 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,5 +199,11 @@ void	draw_background(t_mlx *mlx);
 double	get_ray_distance(t_mlx *mlx);
 double	get_rdy(double rdx, double angle);
 double	get_rdx(double rdy, double angle);
+
+//compass
+int	is_east(t_mlx *mlx);
+int	is_west(t_mlx *mlx);
+int	is_north(t_mlx *mlx);
+int	is_south(t_mlx *mlx);
 
 #endif
