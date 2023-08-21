@@ -6,13 +6,13 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/21 10:13:26 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 10:21:39 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static t_texture	select_texture(t_mlx *mlx)
+t_texture	select_texture(t_mlx *mlx)
 {
 	t_ray		*r;
 
@@ -44,40 +44,6 @@ static void	first_texture_calculation(t_mlx *mlx)
 	texture->vertical_proportion = texture->height / r->line_length;
 }
 
-/* TO-DO
-	change the select texture function to not use old_x and old_y
- */
-
-static void	debugg(t_mlx *mlx)
-{
-	t_ray	*r;
-	double test_col;
-	double test_row;
-	double	diff;
-	double	diff_y;
-	double	diff_x;
-
-	r = &mlx->ray;
-	test_col = positive(r->rdx_col) + positive(r->rdy_col);
-	test_row = positive(r->rdx_row) + positive(r->rdy_row);
-	diff = positive(test_col - test_row);
-	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
-	diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
-	if (is_wall(mlx) && ((r->y >= 127 && r->y < 128.5) || (r->y >= 191 && r->y < 192.5)))
-	{
-		printf("rdy_row: %lf  |  rdx_row: %lf\n", r->rdy_row, r->rdx_row);
-		printf("rdy_col: %lf  |  rdx_col: %lf\n", r->rdy_col, r->rdx_col);
-		printf("column_x: %lf  |  column_y: %lf\n", r->column_x, r->column_y);
-		printf("row_x: %lf  |  row_y: %lf\n", r->row_x, r->row_y);
-		printf("test_col: %lf  |  test_row: %lf\n", test_col, test_row);
-		printf("diff: %lf  |  diff_y: %lf  |  diff_x: %lf\n", diff, diff_y, diff_x);
-		printf("angle: %lf\n", r->angle);
-		int txtr = mlx->texture_selected;
-		printf("Texture selected: %s\n", txtr == NORTH ? "North" : txtr == SOUTH ? "South" : txtr == WEST ? "West" : "East");
-		printf("--------------------------------------------------------\n");
-	}
-}
-
 static void	transform_to_3d(t_mlx *mlx, int i)
 {
 	t_ray		*r;
@@ -87,7 +53,6 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 
 	r = &mlx->ray;
 	mlx->texture = select_texture(mlx);
-	debugg(mlx);
 	texture = &mlx->texture;
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
 	first_texture_calculation(mlx);
@@ -114,18 +79,11 @@ void	multiple_rays(t_mlx *mlx)
 	ray_mod = vision_angle / TOTAL_RAYS;
 	limit_angle = vision_angle / 2;
 	sum = limit_angle * -1;
-
-	r->angle = normalize_angle(p->angle + sum);
-	dda_ray(mlx);
-	r->old_x = r->x;
-	r->old_y = r->y;
 	while (sum < limit_angle)
 	{
 		r->angle = normalize_angle(p->angle + sum);
 		dda_ray(mlx);
 		transform_to_3d(mlx, ++i);
 		sum += ray_mod;
-		r->old_x = r->x;
-		r->old_y = r->y;
 	}
 }

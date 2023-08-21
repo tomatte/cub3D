@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/20 23:16:09 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 11:12:03 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	jump_to_next_square(t_mlx *mlx)
 	row_pixels = positive(r->rdx_row) + positive(r->rdy_row);
 	col_distance = get_distance(r->x, r->y, r->column_x, r->column_y);
 	row_distance = get_distance(r->x, r->y, r->row_x, r->row_y);
- 	if (col_distance < row_distance || r->rdy_col == 0)
+ 	if (col_pixels < row_pixels || r->rdy_col == 0)
 	{
 		r->x = r->column_x;
 		r->y = r->column_y;
@@ -125,25 +125,6 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->is_base_x = 0;
 	}
 	//fix_base_x_border(mlx);
-	static double max_dist = 0;
-	static double max_diff_y = 0;
-	static double max_diff_x = 0;
-	double distance_diff = positive(col_distance - row_distance);
-	double diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
-	double diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
-	if (is_wall(mlx) && r->y >= 127 && r->y < 128.5)
-	{
-		if (distance_diff > max_dist)
-			max_dist = distance_diff;
-		if (diff_y > max_diff_y)
-			max_diff_y = diff_y;
-		if (diff_x > max_diff_x)
-			max_diff_x = diff_x;
-		printf("column_x: %lf  |  column_y: %lf  |  row_x: %lf  |  row_y: %lf\n", r->column_x, r->column_y, r->row_x, r->row_y);
-		printf("col_distance: %lf  |  row_distance: %lf  |  is_base_x: %lf\n", col_distance, row_distance, r->is_base_x);
-		printf("distance diff: %lf  |  max_dist: %lf  |  max_diff_y: %lf  |  max_diff_x: %lf\n", distance_diff, max_dist, max_diff_y, max_diff_x);
-		//printf("----------------------------------------------------\n");
-	}
 	fix_base_y_border(mlx);
 }
 
@@ -181,6 +162,20 @@ int	is_old_wall(double angle, double old_x, double old_y)
 	return (map[y][x]);
 }
 
+int	is_debug(t_mlx *mlx)
+{
+	t_ray	*r;
+
+	r = &mlx->ray;
+	if (!is_wall(mlx))
+		return (0);
+	if (mlx->texture_selected == WEST || mlx->texture_selected == EAST)
+		return (0);
+	if (is_wall(mlx) && ((r->y >= 127 && r->y < 128.5) || (r->y >= 191 && r->y < 192.5)))
+		return (1);
+	return (0);
+}
+
 void debug1(t_mlx *mlx, int show, int index)
 {
 	t_ray	*r;
@@ -197,7 +192,7 @@ void debug1(t_mlx *mlx, int show, int index)
 	static double	old_column_x;
 
 	r = &mlx->ray;
-	if (show && ((r->y >= 127 && r->y < 128.5) || (r->y >= 191 && r->y < 192.5)))
+	if (show && is_debug(mlx))
 	{
 		printf("rx: %lf  |  ry: %lf\n", r->x, r->y);
 		printf("before_x: %lf  |  before_y: %lf  |  is_old_wall: %d  |  is_wall: %d  |  old_index: %d  |  index: %d\n", old_x, old_y, is_old_wall(r->angle, old_x, old_y), is_wall(mlx), old_index, index);
@@ -218,6 +213,73 @@ void debug1(t_mlx *mlx, int show, int index)
 	old_row_x = r->row_x;
 	old_column_y = r->column_y;
 	old_column_x = r->column_x;
+}
+
+static void	debug2(t_mlx *mlx)
+{
+	t_ray	*r;
+	double test_col;
+	double test_row;
+	double	diff;
+	double	diff_y;
+	double	diff_x;
+
+	r = &mlx->ray;
+	test_col = positive(r->rdx_col) + positive(r->rdy_col);
+	test_row = positive(r->rdx_row) + positive(r->rdy_row);
+	diff = positive(test_col - test_row);
+	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
+	diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
+	if (is_debug(mlx))
+	{
+		printf("rdy_row: %lf  |  rdx_row: %lf\n", r->rdy_row, r->rdx_row);
+		printf("rdy_col: %lf  |  rdx_col: %lf\n", r->rdy_col, r->rdx_col);
+		printf("column_x: %lf  |  column_y: %lf\n", r->column_x, r->column_y);
+		printf("row_x: %lf  |  row_y: %lf\n", r->row_x, r->row_y);
+		printf("test_col: %lf  |  test_row: %lf\n", test_col, test_row);
+		printf("diff: %lf  |  diff_y: %lf  |  diff_x: %lf\n", diff, diff_y, diff_x);
+		printf("angle: %lf\n", r->angle);
+		int txtr = mlx->texture_selected;
+		printf("Texture selected: %s\n", txtr == NORTH ? "North" : txtr == SOUTH ? "South" : txtr == WEST ? "West" : "East");
+		//printf("--------------------------------------------------------\n");
+	}
+}
+
+void	debug3(t_mlx *mlx)
+{
+	t_ray	*r;
+	double	col_pixels;
+	double	row_pixels;
+	double	col_distance;
+	double	row_distance;
+
+	r = &mlx->ray;
+	col_pixels = positive(r->rdx_col) + positive(r->rdy_col);
+	row_pixels = positive(r->rdx_row) + positive(r->rdy_row);
+	col_distance = get_distance(r->x, r->y, r->column_x, r->column_y);
+	row_distance = get_distance(r->x, r->y, r->row_x, r->row_y);
+	static double max_dist = 0;
+	static double max_diff_y = 0;
+	static double max_diff_x = 0;
+	double distance_diff = positive(col_distance - row_distance);
+	double diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
+	double diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
+	if (mlx->texture_selected == WEST || mlx->texture_selected == EAST)
+		return ;
+	if (is_debug(mlx))
+	{
+		if (distance_diff > max_dist)
+			max_dist = distance_diff;
+		if (diff_y > max_diff_y)
+			max_diff_y = diff_y;
+		if (diff_x > max_diff_x)
+			max_diff_x = diff_x;
+		printf("column_x: %lf  |  column_y: %lf  |  row_x: %lf  |  row_y: %lf\n", r->column_x, r->column_y, r->row_x, r->row_y);
+		printf("col_distance: %lf  |  row_distance: %lf  |  is_base_x: %lf\n", col_distance, row_distance, r->is_base_x);
+		printf("col_pixels: %lf  |  row_pixels: %lf  |  pixels_diff: %lf\n", col_pixels, row_pixels, positive(col_pixels - row_pixels));
+		printf("distance diff: %lf  |  max_dist: %lf  |  max_diff_y: %lf  |  max_diff_x: %lf\n", distance_diff, max_dist, max_diff_y, max_diff_x);
+		printf("---------------------------------------------------------\n");
+	}
 }
 
 int	is_limit(t_mlx *mlx)
@@ -252,7 +314,10 @@ void	dda_ray(t_mlx *mlx)
 		jump_to_next_square(mlx);
 		if (is_wall(mlx) || is_limit(mlx))
 		{
+			select_texture(mlx);
 			debug1(mlx, 1, i);
+			debug2(mlx);
+			debug3(mlx);
 			break ;
 		}
 		else
