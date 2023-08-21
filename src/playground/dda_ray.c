@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/16 09:45:43 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/20 23:16:09 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	jump_to_next_square(t_mlx *mlx)
 	double distance_diff = positive(col_distance - row_distance);
 	double diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
 	double diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
-	if (is_wall(mlx) && diff_y < 1)
+	if (is_wall(mlx) && r->y >= 127 && r->y < 128.5)
 	{
 		if (distance_diff > max_dist)
 			max_dist = distance_diff;
@@ -187,16 +187,49 @@ void debug1(t_mlx *mlx, int show, int index)
 	static double	old_x;
 	static double	old_y;
 	static int		old_index;
+	static double	before_row_rdx;
+	static double	before_row_rdy;
+	static double	before_col_rdx;
+	static double	before_col_rdy;
+	static double	old_row_y;
+	static double	old_row_x;
+	static double	old_column_y;
+	static double	old_column_x;
 
 	r = &mlx->ray;
-	if (show && ((int)r->x == 192 || (int)r->x == 256 || (int)r->x == 320))
+	if (show && ((r->y >= 127 && r->y < 128.5) || (r->y >= 191 && r->y < 192.5)))
 	{
+		printf("rx: %lf  |  ry: %lf\n", r->x, r->y);
 		printf("before_x: %lf  |  before_y: %lf  |  is_old_wall: %d  |  is_wall: %d  |  old_index: %d  |  index: %d\n", old_x, old_y, is_old_wall(r->angle, old_x, old_y), is_wall(mlx), old_index, index);
+		printf("old_rdx_row: %lf  |  old_rdy_row: %lf\n", before_row_rdx, before_row_rdy);
+		printf("old_rdx_row: %lf  |  old_rdy_row: %lf\n", before_col_rdx, before_col_rdy);
+		printf("old_row_x: %lf  |  old_row_y: %lf\n", old_row_x, old_row_y);
+		printf("old_column_x: %lf  |  old_column_y: %lf\n", old_column_x, old_column_y);
 		return ;
 	}
 	old_x = r->x;
 	old_y = r->y;
 	old_index = index;
+	before_row_rdx = r->rdx_row;
+	before_row_rdy = r->rdy_row;
+	before_col_rdx = r->rdx_col;
+	before_col_rdy = r->rdy_col;
+	old_row_y = r->row_y;
+	old_row_x = r->row_x;
+	old_column_y = r->column_y;
+	old_column_x = r->column_x;
+}
+
+int	is_limit(t_mlx *mlx)
+{
+	t_ray	*r;
+
+	r = &mlx->ray;
+	if (r->x <= 0 || r->y <= 0)
+		return (1);
+	if (r->x >= SCREEN_WIDTH || r->y >= SCREEN_HEIGHT)
+		return (1);
+	return (0);
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -217,9 +250,9 @@ void	dda_ray(t_mlx *mlx)
 		calc_next_column_values(mlx);
 		calc_next_row_values(mlx);
 		jump_to_next_square(mlx);
-		if (is_wall(mlx))
+		if (is_wall(mlx) || is_limit(mlx))
 		{
-			//debug1(mlx, 1, i);
+			debug1(mlx, 1, i);
 			break ;
 		}
 		else
