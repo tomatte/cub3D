@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/21 10:21:59 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 16:33:36 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,10 @@ typedef struct s_mlx
 	int			texture_selected;
 	t_player	player;
 	t_ray		ray;
+	t_ray		old_ray;
+	int			block_y;
+	int			block_x;
+	int			old_texture;
 }	t_mlx;
 
 typedef struct s_line
@@ -203,9 +207,9 @@ double	get_rdx(double rdy, double angle);
 t_texture	select_texture(t_mlx *mlx);
 
 //compass
-int	is_east(t_mlx *mlx);
-int	is_west(t_mlx *mlx);
-int	is_north(t_mlx *mlx);
-int	is_south(t_mlx *mlx);
+int	is_east(double x, double y);
+int	is_west(double x, double y);
+int	is_north(double x, double y);
+int	is_south(double x, double y);
 
 #endif

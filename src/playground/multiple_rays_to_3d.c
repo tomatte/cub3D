@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/21 10:21:39 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 17:05:06 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_texture	select_texture(t_mlx *mlx)
 	t_ray		*r;
 
 	r = &mlx->ray;
-	if (is_north(mlx))
+	if (is_north(r->x, r->y))
 		mlx->texture_selected = NORTH;
-	else if (is_east(mlx))
+	else if (is_east(r->x, r->y))
 		mlx->texture_selected = EAST;
-	else if (is_south(mlx))
+	else if (is_south(r->x, r->y))
 		mlx->texture_selected = SOUTH;
 	else
 		mlx->texture_selected = WEST;
@@ -62,6 +62,41 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	draw_line_textured(mlx, points(i, r->line_begin, i, r->line_end), -9999999);
 }
 
+static void	save_old_ray(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		x;
+	int		y;
+	double diff_y;
+	double diff_x;
+
+	r = &mlx->ray;
+	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
+	diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
+	if (((int) r->column_x % TILE_SIZE || (int) (r->column_x + 1) % TILE_SIZE)
+		&& ((int) r->column_y % TILE_SIZE || (int) (r->column_y + 1) % TILE_SIZE))
+		return ;
+	if (((int) r->row_x % TILE_SIZE || (int) (r->row_x + 1) % TILE_SIZE)
+		&& ((int) r->row_y % TILE_SIZE || (int) (r->row_y + 1) % TILE_SIZE))
+		return ;
+	if (looking_left(r->angle))
+		x = (int)(r->x / TILE_SIZE);
+	else
+		x = (int)(ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int)(r->y / TILE_SIZE);
+	else
+		y = (int)(ceil(r->y) / TILE_SIZE);
+	if (x == mlx->block_x && y == mlx->block_y)
+		return ;
+	mlx->block_x = x;
+	mlx->block_y = y;
+	mlx->old_ray = mlx->ray;
+	mlx->old_texture = mlx->texture_selected;
+	r = &mlx->old_ray;
+	//printf("old_ray_X: %lf  |  old_ray_Y: %lf\n", r->x, r->y);
+}
+
 void	multiple_rays(t_mlx *mlx)
 {
 	double		ray_mod;
@@ -83,6 +118,7 @@ void	multiple_rays(t_mlx *mlx)
 	{
 		r->angle = normalize_angle(p->angle + sum);
 		dda_ray(mlx);
+		save_old_ray(mlx);
 		transform_to_3d(mlx, ++i);
 		sum += ray_mod;
 	}

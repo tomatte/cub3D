@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/21 11:12:03 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/21 17:03:20 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_border_north(t_mlx *mlx)
 	
 }
 
-static double	fix_base_y_border(t_mlx *mlx)
+static void	fix_base_border(t_mlx *mlx)
 {
 	t_ray	*r;
 
@@ -75,11 +75,20 @@ static double	fix_base_y_border(t_mlx *mlx)
 	double	diff_y;
 
 	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
-	if (is_wall(mlx) && diff_y < 1)
+	if (!is_wall(mlx) || diff_y >= 1)
+		return ;
+	if (!has_floats(r->x) && (mlx->old_texture == NORTH || mlx->old_texture == SOUTH))
 	{
 		r->x = r->row_x;
 		r->y = r->row_y;
 		r->is_base_x = 0;
+		return ;
+	}
+ 	else if (!has_floats(r->y) && (mlx->old_texture == WEST || mlx->old_texture == EAST))
+	{
+		r->x = r->column_x;
+		r->y = r->column_y;
+		r->is_base_x = 1;
 	}
 }
 
@@ -88,10 +97,10 @@ static double	fix_base_x_border(t_mlx *mlx)
 	t_ray	*r;
 
 	r = &mlx->ray;
-	double	diff_x;
+	double	diff_y;
 
-	diff_x = positive(positive(r->rdx_col) - positive(r->rdx_row));
-	if (is_wall(mlx) && diff_x < 1 && r->is_base_x)
+	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
+	if (is_wall(mlx) && diff_y < 1 && !has_floats(r->y))
 	{
 		r->x = r->column_x;
 		r->y = r->column_y;
@@ -108,8 +117,8 @@ void	jump_to_next_square(t_mlx *mlx)
 	double	row_distance;
 
 	r = &mlx->ray;
-	col_pixels = positive(r->rdx_col) + positive(r->rdy_col);
-	row_pixels = positive(r->rdx_row) + positive(r->rdy_row);
+	col_pixels = positive((r->column_x + r->column_y) - (r->x + r->y));
+	row_pixels = positive((r->row_x + r->row_y) - (r->x + r->y));
 	col_distance = get_distance(r->x, r->y, r->column_x, r->column_y);
 	row_distance = get_distance(r->x, r->y, r->row_x, r->row_y);
  	if (col_pixels < row_pixels || r->rdy_col == 0)
@@ -124,8 +133,8 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->y = r->row_y;
 		r->is_base_x = 0;
 	}
-	//fix_base_x_border(mlx);
-	fix_base_y_border(mlx);
+	fix_base_border(mlx);
+	//fix_base_y_border(mlx);
 }
 
 int	is_wall(t_mlx *mlx)
