@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/21 16:33:36 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/23 17:41:07 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,27 +112,39 @@ typedef struct s_ray
 	int		map_y;
 }	t_ray;
 
+typedef struct s_fix_corner
+{
+	t_ray	ray_before;
+	t_ray	ray_after;
+	int		is_incorrect;
+	double	saved_angle;
+	int		saved_index;
+}	t_fix_corner;
 
 typedef struct s_mlx
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*addr;
-	t_texture	texture;
-	t_texture	textures[4];
-	int			ray_index_w;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			color;
-	int			texture_selected;
-	t_player	player;
-	t_ray		ray;
-	t_ray		old_ray;
-	int			block_y;
-	int			block_x;
-	int			old_texture;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	t_texture		texture;
+	t_texture		textures[4];
+	int				ray_index_w;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				color;
+	int				texture_selected;
+	t_player		player;
+	t_ray			ray;
+	t_ray			old_ray;
+	int				block_y;
+	int				block_x;
+	int				old_texture;
+	double			angle_sum;
+	int				index_ray;
+	int				is_old_base_x;
+	t_fix_corner	fix_corner;
 }	t_mlx;
 
 typedef struct s_line
@@ -165,7 +177,7 @@ int		get_color(void);
 //line
 void	asign_values(t_line *line);
 void	draw_line(t_mlx *mlx, t_line line);
-void	draw_line_textured(t_mlx *mlx, t_line line, int index);
+void	draw_line_textured(t_mlx *mlx, t_line line);
 t_line	points(int x, int y, int x2, int y2);
 
 //hooks

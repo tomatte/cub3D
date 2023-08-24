@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/21 17:03:20 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/24 04:42:30 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,35 +77,91 @@ static void	fix_base_border(t_mlx *mlx)
 	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
 	if (!is_wall(mlx) || diff_y >= 1)
 		return ;
-	if (!has_floats(r->x) && (mlx->old_texture == NORTH || mlx->old_texture == SOUTH))
+	if (!has_floats(r->x))
 	{
 		r->x = r->row_x;
 		r->y = r->row_y;
 		r->is_base_x = 0;
 		return ;
 	}
- 	else if (!has_floats(r->y) && (mlx->old_texture == WEST || mlx->old_texture == EAST))
-	{
-		r->x = r->column_x;
-		r->y = r->column_y;
-		r->is_base_x = 1;
-	}
 }
 
-static double	fix_base_x_border(t_mlx *mlx)
+static void	fix_base_border2(t_mlx *mlx)
 {
 	t_ray	*r;
+	int		x;
+	int		y;
 
 	r = &mlx->ray;
-	double	diff_y;
-
-	diff_y = positive(positive(r->rdy_col) - positive(r->rdy_row));
-	if (is_wall(mlx) && diff_y < 1 && !has_floats(r->y))
+	if (!is_wall(mlx))
+		return ;
+	if (has_floats(r->y))
+		return ;
+/* 	if ((int) r->column_x % TILE_SIZE > 4 && (int) r->column_x % TILE_SIZE < 60)
+		return ;
+	if ((int) r->column_y % TILE_SIZE > 1 && (int) r->column_y % TILE_SIZE < 63)
+		return ; */
+	if (looking_left(r->angle))
+		x = (int)(r->x / TILE_SIZE);
+	else
+		x = (int)(ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int)(r->y / TILE_SIZE);
+	else
+		y = (int)(ceil(r->y) / TILE_SIZE);
+	//printf("master_x: %lf  |  master_y: %lf\n", mlx->old_ray.x, mlx->old_ray.y);
+	printf("master_map_x: %d  |  master_map_y: %d\n", mlx->old_ray.map_x, mlx->old_ray.map_y);
+	printf("current_map_x: %d  |  current_map_y: %d\n", r->map_x, r->map_y);
+	if (mlx->old_ray.map_x != r->map_x)
+		return ;
+	if (ft_abs(mlx->old_ray.map_y - r->map_y) <= 1)
 	{
-		r->x = r->column_x;
-		r->y = r->column_y;
-		r->is_base_x = 1;
+		if (mlx->old_ray.is_base_x)
+		{
+			r->x = r->column_x;
+			r->y = r->column_y;
+			r->is_base_x = 1;
+		}
+		else
+		{
+			r->x = r->row_x;
+			r->y = r->row_y;
+			r->is_base_x = 0;
+		}
 	}
+
+}
+
+/* 
+	ao inves de salvar cada raio novo
+	salvar apenas um raio do bloco que com certeza não está em uma quina
+	se o proximo raio aumentar apenas um bloco na mesma linha, entao tem q manter a base
+
+	ex: map[1, 1] == base_x, then map[2, 1] == base_x, then map[3,1] == base_x
+ */
+void	save_block_position(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+	t_ray *r;
+	r = &mlx->ray;
+	if (!is_wall(mlx))
+		return ;
+	if (!is_east(r->x, r->y) && !is_west(r->x, r->y))
+		return ;
+	if ((int) r->column_y % TILE_SIZE < 2 || (int) r->column_y % TILE_SIZE >= 62)
+		return ;
+	if (looking_left(r->angle))
+		x = (int)(r->x / TILE_SIZE);
+	else
+		x = (int)(ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int)(r->y / TILE_SIZE);
+	else
+		y = (int)(ceil(r->y) / TILE_SIZE);
+	mlx->block_x = x;
+	mlx->block_y = y;
+	mlx->old_ray = mlx->ray;
 }
 
 void	jump_to_next_square(t_mlx *mlx)
@@ -133,7 +189,9 @@ void	jump_to_next_square(t_mlx *mlx)
 		r->y = r->row_y;
 		r->is_base_x = 0;
 	}
+	save_block_position(mlx);
 	fix_base_border(mlx);
+	fix_base_border2(mlx);
 	//fix_base_y_border(mlx);
 }
 
@@ -152,6 +210,11 @@ int	is_wall(t_mlx *mlx)
 		y = (int)(r->y / TILE_SIZE);
 	else
 		y = (int)(ceil(r->y) / TILE_SIZE);
+	if (map[y][x] == 1)
+	{
+		r->map_x = x;
+		r->map_y = y;
+	}
 	return (map[y][x]);
 }
 
@@ -250,8 +313,27 @@ static void	debug2(t_mlx *mlx)
 		printf("angle: %lf\n", r->angle);
 		int txtr = mlx->texture_selected;
 		printf("Texture selected: %s\n", txtr == NORTH ? "North" : txtr == SOUTH ? "South" : txtr == WEST ? "West" : "East");
+		printf("blox_x: %d  |  block_y: %d\n", mlx->block_x, mlx->block_y);
 		//printf("--------------------------------------------------------\n");
 	}
+}
+
+void	print_wall(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+	t_ray	*r;
+
+	r = &mlx->ray;
+	if (looking_left(r->angle))
+		x = (int)(r->x / TILE_SIZE);
+	else
+		x = (int)(ceil(r->x) / TILE_SIZE);
+	if (looking_up(r->angle))
+		y = (int)(r->y / TILE_SIZE);
+	else
+		y = (int)(ceil(r->y) / TILE_SIZE);
+	printf("map[y:%d][x:%d] == %d\n", y, x, map[y][x]);
 }
 
 void	debug3(t_mlx *mlx)
@@ -287,6 +369,12 @@ void	debug3(t_mlx *mlx)
 		printf("col_distance: %lf  |  row_distance: %lf  |  is_base_x: %lf\n", col_distance, row_distance, r->is_base_x);
 		printf("col_pixels: %lf  |  row_pixels: %lf  |  pixels_diff: %lf\n", col_pixels, row_pixels, positive(col_pixels - row_pixels));
 		printf("distance diff: %lf  |  max_dist: %lf  |  max_diff_y: %lf  |  max_diff_x: %lf\n", distance_diff, max_dist, max_diff_y, max_diff_x);
+		print_wall(mlx);
+/* 	static double max_x_remainder = 0;
+	static double max_y_remainder = 0;
+	if () */
+		printf("x_remainder: %d  |  y_remainder: %d\n", (int) r->x % TILE_SIZE, (int) r->y % TILE_SIZE);
+		printf("col_x_remainder: %d  |  col_y_remainder: %d\n", (int) r->column_x % TILE_SIZE, (int) r->column_y % TILE_SIZE);
 		printf("---------------------------------------------------------\n");
 	}
 }
@@ -313,8 +401,6 @@ void	dda_ray(t_mlx *mlx)
 	r = &mlx->ray;
 	r->x = mlx->player.x;
 	r->y = mlx->player.y;
-	r->map_x = (int)(r->x / TILE_SIZE);
-	r->map_y = (int)(r->y / TILE_SIZE);
 	i = 0;
 	while (i++ < 100)
 	{
@@ -327,11 +413,48 @@ void	dda_ray(t_mlx *mlx)
 			debug1(mlx, 1, i);
 			debug2(mlx);
 			debug3(mlx);
+			//previous_corner_pixel(mlx);
 			break ;
 		}
 		else
 		{
 			debug1(mlx, 0, i);
 		}
+	}
+}
+
+/*  
+	verificar 1 pixel anterior e um 1 pixel posterior da quina
+
+	ao chegar um pixel anterior à quina, salvar dados do raio
+	ao chegar em uma quina e detectar uma textura diferente, salvar essa informação
+	ao chegar em um pixel posterior à quina, verificar:
+		tem a mesma textura que a do raio salvo
+		a textura da quina está diferente desses dois raios
+	então voltar o grau da quina e forçar a base correta
+
+	para fazer isso a variavel "sum" pode ser parte da struct ml
+	e o index do raio tambem pode se tornar parte da struct, pois ele tem q ser reduzido tbm
+	basta ela ser alterada para o raio desejado e pronto, o codigo continua
+
+*/
+
+void	previous_corner_pixel(t_mlx *mlx)
+{
+	t_ray	*r;
+	int		y;
+
+	r = &mlx->ray;
+	if (!is_east(r->x, r->y))
+		return ;
+	y = (int) r->y;
+	if ((y + 2) % TILE_SIZE == 0)
+	{
+		printf("x: %lf  |  y: %lf\n", r->x, r->y);
+	}
+	if (y > 150 && (y - 1) % TILE_SIZE == 0)
+	{
+			printf("x: %lf  |  y: %lf\n", r->x, r->y);
+			exit(0);
 	}
 }

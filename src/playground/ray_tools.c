@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/15 12:32:48 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/23 17:09:03 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ double	foward_square(double position)
 {
 	double	result;
 
-	result = position + (TILE_SIZE - (int) position % TILE_SIZE);
+	result = position + (TILE_SIZE -  (fmod(position, TILE_SIZE)));
 	return (round_base(result, TILE_SIZE));
 }
 
@@ -87,7 +87,11 @@ double	backward_square(double position)
 {
 	double	result;
 
-	result = position - ((int) position % TILE_SIZE);
+	result = position - (fmod(position, TILE_SIZE));
+	//printf("POSITION: %lf\n", position);
+	//printf("CURRENT: %lf\n", result);
+	//printf("NEW: %lf\n", position - positive(remainder(position, 64.0)));
+	//printf("NEW2: %lf\n", position - positive(remainder(TILE_SIZE, position)));
 	return (round_base(result, TILE_SIZE) - 1);
 }
 
