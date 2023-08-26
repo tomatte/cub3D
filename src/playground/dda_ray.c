@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:24:35 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:35:29 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,106 +93,6 @@ int	is_limit2(double x, double y)
 	if (y < 0 || y > SCREEN_HEIGHT)
 		return (1);
 	return (0);
-}
-
-void	first_vertical_side(t_mlx *mlx)
-{
-	t_ray	*r;
-	double	rdy;
-
-	r = &mlx->ray;
-	if (looking_left(r->angle))
-		r->vertical_x = backward_square(r->vertical_x);
-	else
-		r->vertical_x = foward_square(r->vertical_x);
-	rdy = get_rdy(positive(r->vertical_x - mlx->player.x), r->angle);
-	r->vertical_y += rdy;
-}
-
-void	vertical_offset(t_mlx *mlx, double *xo, double *yo)
-{
-	t_ray	*r;
-
-	r = &mlx->ray;
-	if (looking_left(r->angle))
-		*xo = -TILE_SIZE;
-	else
-		*xo = TILE_SIZE;
-	*yo = get_rdy(TILE_SIZE, r->angle);
-}
-
-void	find_vertical_wall(t_mlx *mlx)
-{
-	t_ray	*r;
-	int		i;
-	double	xo;
-	double	yo;
-
-	r = &mlx->ray;
-	i = 0;
-	first_vertical_side(mlx);
-	if (is_wall2(r->vertical_x, r->vertical_y, r->angle))
-		return ;
-	vertical_offset(mlx, &xo, &yo);
-	while (i++ < 20)
-	{
-		r->vertical_x += xo;
-		r->vertical_y += yo;
-		if (is_wall2(r->vertical_x, r->vertical_y, r->angle))
-			break ;
-		if (is_limit2(r->vertical_x, r->vertical_y))
-			break ;
-	}
-}
-
-void	first_horizontal_side(t_mlx *mlx)
-{
-	t_ray	*r;
-	double	rdx;
-
-	r = &mlx->ray;
-	if (looking_up(r->angle))
-		r->horizontal_y = backward_square(r->horizontal_y);
-	else
-		r->horizontal_y = foward_square(r->horizontal_y);
-	rdx = get_rdx(positive(r->horizontal_y - mlx->player.y), r->angle);
-	r->horizontal_x += rdx;
-}
-
-void	horizontal_offset(t_mlx *mlx, double *xo, double *yo)
-{
-	t_ray	*r;
-
-	r = &mlx->ray;
-	if (looking_up(r->angle))
-		*yo = -TILE_SIZE;
-	else
-		*yo = TILE_SIZE;
-	*xo = get_rdx(TILE_SIZE, r->angle);
-}
-
-void	find_horizontal_wall(t_mlx *mlx)
-{
-	t_ray	*r;
-	int		i;
-	double	xo;
-	double	yo;
-
-	r = &mlx->ray;
-	first_horizontal_side(mlx);
-	if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle))
-		return ;
-	horizontal_offset(mlx, &xo, &yo);
-	i = 0;
-	while (i++ < 20)
-	{
-		r->horizontal_x += xo;
-		r->horizontal_y += yo;
-		if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle))
-			break ;
-		if (is_limit2(r->horizontal_x, r->horizontal_y))
-			break ;
-	}
 }
 
 void	choose_axis(t_mlx *mlx)

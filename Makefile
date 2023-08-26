@@ -14,6 +14,8 @@ SRC			=	main.c \
 				dda_ray.c \
 				multiple_rays_to_3d.c \
 				compass.c \
+				find_vertical_wall.c \
+				find_horizontal_wall.c \
 
 
 INCLUDES	=	-I./includes
