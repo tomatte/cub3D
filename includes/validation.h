@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/19 15:20:54 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:53:57 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,6 @@ typedef struct s_image
 	int			*dump;
 }	t_image;
 
-typedef struct s_game_data
-{
-	int				game_state;
-	t_tf			game_running;
-	char			**map_data;
-	char			**map_dev;
-	t_image			image[TEXTURE_NB];
-	t_parameters	parameters;
-}	t_game_data;
-
 typedef struct s_parameters
 {
 	char	*north;
@@ -74,6 +64,16 @@ typedef struct s_parameters
 	int		top_color;
 	int		bottom_color;
 }	t_parameters;
+
+typedef struct s_game_data
+{
+	int				game_state;
+	t_tf			game_running;
+	char			**map_data;
+	char			**map_dev;
+	t_image			image[TEXTURE_NB];
+	t_parameters	parameters;
+}	t_game_data;
 
 typedef struct s_map
 {
@@ -168,5 +168,10 @@ void	outer_edge_removal(char **map_array);
 ///////////////////// validation_map_05.c
 
 t_tf	geom_inner_sealed(char **map_array);
+
+///////////////////// validation_print_map.c
+
+void	map_print(char **data_map);
+void	map_print_with_colour(char **data_map);
 
 #endif

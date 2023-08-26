@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:19:26 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/16 23:06:10 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:35:25 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_tf	validate_files(t_parameters *parameters, char *file)
 		if (*temporary != '\n')
 			bool = check_text(parameters, matrix, file, temporary);
 		free(temporary);
-		temporary = ft_get_next_line(fd);
+		temporary = get_next_line(fd);
 	}
 	gnl_free(temporary, fd);
 	if (bool)
