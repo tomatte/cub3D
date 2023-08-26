@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 13:47:20 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:19:44 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ double	foward_square(double position)
 {
 	double	result;
 
-	result = (((int) position >> 6) << 6) + 64.000000 - 0.99999999999; 
+	result = (((int) position >> 6) << 6) + 64.000000 - 0.99999999999;
 	return (result);
 }
 
