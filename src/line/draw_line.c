@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 19:17:10 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/23 09:43:49 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,49 @@ void	draw_line(t_mlx *mlx, t_line line)
 	}
 }
 
-void	draw_line2(t_mlx *mlx, t_line line, int color)
+static void	pick_color(t_mlx *mlx)
 {
-	line.color = color;
-	draw_line(mlx, line);
+	t_ray			*r;
+	t_texture		*texture;
+	unsigned int	c;
+	double			tile_img_proportion;
+	int				x;
+	int				y;
+
+	texture = &mlx->texture;
+	r = &mlx->ray;
+	tile_img_proportion = texture->width / TILE_SIZE;
+	x  = (int)  round(texture->tile_map_x * tile_img_proportion);
+	y = (int)  round(texture->tile_map_y);
+	if (x >= texture->width)
+		x %= texture->width;
+	if (y >= texture->height)
+		y %= texture->height;
+	else if (y < 0)
+		y += texture->height;
+	//printf("y: %d  |  x: %d  |  height: %d  |  width: %d\n", x, y, mlx->textures[mlx->texture_selected].height, mlx->textures[mlx->texture_selected].width);
+	//printf("texture -> height: %d  |  width: %d\n", texture->height, texture->width);
+	c = *(texture->colors[y][x]);
+	set_color(c);
+}
+
+void	draw_line_textured(t_mlx *mlx, t_line line)
+{
+	t_ray		*r;
+	t_texture	*texture;
+	int			i;
+
+	r = &mlx->ray;
+	texture = &mlx->texture;
+	texture->tile_map_y = texture->height - 1;
+	asign_values(&line);
+	i = -1;
+	while (++i <= line.longest)
+	{
+		pick_color(mlx);
+		my_mlx_pixel_put(mlx, line.x, line.y);
+		line.proportion += line.shortest;
+		walk_pixel(&line);
+		texture->tile_map_y -= texture->vertical_proportion;
+	}
 }

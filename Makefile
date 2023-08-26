@@ -11,6 +11,13 @@ SRC			=	main.c \
 				move_calc.c \
 				squares.c \
 				ray_tools.c \
+				dda_ray.c \
+				multiple_rays_to_3d.c \
+				compass.c \
+				find_vertical_wall.c \
+				find_horizontal_wall.c \
+				ray_tools2.c \
+				ray_tools3.c \
 
 
 INCLUDES	=	-I./includes

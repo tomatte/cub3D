@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tools.c                                        :+:      :+:    :+:   */
+/*   compass.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:34 by suzy             ###   ########.fr       */
+/*   Created: 2023/08/21 10:10:11 by suzy              #+#    #+#             */
+/*   Updated: 2023/08/26 14:54:21 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-double	positive(double num)
+int	is_east(double angle, int is_vertical)
 {
-	if (num < 0)
-		return (-num);
-	return (num);
+	if (!is_vertical)
+		return (0);
+	return (!looking_left(angle));
 }
 
-double	negative(double num)
+int	is_west(double angle, int is_vertical)
 {
-	if (num > 0)
-		return (num * -1);
-	return (num);
+	if (!is_vertical)
+		return (0);
+	return (looking_left(angle));
 }
 
-int	looking_up(double angle)
+int	is_north(double angle, int is_vertical)
 {
-	if (angle > PI)
-		return (1);
-	return (0);
+	if (is_vertical)
+		return (0);
+	return (looking_up(angle));
 }
 
-int	looking_left(double angle)
+int	is_south(double angle, int is_vertical)
 {
-	if (angle > PI / 2 && angle < PI + PI / 2)
-		return (1);
-	return (0);
+	if (is_vertical)
+		return (0);
+	return (!looking_up(angle));
 }

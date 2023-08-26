@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tools.c                                        :+:      :+:    :+:   */
+/*   2d_drawing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:34 by suzy             ###   ########.fr       */
+/*   Created: 2023/08/02 14:20:06 by suzy              #+#    #+#             */
+/*   Updated: 2023/08/02 14:50:25 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-double	positive(double num)
+static void	draw_direction_line(t_mlx *mlx)
 {
-	if (num < 0)
-		return (-num);
-	return (num);
+	t_player	*p;
+
+	p = &mlx->player;
+	draw_line(
+		mlx,
+		points(
+			round(p->x + P_SIZE / 2),
+			round(p->y + P_SIZE / 2),
+			round(p->x + (P_SIZE / 2) + (p->delta_x * 20)),
+			round(p->y + (P_SIZE / 2) + (p->delta_y * 20))
+			)
+		);
 }
 
-double	negative(double num)
+void	draw_player(t_mlx *mlx)
 {
-	if (num > 0)
-		return (num * -1);
-	return (num);
-}
+	t_player	*p;
 
-int	looking_up(double angle)
-{
-	if (angle > PI)
-		return (1);
-	return (0);
-}
-
-int	looking_left(double angle)
-{
-	if (angle > PI / 2 && angle < PI + PI / 2)
-		return (1);
-	return (0);
+	p = &mlx->player;
+	square2(mlx, (int) round(p->x), (int) round(p->y), P_SIZE);
+	draw_direction_line(mlx);
 }

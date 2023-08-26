@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tools.c                                        :+:      :+:    :+:   */
+/*   ray_tools3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:34 by suzy             ###   ########.fr       */
+/*   Created: 2023/08/26 15:15:36 by suzy              #+#    #+#             */
+/*   Updated: 2023/08/26 15:15:46 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-double	positive(double num)
+double	degrees_to_radians(double degrees)
 {
-	if (num < 0)
-		return (-num);
-	return (num);
+	return (degrees * PI / 180.0);
 }
 
-double	negative(double num)
+double	normalize_angle(double angle)
 {
-	if (num > 0)
-		return (num * -1);
-	return (num);
+	angle = remainder(angle, 2 * PI);
+	if (angle < 0)
+		angle = 2 * PI + angle;
+	return (angle);
 }
 
-int	looking_up(double angle)
+double	round_base(double num, int base)
 {
-	if (angle > PI)
-		return (1);
-	return (0);
-}
+	double	result;
 
-int	looking_left(double angle)
-{
-	if (angle > PI / 2 && angle < PI + PI / 2)
-		return (1);
-	return (0);
+	result = round(num / (double) base) * base;
+	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   squares.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/29 15:51:45 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:49:30 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ void	square2(t_mlx *mlx, int x, int y, int size)
 		draw_line(mlx, points(x, y + i, x2, y + i));
 }
 
+void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y)
+{
+	int	i;
+	int	x2;
+
+	x2 = x + size_x - 1;
+	i = -1;
+	while (++i < size_y)
+		draw_line(mlx, points(x, y + i, x2, y + i));
+}
+
 const int map1[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -52,14 +63,15 @@ const int map1[11][15] = {
 
 void	draw_2d_blocks(t_mlx *mlx, int size)
 {
-
-	int	i = -1;
-	int	j = -1;
+	int	i;
+	int	j;
 	int	x;
 	int	y;
 
 	x = 0;
 	y = 0;
+	i = -1;
+	j = -1;
 	while (++i < 11)
 	{
 		while (++j < 15)
