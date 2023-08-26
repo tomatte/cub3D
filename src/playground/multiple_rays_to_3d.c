@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/24 04:07:07 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 11:30:25 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_texture	select_texture(t_mlx *mlx)
 	t_ray		*r;
 
 	r = &mlx->ray;
-	if (is_north(r->x, r->y))
+	if (is_north(r->angle, r->is_vertical))
 		mlx->texture_selected = NORTH;
-	else if (is_east(r->x, r->y))
+	else if (is_east(r->angle, r->is_vertical))
 		mlx->texture_selected = EAST;
-	else if (is_south(r->x, r->y))
+	else if (is_south(r->angle, r->is_vertical))
 		mlx->texture_selected = SOUTH;
 	else
 		mlx->texture_selected = WEST;

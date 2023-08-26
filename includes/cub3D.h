@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/23 17:41:07 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 11:30:05 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_ray
 	double	row_y;
 	double	row_x;
 	double	is_base_x;
+	int		is_vertical;
 	double	angle;
 	double	old_x;
 	double	old_y;
@@ -110,6 +111,10 @@ typedef struct s_ray
 	int		is_texture_inversed;
 	int		map_x;
 	int		map_y;
+	double	horizontal_x;
+	double	horizontal_y;
+	double	vertical_x;
+	double	vertical_y;
 }	t_ray;
 
 typedef struct s_fix_corner
@@ -219,9 +224,9 @@ double	get_rdx(double rdy, double angle);
 t_texture	select_texture(t_mlx *mlx);
 
 //compass
-int	is_east(double x, double y);
-int	is_west(double x, double y);
-int	is_north(double x, double y);
-int	is_south(double x, double y);
+int	is_east(double angle, int is_vertical);
+int	is_west(double angle, int is_vertical);
+int is_north(double angle, int is_base_x);
+int is_south(double angle, int is_base_x);
 
 #endif

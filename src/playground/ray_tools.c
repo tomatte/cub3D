@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/23 17:09:03 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 13:47:20 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,16 @@ double	foward_square(double position)
 {
 	double	result;
 
-	result = position + (TILE_SIZE -  (fmod(position, TILE_SIZE)));
-	return (round_base(result, TILE_SIZE));
+	result = (((int) position >> 6) << 6) + 64.000000 - 0.99999999999; 
+	return (result);
 }
 
 double	backward_square(double position)
 {
 	double	result;
 
-	result = position - (fmod(position, TILE_SIZE));
-	//printf("POSITION: %lf\n", position);
-	//printf("CURRENT: %lf\n", result);
-	//printf("NEW: %lf\n", position - positive(remainder(position, 64.0)));
-	//printf("NEW2: %lf\n", position - positive(remainder(TILE_SIZE, position)));
-	return (round_base(result, TILE_SIZE) - 1);
+	result = (((int) position >> 6) << 6) - 0.00000000001;
+	return (result);
 }
 
 double	get_ray_distance(t_mlx *mlx)
@@ -100,11 +96,13 @@ double	get_ray_distance(t_mlx *mlx)
 	t_ray		*r;
 	t_player	*p;
 	double		h;
+	double		ca;
 
 	r = &mlx->ray;
 	p = &mlx->player;
 	h = sqrt(pow(positive(r->x - p->x), 2) + pow(positive(r->y - p->y), 2));
-	return (h);
+	ca = normalize_angle(positive(r->angle - mlx->player.angle));
+	return (h * cos(ca));
 }
 
 double	get_rdy(double rdx, double angle)
@@ -114,8 +112,7 @@ double	get_rdy(double rdx, double angle)
 
 	if (angle == PI / 2 || angle == PI + PI / 2)
 		return (0);
-	rd_rate = positive(cos(angle) / sin(angle));
-	rdy = rdx / rd_rate;
+	rdy = rdx * tan(angle);
 	if (looking_up(angle))
 		return (negative(rdy));
 	return (positive(rdy));
@@ -128,8 +125,7 @@ double	get_rdx(double rdy, double angle)
 
 	if (angle == 0 || angle == PI)
 		return (0);
-	rd_rate = positive(sin(angle) / cos(angle));
-	rdx = rdy / rd_rate;
+	rdx = rdy * (1 / tan(angle));
 	if (looking_left(angle))
 		return (negative(rdx));
 	return (positive(rdx));
