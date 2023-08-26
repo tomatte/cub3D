@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/02 14:16:49 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:18:15 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ static void	draw_diagonal_line(t_mlx *mlx)
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
+	t_game_data    game_data;
+
+	if (validation(&game_data, argc, argv) == FALSE)
+	{
+		exit(0);
+	}
 
 	(void) argc;
 	(void) argv;

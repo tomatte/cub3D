@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:30:12 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/26 17:52:21 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:59:40 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	map_print_with_colour(char **data_map)
 				printf("\e[46m%c\e[0m", data_map[line][collum]);
 			else if (data_map[line][collum] == ' ')
 				printf("%c", ' ');
-			else if (!in_group(data_map[line][collum], "0123 NSEW"))
+			else if (!in_group(data_map[line][collum], "01 NSEW"))
 				printf("\e[45m%c\e[0m", data_map[line][collum]);
 			else
 				printf("\e[41m%c\e[0m", data_map[line][collum]);
