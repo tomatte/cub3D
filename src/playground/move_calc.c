@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:24:11 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 13:23:44 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:54:50 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	set_player_direction(t_mlx *mlx)
 static void	move_player(t_mlx *mlx)
 {
 	const double	slow = 0.2;
-	t_player	*p;
+	t_player		*p;
 
 	p = &mlx->player;
 	if (p->mv_up)
