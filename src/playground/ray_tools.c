@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:34 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 16:50:20 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,13 @@ int	looking_left(double angle)
 	if (angle > PI / 2 && angle < PI + PI / 2)
 		return (1);
 	return (0);
+}
+
+t_vector	new_vec(double x, double y)
+{
+	t_vector	vector;
+
+	vector.x = x;
+	vector.y = y;
+	return (vector);
 }

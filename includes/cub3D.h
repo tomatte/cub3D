@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 14:38:01 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 16:52:44 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+
+typedef struct	s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
 
 typedef struct	s_player
 {
@@ -176,11 +182,13 @@ double	negative(double num);
 int		has_floats(double num);
 double	foward_square(double position);
 double 	backward_square(double position);
-void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y);
+void	rectangle(t_mlx *mlx, t_vector vector, int size_x, int size_y);
 void	draw_background(t_mlx *mlx);
 double	get_ray_distance(t_mlx *mlx);
 double	get_rdy(double rdx, double angle);
 double	get_rdx(double rdy, double angle);
+
+t_vector	new_vec(double x, double y);
 
 t_texture	select_texture(t_mlx *mlx);
 
