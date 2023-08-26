@@ -16,6 +16,8 @@ SRC			=	main.c \
 				compass.c \
 				find_vertical_wall.c \
 				find_horizontal_wall.c \
+				ray_tools2.c \
+				ray_tools3.c \
 
 
 INCLUDES	=	-I./includes
