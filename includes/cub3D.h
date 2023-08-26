@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 16:52:44 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 17:03:43 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ double	get_rdy(double rdx, double angle);
 double	get_rdx(double rdy, double angle);
 
 t_vector	new_vec(double x, double y);
+void		pick_color(t_mlx *mlx);
 
 t_texture	select_texture(t_mlx *mlx);
 
