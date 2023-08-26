@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 10:53:27 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 17:07:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	void	fill_texture_colors(t_texture *texture)
 {
-	int *aux;
+	int	*aux;
 	int	i;
 	int	j;
 
@@ -29,7 +29,7 @@ static	void	fill_texture_colors(t_texture *texture)
 	{
 		j = -1;
 		while (++j < texture->width)
-			texture->colors[i][j]  = aux++;
+			texture->colors[i][j] = aux++;
 		texture->colors[i][j] = NULL;
 	}
 }
@@ -50,7 +50,6 @@ void	init_texture_image(t_mlx *mlx, t_texture *texture, char *str)
 			&aux,
 			&aux);
 	fill_texture_colors(texture);
-	printf("texture_width: %d  |  texture_height: %d\n", texture->width, texture->height);
 }
 
 static void	init_textures(t_mlx *mlx)
