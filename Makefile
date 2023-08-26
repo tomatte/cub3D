@@ -5,6 +5,18 @@ SRC			=	main.c \
 				line_utils.c \
 				close_window_x.c \
 				hook_utils.c \
+				validation_files_01.c \
+				validation_map_02.c  \
+				validation_map_05.c       \
+				validation_utils_01.c \
+				validation_files_02.c \
+				validation_map_03.c \
+				validation_map_file_01.c \
+				validation_utils_02.c \
+				validation_map_01.c \
+				validation_map_04.c \
+				validation_start.c \
+				validation_print_map.c \
 
 
 INCLUDES	=	-I./includes
@@ -19,6 +31,7 @@ VPATH		=	./src \
 				./src/minilibx \
 				./src/line \
 				./src/hooks \
+				./src/validation \
 
 OBJS_DIR	=	./objects
 

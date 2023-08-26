@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:08:48 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/16 23:18:53 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:33:33 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ char	*text_string_erase(char *string, char *group)
 	{
 		return (NULL);
 	}
-	length = strsize(string, group);
+	length = string_size(string, group);
 	result = (char *)malloc(sizeof(char) * length + 1);
 	while (*string)
 	{
-		if (!istrimmed(*string, group))
+		if (!char_trim(*string, group))
 		{
 			*result++ = *string++;
 		}

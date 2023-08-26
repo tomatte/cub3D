@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:19:26 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/26 16:35:25 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:31:20 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_tf	validate_files(t_parameters *parameters, char *file)
 	}
 	gnl_free(temporary, fd);
 	if (bool)
-		bool = all_params_valid(parameters);
+		bool = validate_all_parameters(parameters);
 	return (bool);
 }
 
@@ -134,6 +134,6 @@ t_tf	colours_validation(char *colour_text, int *holder)
 		*holder = colour_get(ft_atoi(colour[0]), ft_atoi(colour[1]), \
 					ft_atoi(colour[2]));
 	free(temporary);
-	free_matrix(colour);
+	free_ptr_matrix(colour);
 	return (boolean);
 }
