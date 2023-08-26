@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 13:48:35 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:06:53 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,6 @@ void	find_vertical_wall(t_mlx *mlx)
 	double test_row;
 
 	r = &mlx->ray;
-	r->vertical_x = mlx->player.x;
-	r->vertical_y = mlx->player.y;
 	i = 0;
 	//printf("angle: %lf\n", r->angle);
 
@@ -146,41 +144,50 @@ void	find_vertical_wall(t_mlx *mlx)
 	}
 }
 
+void	first_horizontal_side(t_mlx *mlx)
+{
+	t_ray	*r;
+	double	rdx;
+
+	r = &mlx->ray;
+	if (looking_up(r->angle))
+		r->horizontal_y = backward_square(r->horizontal_y);
+	else
+		r->horizontal_y = foward_square(r->horizontal_y);
+	rdx = get_rdx(positive(r->horizontal_y - mlx->player.y), r->angle);
+	r->horizontal_x += rdx;
+}
+
+void	horizontal_offset(t_mlx *mlx, double *xo, double *yo)
+{
+	t_ray	*r;
+
+	r = &mlx->ray;
+	if (looking_up(r->angle))
+		*yo = -TILE_SIZE;
+	else
+		*yo = TILE_SIZE;
+	*xo = get_rdx(TILE_SIZE, r->angle);
+}
+
 void	find_horizontal_wall(t_mlx *mlx)
 {
 	t_ray	*r;
 	int		i;
-
-	r = &mlx->ray;
-	r->horizontal_x = mlx->player.x;
-	r->horizontal_y = mlx->player.y;
-	//printf("angle: %lf\n", r->angle);
-
-	double	dof;
 	double	xo;
 	double	yo;
 	double	rdx;
-	if (looking_up(r->angle))
-	{
-		r->horizontal_y = backward_square(r->horizontal_y);
-		yo = -TILE_SIZE;
-	}
-	else
-	{
-		r->horizontal_y = foward_square(r->horizontal_y);
-		yo = TILE_SIZE;
-	}
-	rdx = get_rdx(positive(r->horizontal_y - mlx->player.y), r->angle);
-	r->horizontal_x += rdx;
+
+	r = &mlx->ray;
+	first_horizontal_side(mlx);
 	if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle))
 		return ;
-	xo = get_rdx(TILE_SIZE, r->angle);
+	horizontal_offset(mlx, &xo, &yo);
 	i = 0;
 	while (i++ < 20)
 	{
 		r->horizontal_x += xo;
 		r->horizontal_y += yo;
-		// draw_line(mlx, points(mlx->player.x, mlx->player.y, r->horizontal_x, r->horizontal_y));
 		if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle) || is_limit2(r->horizontal_x, r->horizontal_y))
 			break ;
 	}
@@ -209,8 +216,6 @@ void	choose_axis(t_mlx *mlx)
 		r->is_base_x = 1;
 		r->is_vertical = 1;
 	}
-/* 	printf("r->vertical_x: %lf  |  r->vertical_y: %lf\n", r->vertical_x, r->vertical_y);
-	printf("h_dist: %lf  |  v_dist: %lf\n", h_dist, v_dist); */
 }
 
 void	dda_ray(t_mlx *mlx)
@@ -218,6 +223,10 @@ void	dda_ray(t_mlx *mlx)
 	t_ray	*r;
 
 	r = &mlx->ray;
+	r->horizontal_x = mlx->player.x;
+	r->horizontal_y = mlx->player.y;
+	r->vertical_x = mlx->player.x;
+	r->vertical_y = mlx->player.y;
 	find_vertical_wall(mlx);
 	find_horizontal_wall(mlx);
 	choose_axis(mlx);
