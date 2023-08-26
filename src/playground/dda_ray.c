@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:14:24 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:24:35 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ int	is_wall(t_mlx *mlx)
 		y = (int)(ceil(r->y) / TILE_SIZE);
 	if (x < 0 || x > 15 || y < 0 || y > 15)
 		return (0);
-	if (map[y][x] == 1)
-	{
-		r->map_x = x;
-		r->map_y = y;
-	}
 	return (map[y][x]);
 }
 
@@ -213,14 +208,12 @@ void	choose_axis(t_mlx *mlx)
 	{
 		r->x = r->horizontal_x;
 		r->y = r->horizontal_y;
-		r->is_base_x = 0;
 		r->is_vertical = 0;
 	}
 	else
 	{
 		r->x = r->vertical_x;
 		r->y = r->vertical_y;
-		r->is_base_x = 1;
 		r->is_vertical = 1;
 	}
 }

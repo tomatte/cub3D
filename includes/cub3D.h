@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 11:30:05 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:32:26 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ typedef struct s_texture
 	int			width;
 	int			height;
 	int			line;
-	int			direction_code;
 	int			***colors;
-	int		is_inversed;
 	double	vertical_proportion;
 	double	horizontal_proportion;
 	double	tile_map_x;
@@ -84,47 +82,16 @@ typedef struct s_ray
 	int		r;
 	double	x;
 	double	y;
-	double	dx;
-	double	dy;
-	double	opx;
-	double	opy;
-	int		x_lower;
-	double 	rate;
-	double	rdx_row;
-	double	rdy_row;
-	double	rdx_col;
-	double	rdy_col;
-	double	column_x;
-	double	column_y;
-	double	row_y;
-	double	row_x;
-	double	is_base_x;
 	int		is_vertical;
 	double	angle;
-	double	old_x;
-	double	old_y;
 	double	line_length;
-	int		line_mod;
 	double	line_begin;
 	double	line_end;
-	double	gap;
-	int		is_texture_inversed;
-	int		map_x;
-	int		map_y;
 	double	horizontal_x;
 	double	horizontal_y;
 	double	vertical_x;
 	double	vertical_y;
 }	t_ray;
-
-typedef struct s_fix_corner
-{
-	t_ray	ray_before;
-	t_ray	ray_after;
-	int		is_incorrect;
-	double	saved_angle;
-	int		saved_index;
-}	t_fix_corner;
 
 typedef struct s_mlx
 {
@@ -142,14 +109,8 @@ typedef struct s_mlx
 	int				texture_selected;
 	t_player		player;
 	t_ray			ray;
-	t_ray			old_ray;
-	int				block_y;
-	int				block_x;
-	int				old_texture;
 	double			angle_sum;
 	int				index_ray;
-	int				is_old_base_x;
-	t_fix_corner	fix_corner;
 }	t_mlx;
 
 typedef struct s_line

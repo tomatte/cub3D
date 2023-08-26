@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:17:17 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 14:22:36 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	first_texture_calculation(t_mlx *mlx)
 
 	texture = &mlx->texture;
 	r = &mlx->ray;
-	if (r->is_base_x)
+	if (r->is_vertical)
 		texture->tile_map_x = (int) round(r->y) % TILE_SIZE;
 	else
 		texture->tile_map_x = (int) round(r->x) % (TILE_SIZE - 1);
