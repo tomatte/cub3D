@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 18:30:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 16:54:51 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 18:42:26 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	draw_background(t_mlx *mlx)
 {
 	t_vector	vector;
 
-	set_color(OCEAN);
+	set_color(mlx->game_data.parameters.top_color);
 	vector.x = 0;
 	vector.y = 0;
 	rectangle(mlx, vector, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
-	set_color(LIME);
+	set_color(mlx->game_data.parameters.bottom_color);
 	vector.x = 0;
 	vector.y = SCREEN_HEIGHT / 2;
 	rectangle(mlx, vector, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
