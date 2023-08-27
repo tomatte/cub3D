@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/26 17:53:57 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:51:19 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_game_data
 	t_tf			game_running;
 	char			**map_data;
 	char			**map_dev;
+	int				map_lines;
+	int				line_length;
 	t_image			image[TEXTURE_NB];
 	t_parameters	parameters;
 }	t_game_data;

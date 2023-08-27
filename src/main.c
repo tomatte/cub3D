@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 10:01:25 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 15:54:02 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,17 @@ static void	init_player_position(t_mlx *mlx)
 	printf("y: %lf\n", mlx->player.y);
 }
 
+void	fill_map_sizes(t_game_data *game)
+{
+	int	lines;
+
+	lines = 0;
+	while (game->map_data[lines])
+		lines++;
+	game->line_length = ft_strlen(game->map_data[0]);
+	game->map_lines = lines;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
@@ -102,6 +113,7 @@ int	main(int argc, char *argv[])
 	init_hooks(&mlx);
 	init_textures(&mlx);
 	init_player_position(&mlx);
+	fill_map_sizes(&mlx.game_data);
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
 	mlx_loop(mlx.mlx);
 	destroy_mlx(&mlx);

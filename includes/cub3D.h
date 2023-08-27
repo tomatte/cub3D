@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 08:38:56 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 15:56:53 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int is_south(double angle, int is_base_x);
 void	find_vertical_wall(t_mlx *mlx);
 void	find_horizontal_wall(t_mlx *mlx);
 
-int	is_wall2(double rx, double ry, double angle, char **map);
+int	is_wall2(double rx, double ry, double angle, t_game_data *game);
 int	is_limit2(double x, double y);
 
 #endif

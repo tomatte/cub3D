@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/27 10:03:58 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 15:56:26 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,7 @@ int	is_limit(t_mlx *mlx)
 	return (0);
 }
 
-int	is_wall(t_mlx *mlx)
-{
-	t_ray	*r;
-	int		x;
-	int		y;
-
-	r = &mlx->ray;
-	if (looking_left(r->angle))
-		x = (int)(r->x / TILE_SIZE);
-	else
-		x = (int)(ceil(r->x) / TILE_SIZE);
-	if (looking_up(r->angle))
-		y = (int)(r->y / TILE_SIZE);
-	else
-		y = (int)(ceil(r->y) / TILE_SIZE);
-	int	max_len = ft_strlen(mlx->game_data.map_data[0]);
-	if (x < 0 || x > 40 || y < 0 || y > 16)
-		return (0);
-	return (ft_strchr("0N", mlx->game_data.map_data[y][x]) == NULL);
-}
-
-int	is_wall2(double rx, double ry, double angle, char **map)
+int	is_wall2(double rx, double ry, double angle, t_game_data *game)
 {
 	int		x;
 	int		y;
@@ -70,11 +49,9 @@ int	is_wall2(double rx, double ry, double angle, char **map)
 		y = (int)(ry / TILE_SIZE);
 	else
 		y = (int)(ceil(ry) / TILE_SIZE);
-	int	max_len = ft_strlen(map[0]);
-	if (x < 0 || x > 40 || y < 0 || y > 16)
+	if (x < 0 || x >= game->line_length || y < 0 || y >= game->map_lines)
 		return (-1);
-	//printf("y: %d  |  x: %d\n", y, x);
-	return (ft_strchr("0N", map[y][x]) == NULL);
+	return (ft_strchr("0N", game->map_data[y][x]) == NULL);
 }
 
 double	get_distance(double old_x, double old_y, double x, double y)
