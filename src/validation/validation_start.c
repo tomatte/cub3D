@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_start.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:29:49 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/26 19:59:53 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:45:30 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_tf	validation(t_game_data *game_data, int argc, char **argv)
 		return (fail_validation(&game_data->parameters, game_data->map_data));
 	game_data->map_dev = get_array_map(open(argv[1], O_RDONLY));
 	cleanup_map_first(game_data->map_dev);
-	map_print_with_colour(game_data->map_data);
-	map_print(game_data->map_data);
 	return (TRUE);
 }
 
