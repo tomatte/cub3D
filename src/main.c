@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 17:07:08 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 08:39:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,28 @@ void	init_texture_image(t_mlx *mlx, t_texture *texture, char *str)
 
 static void	init_textures(t_mlx *mlx)
 {
-	char	*t1 = "book.xpm";
-	char	*t2 = "bricks.xpm";
-	char	*t3 = "wet_sponge.xpm";
-	char	*t4 = "wall_3.xpm";
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
 
-	init_texture_image(mlx, &mlx->textures[0], t1);
-	init_texture_image(mlx, &mlx->textures[1], t2);
-	init_texture_image(mlx, &mlx->textures[2], t3);
-	init_texture_image(mlx, &mlx->textures[3], t4);
+	north = mlx->game_data.parameters.north;
+	south = mlx->game_data.parameters.south;
+	east = mlx->game_data.parameters.east;
+	west = mlx->game_data.parameters.west;
+	init_texture_image(mlx, &mlx->textures[NORTH], north);
+	init_texture_image(mlx, &mlx->textures[SOUTH], south);
+	init_texture_image(mlx, &mlx->textures[EAST], east);
+	init_texture_image(mlx, &mlx->textures[WEST], west);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
 
-	(void) argc;
-	(void) argv;
 	init_minilibx(&mlx);
+	if (validation(&(mlx.game_data), argc, argv) == FALSE)
+		exit(0);
 	init_hooks(&mlx);
 	init_textures(&mlx);
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);

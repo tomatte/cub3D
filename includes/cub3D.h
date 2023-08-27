@@ -6,13 +6,16 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 17:03:43 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 08:38:56 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libs/libft/includes/libftprintf.h"
+# include "../includes/validation.h"
+# include "../includes/error_messages.h"
+# include "../libs/minilibx-linux/mlx.h"
 # include <mlx.h>
 # include <math.h>
 # include <X11/X.h>
@@ -117,6 +120,7 @@ typedef struct s_mlx
 	t_ray			ray;
 	double			angle_sum;
 	int				index_ray;
+	t_game_data		game_data;
 }	t_mlx;
 
 typedef struct s_line
@@ -202,7 +206,7 @@ int is_south(double angle, int is_base_x);
 void	find_vertical_wall(t_mlx *mlx);
 void	find_horizontal_wall(t_mlx *mlx);
 
-int	is_wall2(double rx, double ry, double angle);
+int	is_wall2(double rx, double ry, double angle, char **map);
 int	is_limit2(double x, double y);
 
 #endif
