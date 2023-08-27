@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 08:39:08 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 10:01:25 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,29 @@ static void	init_textures(t_mlx *mlx)
 	init_texture_image(mlx, &mlx->textures[WEST], west);
 }
 
+static void	init_player_position(t_mlx *mlx)
+{
+	char	*c = NULL;
+	int		nx;
+	int		ny;
+
+	ny = 0;
+	printf("n: %s\n", c);
+	while (1)
+	{
+		c  = ft_strchr(mlx->game_data.map_data[ny], 'N');
+		if (c != NULL)
+			break ;
+		ny++;
+	}
+	printf("n: %d\n", c - &mlx->game_data.map_data[ny][0]);
+	nx = c - &mlx->game_data.map_data[ny][0];
+	mlx->player.x = nx * TILE_SIZE - (TILE_SIZE / 2);
+	mlx->player.y = ny * TILE_SIZE - (TILE_SIZE / 2);
+	printf("x: %lf\n", mlx->player.x);
+	printf("y: %lf\n", mlx->player.y);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
@@ -78,6 +101,7 @@ int	main(int argc, char *argv[])
 		exit(0);
 	init_hooks(&mlx);
 	init_textures(&mlx);
+	init_player_position(&mlx);
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
 	mlx_loop(mlx.mlx);
 	destroy_mlx(&mlx);

@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 23:31:14 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 10:03:58 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_wall(t_mlx *mlx)
 	int	max_len = ft_strlen(mlx->game_data.map_data[0]);
 	if (x < 0 || x > 40 || y < 0 || y > 16)
 		return (0);
-	return (mlx->game_data.map_data[y][x] != '0');
+	return (ft_strchr("0N", mlx->game_data.map_data[y][x]) == NULL);
 }
 
 int	is_wall2(double rx, double ry, double angle, char **map)
@@ -74,7 +74,7 @@ int	is_wall2(double rx, double ry, double angle, char **map)
 	if (x < 0 || x > 40 || y < 0 || y > 16)
 		return (-1);
 	//printf("y: %d  |  x: %d\n", y, x);
-	return (map[y][x] != '0');
+	return (ft_strchr("0N", map[y][x]) == NULL);
 }
 
 double	get_distance(double old_x, double old_y, double x, double y)
