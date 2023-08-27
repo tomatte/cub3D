@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 23:22:14 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 23:31:14 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	is_limit(t_mlx *mlx)
 
 	r = &mlx->ray;
 	if (r->x <= 0 || r->y <= 0)
-		return (1);
-	if (r->x >= SCREEN_WIDTH || r->y >= SCREEN_HEIGHT)
 		return (1);
 	return (0);
 }
