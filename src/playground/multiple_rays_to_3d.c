@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:22:36 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 18:16:28 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,10 @@ static void	first_texture_calculation(t_mlx *mlx)
 static void	transform_to_3d(t_mlx *mlx, int i)
 {
 	t_ray		*r;
-	t_texture	*texture;
-	double		nx;
 	double		ny;
 
 	r = &mlx->ray;
 	mlx->texture = select_texture(mlx);
-	texture = &mlx->texture;
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
 	first_texture_calculation(mlx);
 	ny = SCREEN_HEIGHT / 2;

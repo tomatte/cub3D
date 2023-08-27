@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 17:47:02 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 18:15:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	init_player_position(t_mlx *mlx)
 
 	c = NULL;
 	ny = 0;
-	printf("n: %s\n", c);
 	while (1)
 	{
 		c = ft_strchr(mlx->game_data.map_data[ny], 'N');
@@ -85,12 +84,9 @@ static void	init_player_position(t_mlx *mlx)
 			break ;
 		ny++;
 	}
-	printf("n: %d\n", c - &mlx->game_data.map_data[ny][0]);
 	nx = c - &mlx->game_data.map_data[ny][0];
 	mlx->player.x = nx * TILE_SIZE - (TILE_SIZE / 2);
 	mlx->player.y = ny * TILE_SIZE - (TILE_SIZE / 2);
-	printf("x: %lf\n", mlx->player.x);
-	printf("y: %lf\n", mlx->player.y);
 }
 
 int	main(int argc, char *argv[])

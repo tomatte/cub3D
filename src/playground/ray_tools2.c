@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 15:13:58 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 23:20:37 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 18:16:52 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ double	get_ray_distance(t_mlx *mlx)
 
 double	get_rdy(double rdx, double angle)
 {
-	double	rd_rate;
 	double	rdy;
 
 	if (angle == PI / 2 || angle == PI + PI / 2)
@@ -57,7 +56,6 @@ double	get_rdy(double rdx, double angle)
 
 double	get_rdx(double rdy, double angle)
 {
-	double	rd_rate;
 	double	rdx;
 
 	if (angle == 0 || angle == PI)

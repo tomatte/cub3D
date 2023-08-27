@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:14:52 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 16:59:15 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 18:15:55 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	draw_line(t_mlx *mlx, t_line line)
 
 void	draw_line_textured(t_mlx *mlx, t_line line)
 {
-	t_ray		*r;
 	t_texture	*texture;
 	int			i;
 
-	r = &mlx->ray;
 	texture = &mlx->texture;
 	texture->tile_map_y = texture->height - 1;
 	asign_values(&line);
