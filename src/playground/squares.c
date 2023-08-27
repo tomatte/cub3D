@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:20 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/02 14:49:30 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 16:48:38 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	square2(t_mlx *mlx, int x, int y, int size)
 		draw_line(mlx, points(x, y + i, x2, y + i));
 }
 
-void	rectangle(t_mlx *mlx, int x, int y, int size_x, int size_y)
+void	rectangle(t_mlx *mlx, t_vector vector, int size_x, int size_y)
 {
 	int	i;
 	int	x2;
 
-	x2 = x + size_x - 1;
+	x2 = vector.x + size_x - 1;
 	i = -1;
 	while (++i < size_y)
-		draw_line(mlx, points(x, y + i, x2, y + i));
+		draw_line(mlx, points(vector.x, vector.y + i, x2, vector.y + i));
 }
 
 const int map1[11][15] = {

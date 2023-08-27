@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/07/03 15:44:41 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:32:08 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,27 @@ void	init_minilibx(t_mlx *mlx)
 	mlx->player.y = 100.0;
 }
 
+void	clear_texture_colors(t_texture *texture)
+{
+	int			i;
+
+	i = -1;
+	while (++i <= texture->height)
+		free(texture->colors[i]);
+	free(texture->colors);
+}
+
 void	destroy_mlx(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx_destroy_image(mlx->mlx, mlx->textures[WEST].img);
+	mlx_destroy_image(mlx->mlx, mlx->textures[EAST].img);
+	mlx_destroy_image(mlx->mlx, mlx->textures[NORTH].img);
+	mlx_destroy_image(mlx->mlx, mlx->textures[SOUTH].img);
+	clear_texture_colors(&mlx->textures[NORTH]);
+	clear_texture_colors(&mlx->textures[SOUTH]);
+	clear_texture_colors(&mlx->textures[EAST]);
+	clear_texture_colors(&mlx->textures[WEST]);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
