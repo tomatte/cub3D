@@ -4,3 +4,6 @@ cub3D
 *.a
 .vscode/
 *_flat.cpp
+test.c
+a.out
+*_n_*

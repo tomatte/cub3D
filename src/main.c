@@ -3,20 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 18:47:18 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 22:36:57 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static void	draw_diagonal_line(t_mlx *mlx)
+static	void	fill_texture_colors(t_texture *texture)
 {
-	draw_line(mlx, points(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
-	draw_line2(mlx, points(SCREEN_WIDTH, 0, 0, SCREEN_HEIGHT), RED);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	int *aux;
+	int	i;
+	int	j;
+
+	texture->colors = ft_calloc(texture->height + 1, sizeof(int ***));
+	i = -1;
+	while (++i < texture->height)
+		texture->colors[i] = ft_calloc(texture->width + 1, sizeof(int **));
+	texture->colors[texture->height] = NULL;
+	aux = texture->addr;
+	i = -1;
+	while (texture->colors[++i])
+	{
+		j = -1;
+		while (++j < texture->width)
+			texture->colors[i][j]  = aux++;
+		texture->colors[i][j] = NULL;
+	}
+}
+
+void	init_texture_image(t_mlx *mlx, t_texture *texture, char *str)
+{
+	int			aux;
+
+	texture->img = mlx_xpm_file_to_image(
+			mlx->mlx,
+			str,
+			&texture->width,
+			&texture->height
+			);
+	texture->addr = (int *) mlx_get_data_addr(
+			texture->img,
+			&aux,
+			&aux,
+			&aux);
+	fill_texture_colors(texture);
+	printf("texture_width: %d  |  texture_height: %d\n", texture->width, texture->height);
+}
+
+static void	init_textures(t_mlx *mlx)
+{
+	char	*t1 = "book.xpm";
+	char	*t2 = "bricks.xpm";
+	char	*t3 = "wet_sponge.xpm";
+	char	*t4 = "wall_3.xpm";
+
+	init_texture_image(mlx, &mlx->textures[0], t1);
+	init_texture_image(mlx, &mlx->textures[1], t2);
+	init_texture_image(mlx, &mlx->textures[2], t3);
+	init_texture_image(mlx, &mlx->textures[3], t4);
 }
 
 int	main(int argc, char *argv[])
@@ -32,8 +79,9 @@ int	main(int argc, char *argv[])
 	(void) argc;
 	(void) argv;
 	init_minilibx(&mlx);
-	draw_diagonal_line(&mlx);
 	init_hooks(&mlx);
+	init_textures(&mlx);
+	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
 	mlx_loop(mlx.mlx);
 	destroy_mlx(&mlx);
 	return (0);

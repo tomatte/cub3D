@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_window_x.c                                   :+:      :+:    :+:   */
+/*   ray_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 14:15:41 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 22:37:34 by suzy             ###   ########.fr       */
+/*   Created: 2023/07/12 00:43:34 by dbrandao          #+#    #+#             */
+/*   Updated: 2023/08/26 15:15:34 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static int	close_x(t_mlx *mlx)
+double	positive(double num)
 {
-	ft_printf("Program closed.\n");
-	destroy_mlx(mlx);
+	if (num < 0)
+		return (-num);
+	return (num);
+}
+
+double	negative(double num)
+{
+	if (num > 0)
+		return (num * -1);
+	return (num);
+}
+
+int	looking_up(double angle)
+{
+	if (angle > PI)
+		return (1);
 	return (0);
 }
 
-void	close_window_x(t_mlx *mlx)
+int	looking_left(double angle)
 {
-	mlx_hook(mlx->win, 17, 1L << 17, close_x, mlx);
+	if (angle > PI / 2 && angle < PI + PI / 2)
+		return (1);
+	return (0);
 }
