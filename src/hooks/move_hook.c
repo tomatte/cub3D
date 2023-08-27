@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 20:19:31 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/10 13:25:10 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 16:40:34 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	esc_close_window(int key, t_mlx *mlx)
 {
 	if (key == ESC_KEY)
 	{
-		mlx_destroy_window(mlx->mlx, mlx->win);
+		destroy_mlx(mlx);
 		exit(0);
 	}
 	return (0);

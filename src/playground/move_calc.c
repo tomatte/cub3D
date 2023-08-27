@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:24:11 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 14:54:50 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:52:11 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,6 @@ static void	move_limit(t_mlx *mlx)
 		mlx->player.x = 0;
 	if (mlx->player.y < 0)
 		mlx->player.y = 0;
-	if (mlx->player.y + P_SIZE > SCREEN_HEIGHT)
-		mlx->player.y = SCREEN_HEIGHT - P_SIZE;
-	if (mlx->player.x + P_SIZE > SCREEN_WIDTH)
-		mlx->player.x = SCREEN_WIDTH - P_SIZE;
 }
 
 void	update_player_position(t_mlx *mlx)

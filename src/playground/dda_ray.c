@@ -6,75 +6,11 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:53:06 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:50:32 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-
-const int map[11][15] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1},
-	{1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};
-
-int	is_limit(t_mlx *mlx)
-{
-	t_ray	*r;
-
-	r = &mlx->ray;
-	if (r->x <= 0 || r->y <= 0)
-		return (1);
-	if (r->x >= SCREEN_WIDTH || r->y >= SCREEN_HEIGHT)
-		return (1);
-	return (0);
-}
-
-int	is_wall(t_mlx *mlx)
-{
-	t_ray	*r;
-	int		x;
-	int		y;
-
-	r = &mlx->ray;
-	if (looking_left(r->angle))
-		x = (int)(r->x / TILE_SIZE);
-	else
-		x = (int)(ceil(r->x) / TILE_SIZE);
-	if (looking_up(r->angle))
-		y = (int)(r->y / TILE_SIZE);
-	else
-		y = (int)(ceil(r->y) / TILE_SIZE);
-	if (x < 0 || x > 15 || y < 0 || y > 15)
-		return (0);
-	return (map[y][x]);
-}
-
-int	is_wall2(double rx, double ry, double angle)
-{
-	int		x;
-	int		y;
-
-	if (looking_left(angle))
-		x = (int)(rx / TILE_SIZE);
-	else
-		x = (int)(ceil(rx) / TILE_SIZE);
-	if (looking_up(angle))
-		y = (int)(ry / TILE_SIZE);
-	else
-		y = (int)(ceil(ry) / TILE_SIZE);
-	if (x < 0 || x > 15 || y < 0 || y > 15)
-		return (-1);
-	return (map[y][x]);
-}
 
 double	get_distance(double old_x, double old_y, double x, double y)
 {
@@ -94,9 +30,9 @@ double	fish_eye_fix(t_mlx *mlx, double h)
 
 int	is_limit2(double x, double y)
 {
-	if (x < 0 || x > SCREEN_WIDTH)
+	if (x < 0)
 		return (1);
-	if (y < 0 || y > SCREEN_HEIGHT)
+	if (y < 0)
 		return (1);
 	return (0);
 }
