@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils_02.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 22:44:31 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/17 00:21:45 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:43:58 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,15 @@ int	char_trim(char cha, char const *cha_group)
 		cha_group++;
 	}
 	return (0);
+}
+
+void	fill_map_sizes(t_game_data *game)
+{
+	int	lines;
+
+	lines = 0;
+	while (game->map_data[lines])
+		lines++;
+	game->line_length = ft_strlen(game->map_data[0]);
+	game->map_lines = lines;
 }

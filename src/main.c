@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 15:54:02 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 16:43:52 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,6 @@ static void	init_player_position(t_mlx *mlx)
 	mlx->player.y = ny * TILE_SIZE - (TILE_SIZE / 2);
 	printf("x: %lf\n", mlx->player.x);
 	printf("y: %lf\n", mlx->player.y);
-}
-
-void	fill_map_sizes(t_game_data *game)
-{
-	int	lines;
-
-	lines = 0;
-	while (game->map_data[lines])
-		lines++;
-	game->line_length = ft_strlen(game->map_data[0]);
-	game->map_lines = lines;
 }
 
 int	main(int argc, char *argv[])
