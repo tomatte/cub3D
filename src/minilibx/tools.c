@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:21:14 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 16:32:08 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:11:25 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	destroy_mlx(t_mlx *mlx)
 	clear_texture_colors(&mlx->textures[SOUTH]);
 	clear_texture_colors(&mlx->textures[EAST]);
 	clear_texture_colors(&mlx->textures[WEST]);
+	clear_map_arr(mlx->game_data.map_data);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);

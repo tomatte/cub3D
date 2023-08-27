@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 22:44:31 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 16:43:58 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:10:38 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ void	fill_map_sizes(t_game_data *game)
 		lines++;
 	game->line_length = ft_strlen(game->map_data[0]);
 	game->map_lines = lines;
+}
+
+void	clear_map_arr(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }

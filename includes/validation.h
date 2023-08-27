@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 16:44:24 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:10:58 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	gnl_free(char *temporary, int fd);
 int		string_size(char *string, char *cha_group);
 int		char_trim(char cha, char const *cha_group);
 void	fill_map_sizes(t_game_data *game);
+void	clear_map_arr(char **map);
 
 ///////////////////// validation_map_file_01.c
 
