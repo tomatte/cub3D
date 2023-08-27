@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 22:36:23 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 22:39:47 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_mlx
 	t_ray			ray;
 	double			angle_sum;
 	int				index_ray;
+	t_game_data		game_data;
 }	t_mlx;
 
 typedef struct s_line
