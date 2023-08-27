@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:35:33 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/27 15:57:31 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:51:57 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	find_vertical_wall(t_mlx *mlx)
 	r = &mlx->ray;
 	i = 0;
 	first_vertical_side(mlx);
-
 	if (is_wall2(r->vertical_x, r->vertical_y, r->angle, &mlx->game_data))
 		return ;
 	vertical_offset(mlx, &xo, &yo);

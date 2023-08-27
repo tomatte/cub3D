@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:35:00 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/27 15:57:15 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:53:54 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ static void	horizontal_offset(t_mlx *mlx, double *xo, double *yo)
 
 void	find_horizontal_wall(t_mlx *mlx)
 {
-	t_ray	*r;
-	int		i;
-	double	xo;
-	double	yo;
+	t_ray		*r;
+	int			i;
+	double		xo;
+	double		yo;
+	t_game_data	*game;
 
+	game = &mlx->game_data;
 	r = &mlx->ray;
 	first_horizontal_side(mlx);
 	if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle, &mlx->game_data))
@@ -55,7 +57,7 @@ void	find_horizontal_wall(t_mlx *mlx)
 	{
 		r->horizontal_x += xo;
 		r->horizontal_y += yo;
-		if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle, &mlx->game_data))
+		if (is_wall2(r->horizontal_x, r->horizontal_y, r->angle, game))
 			break ;
 		if (is_limit2(r->horizontal_x, r->horizontal_y))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 17:20:10 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:57:18 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define PLAYER_VALID "NSEW"
 # define MAP_CHARS_VALID "01 NSEW\n"
 # define MAP_SPACES_VALID "01"
-# define OUTLINE '9'
-# define OUTER_EDGE '!'
-# define INNER_EDGE '@'
-# define SPACE_FILLER '#'
+# define OUTLINE 57
+# define OUTER_EDGE 33
+# define INNER_EDGE 64
+# define SPACE_FILLER 35
 
 typedef enum e_tf
 {

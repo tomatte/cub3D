@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 16:43:52 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:47:02 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,16 @@ static void	init_textures(t_mlx *mlx)
 
 static void	init_player_position(t_mlx *mlx)
 {
-	char	*c = NULL;
+	char	*c;
 	int		nx;
 	int		ny;
 
+	c = NULL;
 	ny = 0;
 	printf("n: %s\n", c);
 	while (1)
 	{
-		c  = ft_strchr(mlx->game_data.map_data[ny], 'N');
+		c = ft_strchr(mlx->game_data.map_data[ny], 'N');
 		if (c != NULL)
 			break ;
 		ny++;
