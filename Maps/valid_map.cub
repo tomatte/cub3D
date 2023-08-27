@@ -1,7 +1,7 @@
-NO ./assets/textures/bluestone.xpm
-SO ./assets/textures/redbrick.xpm
-EA ./assets/textures/purplestone.xpm
-WE ./assets/textures/greystone.xpm
+NO ./assets/textures_XPM/book.xpm
+SO ./assets/textures_XPM/bricks.xpm
+EA ./assets/textures_XPM/wall_3.xpm
+WE ./assets/textures_XPM/wet_sponge.xpm
 F 75,36,74
 C 37,23,26
 

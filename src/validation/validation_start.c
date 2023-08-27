@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:29:49 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/26 18:47:39 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:59:53 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_tf	validation(t_game_data *game_data, int argc, char **argv)
 {
-	if (SCREEN_WIDTH < 1024 || SCREEN_HEIGHT < 768)
+	if (WIN_WIDTH < 1024 || WIN_HEIGHT < 768)
 		return (print_error(E_WINDOW_SIZE_INVALID));
 	init_parameters(&game_data->parameters);
 	if (!validate_args(game_data, argc, argv))
@@ -32,7 +32,7 @@ t_tf	validation(t_game_data *game_data, int argc, char **argv)
 	game_data->map_dev = get_array_map(open(argv[1], O_RDONLY));
 	cleanup_map_first(game_data->map_dev);
 	map_print_with_colour(game_data->map_data);
-	map_print(*game_data->map_data);
+	map_print(game_data->map_data);
 	return (TRUE);
 }
 

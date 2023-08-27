@@ -1,7 +1,7 @@
-NO assets/images/redbrick.xpm
-SO assets/images/grenbrick.xpm
-EA assets/images/bluebrick.xpm
-WE assets/images/yellowbrick.xpm
+NO assets/textures_XPM/book.xpm
+SO assets/textures_XPM/bricks.xpm
+EA assets/textures_XPM/wall_3.xpm
+WE assets/textures_XPM/wet_sponge.xpm
 C 104,120,132
 F 228,95,0
 
