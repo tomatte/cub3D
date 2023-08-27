@@ -6,7 +6,7 @@
 /*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 00:04:13 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/19 01:39:54 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/26 21:25:03 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_tf	player_locator(char **map_array)
 			{
 				player_q++;
 			}
-		counter_collum = -1;
 		}
+		counter_collum = -1;
 	}
 	if (player_q != 1)
 	{
@@ -127,8 +127,8 @@ t_tf	map_chars_validation(char **map_array)
 			{
 				return (FALSE);
 			}
-		collums = -1;
 		}
+		collums = -1;
 	}
 	return (TRUE);
 }
