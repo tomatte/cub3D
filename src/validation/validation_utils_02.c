@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 22:44:31 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 17:10:38 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 17:19:57 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ void	clear_map_arr(char **map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
+}
+
+void	clear_game_data(t_game_data *game_data)
+{
+	clear_map_arr(game_data->map_data);
+	clear_map_arr(game_data->map_dev);
+	free(game_data->parameters.east);
+	free(game_data->parameters.west);
+	free(game_data->parameters.north);
+	free(game_data->parameters.south);
 }
