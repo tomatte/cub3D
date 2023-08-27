@@ -6,13 +6,13 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:14:08 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/26 14:53:06 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 23:22:14 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-const int map[11][15] = {
+/* const int map[11][15] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -24,7 +24,7 @@ const int map[11][15] = {
 	{1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};
+}; */
 
 int	is_limit(t_mlx *mlx)
 {
@@ -53,12 +53,13 @@ int	is_wall(t_mlx *mlx)
 		y = (int)(r->y / TILE_SIZE);
 	else
 		y = (int)(ceil(r->y) / TILE_SIZE);
-	if (x < 0 || x > 15 || y < 0 || y > 15)
+	int	max_len = ft_strlen(mlx->game_data.map_data[0]);
+	if (x < 0 || x > 40 || y < 0 || y > 16)
 		return (0);
-	return (map[y][x]);
+	return (mlx->game_data.map_data[y][x] != '0');
 }
 
-int	is_wall2(double rx, double ry, double angle)
+int	is_wall2(double rx, double ry, double angle, char **map)
 {
 	int		x;
 	int		y;
@@ -71,9 +72,11 @@ int	is_wall2(double rx, double ry, double angle)
 		y = (int)(ry / TILE_SIZE);
 	else
 		y = (int)(ceil(ry) / TILE_SIZE);
-	if (x < 0 || x > 15 || y < 0 || y > 15)
+	int	max_len = ft_strlen(map[0]);
+	if (x < 0 || x > 40 || y < 0 || y > 16)
 		return (-1);
-	return (map[y][x]);
+	//printf("y: %d  |  x: %d\n", y, x);
+	return (map[y][x] != '0');
 }
 
 double	get_distance(double old_x, double old_y, double x, double y)
@@ -94,9 +97,9 @@ double	fish_eye_fix(t_mlx *mlx, double h)
 
 int	is_limit2(double x, double y)
 {
-	if (x < 0 || x > SCREEN_WIDTH)
+	if (x < 0)
 		return (1);
-	if (y < 0 || y > SCREEN_HEIGHT)
+	if (y < 0)
 		return (1);
 	return (0);
 }
@@ -112,7 +115,7 @@ void	choose_axis(t_mlx *mlx)
 	p = &mlx->player;
 	h_dist = get_distance(p->x, p->y, r->horizontal_x, r->horizontal_y);
 	v_dist = get_distance(p->x, p->y, r->vertical_x, r->vertical_y);
-	if (h_dist < v_dist)
+	if (h_dist < v_dist || r->vertical_x < TILE_SIZE - 2  || r->vertical_y < TILE_SIZE - 2 )
 	{
 		r->x = r->horizontal_x;
 		r->y = r->horizontal_y;

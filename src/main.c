@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/26 22:40:36 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/26 23:02:51 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
 
-	if (validation(&mlx.game_data, argc, argv) == FALSE)
-		exit(0);
 	init_minilibx(&mlx);
+	if (validation(&(mlx.game_data), argc, argv) == FALSE)
+		exit(0);
 	init_hooks(&mlx);
 	init_textures(&mlx);
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
