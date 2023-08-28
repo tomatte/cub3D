@@ -1,7 +1,7 @@
-NO assets/textures_XPM/book.xpm
-SO assets/textures_XPM/bricks.xpm
-EA assets/textures_XPM/wall_3.xpm
-WE assets/textures_XPM/wet_sponge.xpm
+NO assets/textures_XPM/Big_Brick_Brown.xpm
+SO assets/textures_XPM/Old_Bricks_Gray.xpm
+EA assets/textures_XPM/Earth_Brown.xpm
+WE assets/textures_XPM/Metal_Panel_Aqua_Blue.xpm
 C 104,120,132
 F 228,95,0
 
