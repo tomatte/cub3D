@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 18:07:51 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/27 23:24:22 by felcaue-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../includes/validation.h"
 # include "../includes/error_messages.h"
 # include "../libs/minilibx-linux/mlx.h"
-# include <mlx.h>
 # include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
