@@ -6,15 +6,15 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:07:50 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/28 13:31:41 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:42:18 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static char *get_player_char(char *line)
+static char	*get_player_char(char *line)
 {
-	char    *c;
+	char	*c;
 
 	c = ft_strchr(line, 'N');
 	if (c == NULL)
@@ -47,31 +47,24 @@ static void	init_player_position(t_mlx *mlx, char *a)
 	*a = *c;
 }
 
-static void init_player_angle(t_mlx *mlx, char a)
+static void	init_player_angle(t_mlx *mlx, char a)
 {
-	t_player    *p;
+	t_player	*p;
 
 	p = &mlx->player;
-	switch (a)
-	{
-		case 'N':
-			p->angle = PI + PI / 2;
-			break ;
-		case 'S':
-			p->angle = PI / 2;
-			break ;
-		case 'W':
-			p->angle = PI;
-			break ;
-		case 'E':
-			p->angle = 0;
-			break ;
-	}
+	if (a == 'N')
+		p->angle = PI + PI / 2;
+	else if (a == 'S')
+		p->angle = PI / 2;
+	else if (a == 'W')
+		p->angle = PI;
+	else
+		p->angle = 0;
 }
 
-void    init_player(t_mlx *mlx)
+void	init_player(t_mlx *mlx)
 {
-	char    a;
+	char	a;
 
 	init_player_position(mlx, &a);
 	init_player_angle(mlx, a);
