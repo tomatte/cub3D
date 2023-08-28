@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 23:24:22 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:23:30 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,7 @@ void		find_horizontal_wall(t_mlx *mlx);
 
 int			is_wall2(double rx, double ry, double angle, t_game_data *game);
 int			is_limit2(double x, double y);
+
+void  	  init_player(t_mlx *mlx);
 
 #endif

@@ -30,6 +30,7 @@ SRC			=	main.c \
 				find_horizontal_wall.c \
 				ray_tools2.c \
 				ray_tools3.c \
+				init_player.c \
 
 
 INCLUDES	=	-I./includes

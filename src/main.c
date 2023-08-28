@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 11:28:10 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/28 13:22:18 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,6 @@ static void	init_textures(t_mlx *mlx)
 	init_texture_image(mlx, &mlx->textures[WEST], west);
 }
 
-static void	init_player_position(t_mlx *mlx)
-{
-	char	*c;
-	int		nx;
-	int		ny;
-
-	c = NULL;
-	ny = 0;
-	while (1)
-	{
-		c = ft_strchr(mlx->game_data.map_data[ny], 'N');
-		if (c != NULL)
-			break ;
-		ny++;
-	}
-	nx = c - &mlx->game_data.map_data[ny][0];
-	mlx->player.x = nx * TILE_SIZE - (TILE_SIZE / 2);
-	mlx->player.y = ny * TILE_SIZE - (TILE_SIZE / 2);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_mlx		mlx;
@@ -100,7 +80,7 @@ int	main(int argc, char *argv[])
 	mlx.game_data = game_data;
 	init_hooks(&mlx);
 	init_textures(&mlx);
-	init_player_position(&mlx);
+	init_player(&mlx);
 	fill_map_sizes(&mlx.game_data);
 	mlx_loop_hook(mlx.mlx, keep_drawing, &mlx);
 	mlx_loop(mlx.mlx);
