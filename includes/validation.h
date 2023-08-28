@@ -6,7 +6,7 @@
 /*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/28 20:48:09 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:45:56 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <math.h>
 # include <fcntl.h>
 # include "../libs/libft/includes/libftprintf.h"
-
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
 
 # define VALID_ID "NSEWCF\n"
 # define PLAYER_VALID "NSEW"

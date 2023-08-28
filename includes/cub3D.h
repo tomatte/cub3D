@@ -6,7 +6,7 @@
 /*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 20:51:14 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:44:51 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <mlx.h>
 
 //screen
-# define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 920
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 600
 
 //keys
 # define ESC_KEY 65307
