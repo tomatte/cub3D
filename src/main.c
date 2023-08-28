@@ -6,7 +6,7 @@
 /*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:25 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/27 18:15:08 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/28 11:28:10 by suzy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,13 @@ static void	init_player_position(t_mlx *mlx)
 
 int	main(int argc, char *argv[])
 {
-	t_mlx	mlx;
+	t_mlx		mlx;
+	t_game_data	game_data;
 
-	init_minilibx(&mlx);
-	if (validation(&(mlx.game_data), argc, argv) == FALSE)
+	if (validation(&game_data, argc, argv) == FALSE)
 		exit(0);
+	init_minilibx(&mlx);
+	mlx.game_data = game_data;
 	init_hooks(&mlx);
 	init_textures(&mlx);
 	init_player_position(&mlx);
