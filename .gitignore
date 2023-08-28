@@ -1,9 +1,0 @@
-cub3D
-./objects
-*.o
-*.a
-.vscode/
-*_flat.cpp
-test.c
-a.out
-*_n_*
