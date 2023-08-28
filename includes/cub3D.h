@@ -6,7 +6,7 @@
 /*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 13:23:30 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:50:03 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <stdio.h>
 
 //screen
-# define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 920
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 600
 
 //keys
 # define ESC_KEY 65307

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 23:24:11 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:53:16 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <fcntl.h>
 # include "../libs/minilibx-linux/mlx.h"
 # include "../libs/libft/includes/libftprintf.h"
-
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
 
 # define VALID_ID "NSEWCF\n"
 # define PLAYER_VALID "NSEW"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_start.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:29:49 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 18:45:30 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/28 16:47:26 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_tf	validation(t_game_data *game_data, int argc, char **argv)
 {
-	if (WIN_WIDTH < 1024 || WIN_HEIGHT < 768)
-		return (print_error(E_WINDOW_SIZE_INVALID));
 	init_parameters(&game_data->parameters);
 	if (!validate_args(game_data, argc, argv))
 		return (fail_validation(&game_data->parameters, NULL));
