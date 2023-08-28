@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_rays_to_3d.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzy <suzy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:22:16 by suzy              #+#    #+#             */
-/*   Updated: 2023/08/27 18:16:28 by suzy             ###   ########.fr       */
+/*   Updated: 2023/08/28 22:04:38 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	transform_to_3d(t_mlx *mlx, int i)
 	r = &mlx->ray;
 	mlx->texture = select_texture(mlx);
 	r->line_length = (SCREEN_HEIGHT * TILE_SIZE) / get_ray_distance(mlx);
+	if (r->line_length > SCREEN_HEIGHT * 2)
+		r->line_length = SCREEN_HEIGHT * 2;
 	first_texture_calculation(mlx);
 	ny = SCREEN_HEIGHT / 2;
 	r->line_begin = ny + (r->line_length / 2);
