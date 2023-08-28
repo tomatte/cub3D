@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felcaue- <felcaue-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:32:17 by felcaue-          #+#    #+#             */
-/*   Updated: 2023/08/27 23:24:11 by felcaue-         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:48:09 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string.h>
 # include <math.h>
 # include <fcntl.h>
-# include "../libs/minilibx-linux/mlx.h"
 # include "../libs/libft/includes/libftprintf.h"
 
 # define WIN_WIDTH 1024

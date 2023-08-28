@@ -52,8 +52,10 @@ OBJS_DIR	=	./objects
 
 OBJS		=	$(patsubst %.c,$(OBJS_DIR)/%.o, $(SRC))
 
-CFLAGS		=	-Wall -Wextra -g3 -lXext -L. -lX11 -lm -Werror
+#CFLAGS		=	-Wall -Wextra -g3 -lXext -L. -lX11 -lm -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 #CFLAGS		=	-g3 -O3 -Imlx -Lmlx -lmlx -lXext -lX11 -lm -fPIE
+MLX_FLAGS	=	-g3 -O3 -Imlx -Lmlx -lmlx -lXext -lX11 -lm -fPIE
 
 MINILIBX_DIR	=	./libs/minilibx-linux
 MINILIBX		=	$(MINILIBX_DIR)/libmlx_Linux.a
@@ -80,13 +82,12 @@ $(OBJS_DIR)/%.o:	%.c
 $(OBJS_DIR):
 	mkdir -p $@
 
-$(NAME):	$(MINILIBX) $(OBJS_DIR) $(OBJS) $(HEADERS) $(LIBFT)
-	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) $(CFLAGS) $(INCLUDES) -o $@
+$(NAME):	$(OBJS_DIR) $(OBJS) $(HEADERS) $(LIBFT)
+	$(CC) $(OBJS) $(LIBFT) $(CFLAGS) $(MLX_FLAGS) $(INCLUDES) -o $@
 
 clean:
 	$(RM) $(OBJS_DIR)
 	@make -C $(LIBFT_DIR) clean
-	@make -C $(MINILIBX_DIR) clean
 
 fclean:	clean
 	$(RM) $(NAME)

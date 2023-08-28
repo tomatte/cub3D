@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrandao <dbrandao@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:40:19 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 13:23:30 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:51:14 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 # include "../libs/libft/includes/libftprintf.h"
 # include "../includes/validation.h"
 # include "../includes/error_messages.h"
-# include "../libs/minilibx-linux/mlx.h"
 # include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdio.h>
+# include <mlx.h>
 
 //screen
 # define SCREEN_WIDTH 1200
@@ -207,6 +207,6 @@ void		find_horizontal_wall(t_mlx *mlx);
 int			is_wall2(double rx, double ry, double angle, t_game_data *game);
 int			is_limit2(double x, double y);
 
-void  	  init_player(t_mlx *mlx);
+void		init_player(t_mlx *mlx);
 
 #endif
