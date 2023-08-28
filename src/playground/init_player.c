@@ -6,7 +6,7 @@
 /*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:07:50 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 22:19:30 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:33:01 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	init_player_position(t_mlx *mlx, char *a)
 		ny++;
 	}
 	nx = c - &mlx->game_data.map_data[ny][0];
-	mlx->player.x = nx * TILE_SIZE - (TILE_SIZE / 2);
-	mlx->player.y = ny * TILE_SIZE - (TILE_SIZE / 2);
+	mlx->player.x = nx * TILE_SIZE + (TILE_SIZE / 2);
+	mlx->player.y = ny * TILE_SIZE + (TILE_SIZE / 2);
 	*a = *c;
 }
 

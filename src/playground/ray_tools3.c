@@ -6,7 +6,7 @@
 /*   By: dbrandao < dbrandao@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 15:15:36 by dbrandao          #+#    #+#             */
-/*   Updated: 2023/08/28 22:20:32 by dbrandao         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:30:20 by dbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ int	is_wall2(double rx, double ry, double angle, t_game_data *game)
 		y = (int)(ceil(ry) / TILE_SIZE);
 	if (x < 0 || x >= game->line_length || y < 0 || y >= game->map_lines)
 		return (-1);
-	return (ft_strchr("0N", game->map_data[y][x]) == NULL);
+	return (ft_strchr("0NSEW", game->map_data[y][x]) == NULL);
 }
